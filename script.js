@@ -269,9 +269,9 @@ function loadTwitchIframe() {
 
   const parent = window.location.hostname;
 
-  container.innerHTML = `S
+  container.innerHTML = `
     <iframe
-      src="https://player.twitch.tv/?channel=obaba_yaga"
+      src="https://player.twitch.tv/?channel=obaba_yaga&parent=${parent}"
       height="100%"
       width="100%"
       frameborder="0"
