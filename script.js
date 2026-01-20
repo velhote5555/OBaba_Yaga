@@ -273,9 +273,7 @@ function loadTwitchIframe() {
   const container = document.getElementById('twitch-embed-container');
   if (!container) return;
 
-  // Use hostname for parent domain (e.g., localhost, or your domain)
-  const parent = window.location.hostname || 'localhost';
-  console.log('Loading Twitch iframe with parent domain:', parent);
+  console.log('Loading Twitch iframe');
 
   // Clear any offline card first
   const offlineCard = document.getElementById('offlineCard');
@@ -285,7 +283,7 @@ function loadTwitchIframe() {
 
   container.innerHTML = `
     <iframe
-      src="https://player.twitch.tv/?channel=zilhasrcz&parent=${parent}"
+      src="https://player.twitch.tv/?channel=zilhasrcz"
       height="100%"
       width="100%"
       frameborder="0"
