@@ -273,7 +273,7 @@ function loadTwitchIframe() {
   const container = document.getElementById('twitch-embed-container');
   if (!container) return;
 
-  console.log('Loading Twitch iframe');
+  console.log('Loading Twitch iframe for zilhasrcz');
 
   // Clear any offline card first
   const offlineCard = document.getElementById('offlineCard');
@@ -283,7 +283,6 @@ function loadTwitchIframe() {
 
   container.innerHTML = `
     <iframe
-      id="twitch-player-iframe"
       src="https://player.twitch.tv/?channel=zilhasrcz&muted=false"
       height="100%"
       width="100%"
@@ -291,35 +290,25 @@ function loadTwitchIframe() {
       allowfullscreen="true">
     </iframe>
   `;
-  
-  // Check if iframe loaded successfully after a delay
-  setTimeout(() => {
-    const iframe = document.getElementById('twitch-player-iframe');
-    if (iframe && !iframe.contentWindow) {
-      console.log('Iframe failed to load, showing offline card');
-      showOfflineCard();
-    }
-  }, 3000);
 }
 
 
 // Check stream status using DecAPI (works without API key, CORS-friendly)
 function checkTwitchStreamStatus() {
-  // DecAPI returns the game/category if live, or "username is offline" when not streaming
-  fetch('https://decapi.me/twitch/status/zilhasrcz')
+  // Use a simpler endpoint that returns just 0 (offline) or 1 (online)
+  fetch('https://decapi.me/twitch/uptime/zilhasrcz')
     .then(response => response.text())
     .then(status => {
       const statusText = status.trim();
-      console.log('Stream status from DecAPI:', statusText);
-      console.log('Status length:', statusText.length);
+      console.log('Stream uptime from DecAPI:', statusText);
       
-      // If status is empty or contains offline or error, it's offline
-      const isOffline = statusText.toLowerCase().includes('offline') || 
-                        statusText === '' || 
+      // DecAPI returns "-1" or error message if offline, or uptime in seconds if online
+      const isOffline = statusText === '-1' || 
+                        statusText.toLowerCase().includes('offline') || 
                         statusText.toLowerCase().includes('error') ||
-                        statusText.toLowerCase() === 'unavailable';
+                        statusText === '';
       
-      console.log('Is offline:', isOffline);
+      console.log('Is offline (uptime check):', isOffline);
       
       if (isOffline) {
         console.log('Stream is OFFLINE - showing offline card only');
