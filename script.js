@@ -147,7 +147,7 @@ function fetchFollowerCount() {
   if (!followerElement) return;
   
   // Using DecAPI - a free API that provides Twitch stats
-  fetch('https://decapi.me/twitch/followcount/obaba_yaga')
+  fetch('https://decapi.me/twitch/followcount/zilhasrcz')
     .then(response => response.text())
     .then(count => {
       const followerCount = parseInt(count.trim());
@@ -279,7 +279,7 @@ function loadTwitchIframe() {
 
   container.innerHTML = `
     <iframe
-      src="https://player.twitch.tv/?channel=obaba_yaga&parent=${parent}"
+      src="https://player.twitch.tv/?channel=zilhasrcz&parent=${parent}"
       height="100%"
       width="100%"
       frameborder="0"
@@ -292,7 +292,7 @@ function loadTwitchIframe() {
 // Check stream status using DecAPI (works without API key, CORS-friendly)
 function checkTwitchStreamStatus() {
   // DecAPI returns the game/category if live, or "username is offline" when not streaming
-  fetch('https://decapi.me/twitch/status/obaba_yaga')
+  fetch('https://decapi.me/twitch/status/zilhasrcz')
     .then(response => response.text())
     .then(status => {
       const statusText = status.trim();
