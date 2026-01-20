@@ -277,6 +277,12 @@ function loadTwitchIframe() {
   const parent = window.location.hostname || 'localhost';
   console.log('Loading Twitch iframe with parent domain:', parent);
 
+  // Clear any offline card first
+  const offlineCard = document.getElementById('offlineCard');
+  if (offlineCard) {
+    offlineCard.classList.remove('visible');
+  }
+
   container.innerHTML = `
     <iframe
       src="https://player.twitch.tv/?channel=zilhasrcz&parent=${parent}"
@@ -309,10 +315,14 @@ function checkTwitchStreamStatus() {
       
       if (isOffline) {
         console.log('Stream is OFFLINE - showing offline card only');
-        // Show offline card
+        // Clear the embed container when offline
+        const container = document.getElementById('twitch-embed-container');
+        if (container) {
+          container.innerHTML = '';
+        }
         showOfflineCard();
       } else {
-        console.log('Stream is LIVE! Loading Twitch embed...');
+        console.log('Stream is LIVE! Loading Twitch iframe...');
         // Load iframe directly when stream is confirmed live
         loadTwitchIframe();
         showStream();
