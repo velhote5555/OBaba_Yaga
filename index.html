@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBABA_YAGA - Casino Streamer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Age Gate Modal -->
+    <div id="ageGate" class="age-gate">
+        <div class="age-gate-content">
+            <div class="age-gate-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2 class="age-gate-title">Verificação de Idade</h2>
+            <p class="age-gate-text">Este site contém conteúdo relacionado a jogos de azar e é destinado apenas a maiores de 18 anos.</p>
+            <p class="age-gate-question">Confirmas que tens 18 anos ou mais?</p>
+            <div class="age-gate-buttons">
+                <button id="ageConfirm" class="age-btn age-btn-confirm">Sim, tenho +18</button>
+                <button id="ageDeny" class="age-btn age-btn-deny">Não, sou menor</button>
+            </div>
+            <p class="age-gate-warning"><i class="fas fa-exclamation-triangle"></i> Joga com responsabilidade</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="O BABA YAGA" class="nav-logo">
+                <span class="nav-title">O BABA YAGA</span>
+            </div>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link">Início</a>
+                <a href="#offers" class="nav-link">Patrocínios</a>
+                <a href="#stats" class="nav-link">Estatísticas</a>
+                <a href="#social" class="nav-link">Redes Sociais</a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-bg"></div>
+            
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <div class="live-badge" id="liveBadge">
+                        <span class="live-dot"></span>
+                        <span id="liveText">AO VIVO EM BREVE</span>
+                        </div>
+
+                        
+                        <h1 class="hero-title">
+                            AS MELHORES <br>
+                            <span class="gradient-text">LIVES & OFERTAS</span>
+                        </h1>
+                        
+                        <p class="hero-description">
+                            Junta-te à comunidade do OBABA_YAGA para as lives insanas de casino, giveaways e os melhores casinos do mercado — onde o saldo sofre e o entretenimento nunca acaba.
+                        </p>
+                        
+                        <button class="cta-button" data-link="https://www.twitch.tv/obaba_yaga">
+                            Twitch <i class="fas fa-external-link-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="stream-panel">
+                        <div class="stream-placeholder" id="streamContainer">
+                            <div id="twitch-embed-container"></div>
+                            <!-- Offline Card Overlay -->
+                            <div class="offline-card" id="offlineCard">
+                                <img src="https://i.scdn.co/image/ab67616d0000b27347d8a992964dcf7fe8cc7947" alt="OBABA_YAGA Offline" class="offline-card-image">
+                                <div class="offline-card-content">
+                                    <div class="offline-indicator">
+                                        <div class="offline-dot"></div>
+                                        <span>Stream Offline</span>
+                                    </div>
+                                    <p class="offline-text">
+                                        A stream começa em breve. Segue-me na Twitch!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section id="stats" class="stats">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="stat-value" id="followerCount" data-target="1">--</div>
+                        <div class="stat-label">Followers</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-value">2.832€</div>
+                        <div class="stat-label">Biggest Win</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-value" data-target="100">100+</div>
+                        <div class="stat-label">Discord</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="stat-value" data-target="600">600+</div>
+                        <div class="stat-label">Hours Live</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offers Section -->
+        <section id="offers" class="offers">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Nossos patrocínios</h2>
+                    <p class="section-description">
+                        As parcerias oficiais do OBABA_YAGA - vantagens exclusivas nas melhores plataformas onde jogas com o streamer.
+                    </p>
+                </div>
+
+                <div class="offers-grid">
+                    <!-- BETLABEL -->
+                    <div class="offer-card">
+                        <div class="offer-header betlabel-header">
+                            <span class="popular-badge">
+                                <i class="fas fa-star"></i> Popular
+                            </span>
+                            <span class="offer-title">BETLABEL</span>
+                        </div>
+
+                        <div class="offer-content">
+                            <h3 class="offer-name">BETLABEL</h3>
+                            <p class="offer-description">Casa incrivel com depositos e levantamentos instantâneos - Apostas e Casino!</p>
+                            
+                            <div class="offer-perks">
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Bónus de Boas-vindas</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Cashback Semanal</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Suporte VIP 24/7</span>
+                                </div>
+                            </div>
+
+                            <div class="offer-actions">
+                                <div class="code-placeholder invisible">
+                                    <div class="code-label">CÓDIGO</div>
+                                    <div class="code-value">CODE</div>
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <button class="register-button" data-link="https://moy.auraodin.com/redirect.aspx?pid=150609&lpid=1453&bid=1651">
+                                    Registar Agora
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SAFECASINO -->
+                    <div class="offer-card">
+                        <div class="offer-header safecasino-header">
+                            <span class="offer-title">SAFECASINO</span>
+                        </div>
+
+                        <div class="offer-content">
+                            <h3 class="offer-name">SAFECASINO</h3>
+                            <p class="offer-description">Casa incrivel com depositos e levantamentos instantâneos- Casino!</p>
+                            
+                            <div class="offer-perks">
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Free Spins Exclusivos</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Bónus de Recarga</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Saques Ultra Rápidos</span>
+                                </div>
+                            </div>
+
+                            <div class="offer-actions">
+                                <div class="code-placeholder invisible">
+                                    <div class="code-label">CÓDIGO</div>
+                                    <div class="code-value">CODE</div>
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <button class="register-button" data-link="https://moy.auraodin.com/redirect.aspx?pid=155521&lpid=1687&bid=1719">
+                                    Registar Agora
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ROKUBET -->
+                    <div class="offer-card">
+                        <div class="offer-header rokubet-header">
+                            <span class="offer-title">ROKUBET</span>
+                        </div>
+
+                        <div class="offer-content">
+                            <h3 class="offer-name">ROKUBET</h3>
+                            <p class="offer-description">Casa muito boa com depositos e levantamentos rápidos- Apostas e Casino!</p>
+                            
+                            <div class="offer-perks">
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Bónus</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Mais de 5000 Slots</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Torneios</span>
+                                </div>
+                            </div>
+
+                            <div class="offer-actions">
+                                <div class="code-placeholder invisible">
+                                    <div class="code-label">CÓDIGO</div>
+                                    <div class="code-value">CODE</div>
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <button class="register-button" data-link="https://tracking-iplaywise.com/click?o=25&a=309">
+                                    Registar Agora
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ACEBET -->
+                    <div class="offer-card">
+                        <div class="offer-header acebet-header">
+                            <span class="offer-title">ACEBET</span>
+                        </div>
+
+                        <div class="offer-content">
+                            <h3 class="offer-name">ACEBET</h3>
+                            <p class="offer-description">Casa de crypto incrivel com depositos e levantamentos instantâneos- Apostas e Casino!</p>
+                            
+                            <div class="offer-perks">
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Odds Boost</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Bónus Acumulador</span>
+                                </div>
+                                <div class="perk-item">
+                                    <i class="fas fa-check-circle"></i>
+                                    <span>Apostas ao Vivo</span>
+                                </div>
+                            </div>
+
+                            <div class="offer-actions">
+                                <div class="code-box">
+                                    <div class="code-label">CÓDIGO</div>
+                                    <div class="code-value">0BABA_YAGA</div>
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <button class="register-button" data-link="https://a.acebet.com/api/click?a=89&lp=1&c=83">
+                                    Registar Agora
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Social Section -->
+        <section id="social" class="social">
+            <div class="container">
+                <h2 class="section-title">Comunidade do OBABA_YAGA</h2>
+                <p class="section-description">
+                    Segue-nos em todas as plataformas para não perderes nenhum sorteio, big win ou uma stream especial!
+                </p>
+                
+                <div class="social-grid">
+                    <a href="https://www.twitch.tv/obaba_yaga" target="_blank" class="social-card twitch">
+                        <i class="fab fa-twitch"></i>
+                        <span>Twitch</span>
+                    </a>
+                    
+                    <a href="https://discord.gg/fDWqsxheRb" target="_blank" class="social-card discord">
+                        <i class="fab fa-discord"></i>
+                        <span>Discord</span>
+                    </a>
+                    
+                    <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" class="social-card instagram">
+                        <i class="fab fa-instagram"></i>
+                        <span>Instagram</span>
+                    </a>
+                    
+                    <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" class="social-card telegram">
+                        <i class="fab fa-telegram"></i>
+                        <span>Telegram</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="gambling-logos">
+                        <div class="age-warning">18+</div>
+                        <div class="gambleaware">GambleAware</div>
+                        <div class="responsible">Jogar com Responsabilidade</div>
+                    </div>
+                    
+                    <div class="warning-box">
+                        <div class="warning-header">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Aviso Importante</span>
+                        </div>
+                        <p class="warning-text">
+                            O jogo deve ser visto como uma forma de entretenimento, não uma forma de ganhar dinheiro. Apenas jogue com dinheiro que pode perder. Se sente que está a perder o controlo, procure ajuda. Todos os bónus mostrados nesta página têm termos e condições aplicáveis.
+                        </p>
+                    </div>
+
+                    <div class="footer-bottom">
+                        <p>© 2026 O BABA YAGA Casino Streamer. All rights reserved.</p>
+                        <div class="footer-links">
+                            <a href="#">Termos de Uso</a>
+                            <a href="#">Privacidade</a>
+                            <a href="#">Contacto</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

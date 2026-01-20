@@ -1,0 +1,417 @@
+console.log('Script.js carregado!');
+
+// Age Gate functionality
+(function() {
+  const ageGate = document.getElementById('ageGate');
+  const ageConfirm = document.getElementById('ageConfirm');
+  const ageDeny = document.getElementById('ageDeny');
+  const STORAGE_KEY = 'obaba_age_verified';
+
+  // Check if already verified
+  if (localStorage.getItem(STORAGE_KEY) === 'true') {
+    ageGate.classList.add('hidden');
+    document.body.style.overflow = '';
+  } else {
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Confirm age (18+)
+  ageConfirm.addEventListener('click', function() {
+    localStorage.setItem(STORAGE_KEY, 'true');
+    ageGate.style.animation = 'fadeOut 0.3s ease forwards';
+    setTimeout(() => {
+      ageGate.classList.add('hidden');
+      document.body.style.overflow = '';
+    }, 300);
+  });
+
+  // Deny (under 18)
+  ageDeny.addEventListener('click', function() {
+    window.location.href = 'https://www.youtube.com/watch?v=HjiSPhGthHI&list=RDHjiSPhGthHI&start_radio=1';
+  });
+})();
+
+// Cache DOM elements
+const navToggle = document.getElementById('navToggle');
+const navMenu = document.getElementById('navMenu');
+const navLinks = document.querySelectorAll('.nav-link');
+const navbar = document.querySelector('.navbar');
+
+// Toggle mobile menu
+navToggle.addEventListener('click', toggleMenu);
+
+function toggleMenu() {
+  navMenu.classList.toggle('active');
+  const icon = navToggle.querySelector('i');
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-times');
+}
+
+// Close mobile menu when clicking on links
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    if (navMenu.classList.contains('active')) {
+      navMenu.classList.remove('active');
+      navToggle.querySelector('i').classList.add('fa-bars');
+      navToggle.querySelector('i').classList.remove('fa-times');
+    }
+  });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    
+    if (target) {
+      const navbarHeight = navbar.offsetHeight;
+      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+      
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// Handle external links
+document.querySelectorAll('[data-link]').forEach(element => {
+  element.addEventListener('click', function() {
+    window.open(this.getAttribute('data-link'), '_blank');
+  });
+});
+
+
+
+// Add scroll effect to navbar
+window.addEventListener('scroll', function() {
+  const currentScroll = window.pageYOffset;
+  navbar.style.boxShadow = currentScroll <= 0 ? 'none' : '0 4px 6px -1px rgba(0, 0, 0, 0.3)';
+});
+
+// Intersection Observer for fade-in animations
+const observerOptions = {
+  threshold: 0.1,
+  rootMargin: '0px 0px -50px 0px'
+};
+
+const observer = new IntersectionObserver(function(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+      entry.target.style.opacity = '1';
+    }
+  });
+}, observerOptions);
+
+// Observe elements for animations
+document.querySelectorAll('.stat-card, .offer-card').forEach(el => {
+  el.style.opacity = '0';
+  observer.observe(el);
+});
+
+// Counter animation for stats
+function animateCounter(element, target, duration = 2000) {
+  const start = 0;
+  const increment = target / (duration / 16);
+  let current = start;
+  
+  const timer = setInterval(() => {
+    current += increment;
+    if (current >= target) {
+      element.textContent = formatNumber(target);
+      clearInterval(timer);
+    } else {
+      element.textContent = formatNumber(Math.floor(current));
+    }
+  }, 16);
+}
+
+// Format number with K/M suffix
+function formatNumber(num) {
+  if (num >= 1000000) {
+    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+  }
+  if (num >= 1000) {
+    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+  }
+  return num.toString();
+}
+
+// Fetch real-time follower count from Twitch using DecAPI
+function fetchFollowerCount() {
+  const followerElement = document.getElementById('followerCount');
+  
+  if (!followerElement) return;
+  
+  // Using DecAPI - a free API that provides Twitch stats
+  fetch('https://decapi.me/twitch/followcount/obaba_yaga')
+    .then(response => response.text())
+    .then(count => {
+      const followerCount = parseInt(count.trim());
+      
+      if (!isNaN(followerCount)) {
+        // Animate the counter
+        animateCounter(followerElement, followerCount, 2000);
+        console.log('Follower count fetched:', followerCount);
+      } else {
+        // Fallback if API returns non-number
+        followerElement.textContent = '1K+';
+        console.log('Could not parse follower count:', count);
+      }
+    })
+    .catch(err => {
+      console.log('Error fetching follower count:', err);
+      followerElement.textContent = '1K+';
+    });
+}
+
+// Update follower count periodically (every 5 minutes)
+function startFollowerUpdates() {
+  // Fetch immediately
+  fetchFollowerCount();
+  
+  // Then update every 5 minutes (300000ms)
+  setInterval(fetchFollowerCount, 300000);
+}
+
+// Observe stats section for counter animation
+const statsObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const statValues = entry.target.querySelectorAll('.stat-value[data-target]');
+      statValues.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-target'));
+        animateCounter(stat, target);
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+const statsSection = document.querySelector('.stats');
+if (statsSection) {
+  statsObserver.observe(statsSection);
+}
+
+// Parallax effect for hero background
+window.addEventListener('scroll', function() {
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    const scrolled = window.pageYOffset;
+    heroBg.style.transform = `translateX(-50%) translateY(${scrolled * 0.5}px)`;
+  }
+});
+
+// Add active state to navigation based on scroll position
+function updateActiveNavLink() {
+  const sections = document.querySelectorAll('section[id]');
+  const navbarHeight = navbar.offsetHeight;
+  
+  sections.forEach(section => {
+    const sectionTop = section.offsetTop - navbarHeight - 100;
+    const sectionBottom = sectionTop + section.offsetHeight;
+    const scrollPosition = window.pageYOffset;
+    
+    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      
+      const currentLink = document.querySelector(`.nav-link[href="#${section.id}"]`);
+      if (currentLink) {
+        currentLink.classList.add('active');
+      }
+    }
+  });
+}
+
+
+window.addEventListener('scroll', updateActiveNavLink);
+
+// Check if stream is live FIRST, then decide whether to load embed
+function checkStreamStatus() {
+  console.log('Verificando status da stream...');
+  checkTwitchStreamStatus();
+}
+
+// Carregar o embed do Twitch (only called when stream is live)
+let twitchEmbed = null;
+
+function loadTwitchEmbed() {
+  const container = document.getElementById('twitch-embed-container');
+  if (!container) return;
+
+  const parent = window.location.hostname;
+
+  container.innerHTML = '';
+
+  try {
+    twitchEmbed = new Twitch.Embed('twitch-embed-container', {
+      channel: 'obaba_yaga',
+      width: '100%',
+      height: '100%',
+      parent: [parent]
+    });
+
+    console.log('Twitch embed criado com sucesso');
+  } catch (e) {
+    console.error('Erro no embed, usando iframe:', e);
+    loadTwitchIframe();
+  }
+}
+
+
+// Load Twitch iframe directly (fallback)
+function loadTwitchIframe() {
+  const container = document.getElementById('twitch-embed-container');
+  if (!container) return;
+
+  const parent = window.location.hostname;
+
+  container.innerHTML = `S
+    <iframe
+      src="https://player.twitch.tv/?channel=obaba_yaga"
+      height="100%"
+      width="100%"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  `;
+}
+
+
+// Check stream status using DecAPI (works without API key, CORS-friendly)
+function checkTwitchStreamStatus() {
+  // DecAPI returns the game/category if live, or "username is offline" when not streaming
+  fetch('https://decapi.me/twitch/status/obaba_yaga')
+    .then(response => response.text())
+    .then(status => {
+      const statusText = status.trim();
+      console.log('Stream status from DecAPI:', statusText);
+      
+      // DecAPI returns "obaba_yaga is offline" when not streaming
+      // Only consider live if status does NOT contain "offline" and is not empty
+      const isOffline = statusText.toLowerCase().includes('offline') || 
+                        statusText === '' || 
+                        statusText.toLowerCase().includes('error');
+      
+      if (isOffline) {
+        console.log('Stream is OFFLINE - showing offline card only');
+        showOfflineCard();
+        // Clear the embed container when offline
+        const container = document.getElementById('twitch-embed-container');
+        if (container) {
+          container.innerHTML = '';
+        }
+      } else {
+        console.log('Stream is LIVE! Loading Twitch embed...');
+        // Only load embed when stream is confirmed live
+        loadTwitchScript().then(() => {
+          loadTwitchEmbed();
+          showStream();
+        }).catch(err => {
+          console.log('Twitch embed failed, using iframe fallback:', err);
+          loadTwitchIframe();
+          showStream();
+        });
+      }
+    })
+    .catch(err => {
+      console.log('Could not check stream status:', err);
+      // On error, keep showing offline card (safer default)
+      showOfflineCard();
+    });
+}
+
+// Load Twitch embed script dynamically only when needed
+function loadTwitchScript() {
+  return new Promise((resolve, reject) => {
+    if (window.Twitch && window.Twitch.Embed) {
+      resolve();
+      return;
+    }
+    
+    const script = document.createElement('script');
+    script.src = 'https://embed.twitch.tv/embed.js';
+    script.onload = () => {
+      console.log('Twitch script loaded');
+      resolve();
+    };
+    script.onerror = () => {
+      console.log('Failed to load Twitch script');
+      reject();
+    };
+    document.head.appendChild(script);
+  });
+}
+
+// Show the offline card overlay
+function showOfflineCard() {
+  const offlineCard = document.getElementById('offlineCard');
+  const liveBadge = document.getElementById('liveBadge');
+  const liveText = document.getElementById('liveText');
+  
+  if (offlineCard) {
+    offlineCard.classList.add('visible');
+  }
+  
+  if (liveBadge) {
+    liveBadge.classList.remove('live-active');
+  }
+  
+  if (liveText) {
+    liveText.textContent = 'OFFLINE';
+  }
+  
+  console.log('Showing offline card');
+}
+
+// Hide offline card and show stream
+function showStream() {
+  const offlineCard = document.getElementById('offlineCard');
+  const liveBadge = document.getElementById('liveBadge');
+  const liveText = document.getElementById('liveText');
+  
+  if (offlineCard) {
+    offlineCard.classList.remove('visible');
+  }
+  
+  if (liveBadge) {
+    liveBadge.classList.add('live-active');
+  }
+  
+  if (liveText) {
+    liveText.textContent = 'AO VIVO';
+  }
+  
+  console.log('Showing live stream');
+}
+
+// Initialize on page load
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initializeApp);
+} else {
+  initializeApp();
+}
+
+function initializeApp() {
+  console.log('App inicializando...');
+  
+  // Show offline card initially
+  showOfflineCard();
+  
+  // Start real-time follower count updates
+  startFollowerUpdates();
+  
+  // Check stream status immediately (don't wait for Twitch API)
+  checkStreamStatus();
+  
+  // Re-check stream status every 60 seconds
+  setInterval(function() {
+    console.log('Atualizando status da stream...');
+    checkStreamStatus();
+  }, 60000);
+  
+  updateActiveNavLink();
+}
