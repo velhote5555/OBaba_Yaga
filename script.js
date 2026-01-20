@@ -419,11 +419,11 @@ function initializeApp() {
   // Check stream status immediately (don't wait for Twitch API)
   checkStreamStatus();
   
-  // Re-check stream status every 60 seconds
+  // Re-check stream status every 1 second
   setInterval(function() {
     console.log('Atualizando status da stream...');
     checkStreamStatus();
-  }, 60000);
+  }, 1000);
   
   updateActiveNavLink();
 }
