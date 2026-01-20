@@ -273,36 +273,26 @@ function loadTwitchIframe() {
   const container = document.getElementById('twitch-embed-container');
   if (!container) return;
 
-  console.log('Loading Twitch iframe for obaba_yaga');
+  console.log('Loading Twitch player for obaba_yaga');
 
   // Clear any offline card first
   const offlineCard = document.getElementById('offlineCard');
   if (offlineCard) {
     offlineCard.classList.remove('visible');
     offlineCard.style.display = 'none';
-    console.log('Hidden offline card');
   }
 
-  // Create div for embed
-  container.innerHTML = '<div id="twitch-embed-div" style="width: 100%; height: 100%;"></div>';
-  
-  // Load Twitch embed script
-  if (!window.twitchEmbedLoaded) {
-    const script = document.createElement('script');
-    script.src = 'https://embed.twitch.tv/embed.js';
-    script.onload = () => {
-      window.twitchEmbedLoaded = true;
-      if (window.Twitch && window.Twitch.Embed) {
-        new window.Twitch.Embed('twitch-embed-div', {
-          width: '100%',
-          height: '100%',
-          channel: 'obaba_yaga'
-        });
-        console.log('Twitch embed criado');
-      }
-    };
-    document.head.appendChild(script);
-  }
+  // Simple iframe - Twitch player
+  container.innerHTML = `
+    <iframe
+      src="https://player.twitch.tv/?channel=obaba_yaga&parent=localhost&parent=velhote5555.github.io"
+      height="100%"
+      width="100%"
+      frameborder="0"
+      allowfullscreen="true">
+    </iframe>
+  `;
+  console.log('Twitch player loaded');
 }
 
 
