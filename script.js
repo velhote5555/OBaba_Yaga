@@ -283,19 +283,26 @@ function loadTwitchIframe() {
     console.log('Hidden offline card');
   }
 
-  // Load simple iframe - no parent parameter needed
-  container.innerHTML = `
-    <iframe
-      src="https://twitch.tv/obaba_yaga/embed"
-      height="100%"
-      width="100%"
-      frameborder="0"
-      scrolling="no"
-      allowfullscreen="true"
-      style="border: none; border-radius: 1.5rem; display: block;">
-    </iframe>
-  `;
-  console.log('Loaded Twitch iframe');
+  // Create div for embed
+  container.innerHTML = '<div id="twitch-embed-div" style="width: 100%; height: 100%;"></div>';
+  
+  // Load Twitch embed script
+  if (!window.twitchEmbedLoaded) {
+    const script = document.createElement('script');
+    script.src = 'https://embed.twitch.tv/embed.js';
+    script.onload = () => {
+      window.twitchEmbedLoaded = true;
+      if (window.Twitch && window.Twitch.Embed) {
+        new window.Twitch.Embed('twitch-embed-div', {
+          width: '100%',
+          height: '100%',
+          channel: 'obaba_yaga'
+        });
+        console.log('Twitch embed criado');
+      }
+    };
+    document.head.appendChild(script);
+  }
 }
 
 
