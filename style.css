@@ -694,7 +694,7 @@ body {
   transition: all 0.3s;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  min-height: 320px;
+  min-height: 280px;
   width: 100%;
   max-width: 330px;
 }
@@ -706,7 +706,7 @@ body {
 }
 
 .offer-header {
-  height: 7rem;
+  height: 6rem;
   position: relative;
   overflow: hidden;
 }
