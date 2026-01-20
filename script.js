@@ -247,6 +247,12 @@ function loadTwitchEmbed() {
   container.innerHTML = '';
 
   try {
+    if (!window.Twitch || !window.Twitch.Embed) {
+      console.log('Twitch Embed not available, using iframe fallback');
+      loadTwitchIframe();
+      return;
+    }
+
     twitchEmbed = new Twitch.Embed('twitch-embed-container', {
       channel: 'obaba_yaga',
       width: '100%',
