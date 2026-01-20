@@ -309,20 +309,11 @@ function checkTwitchStreamStatus() {
       
       if (isOffline) {
         console.log('Stream is OFFLINE - showing offline card only');
-        // Clear the embed container when offline
-        const container = document.getElementById('twitch-embed-container');
-        if (container) {
-          container.innerHTML = '';
-          container.style.display = 'none';
-        }
+        // Show offline card
         showOfflineCard();
       } else {
         console.log('Stream is LIVE! Loading Twitch embed...');
         // Load iframe directly when stream is confirmed live
-        const container = document.getElementById('twitch-embed-container');
-        if (container) {
-          container.style.display = 'block';
-        }
         loadTwitchIframe();
         showStream();
       }
