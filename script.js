@@ -306,15 +306,20 @@ function checkTwitchStreamStatus() {
       
       if (isOffline) {
         console.log('Stream is OFFLINE - showing offline card only');
-        showOfflineCard();
         // Clear the embed container when offline
         const container = document.getElementById('twitch-embed-container');
         if (container) {
           container.innerHTML = '';
+          container.style.display = 'none';
         }
+        showOfflineCard();
       } else {
-        console.log('Stream is LIVE! Loading Twitch iframe...');
+        console.log('Stream is LIVE! Loading Twitch embed...');
         // Load iframe directly when stream is confirmed live
+        const container = document.getElementById('twitch-embed-container');
+        if (container) {
+          container.style.display = 'block';
+        }
         loadTwitchIframe();
         showStream();
       }
@@ -353,12 +358,6 @@ function showOfflineCard() {
   const offlineCard = document.getElementById('offlineCard');
   const liveBadge = document.getElementById('liveBadge');
   const liveText = document.getElementById('liveText');
-  const container = document.getElementById('twitch-embed-container');
-  
-  if (container) {
-    container.style.display = 'none';
-    container.innerHTML = '';
-  }
   
   if (offlineCard) {
     offlineCard.classList.add('visible');
@@ -380,11 +379,6 @@ function showStream() {
   const offlineCard = document.getElementById('offlineCard');
   const liveBadge = document.getElementById('liveBadge');
   const liveText = document.getElementById('liveText');
-  const container = document.getElementById('twitch-embed-container');
-  
-  if (container) {
-    container.style.display = 'block';
-  }
   
   if (offlineCard) {
     offlineCard.classList.remove('visible');
