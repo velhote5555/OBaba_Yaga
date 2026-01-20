@@ -313,16 +313,10 @@ function checkTwitchStreamStatus() {
           container.innerHTML = '';
         }
       } else {
-        console.log('Stream is LIVE! Loading Twitch embed...');
-        // Only load embed when stream is confirmed live
-        loadTwitchScript().then(() => {
-          loadTwitchEmbed();
-          showStream();
-        }).catch(err => {
-          console.log('Twitch embed failed, using iframe fallback:', err);
-          loadTwitchIframe();
-          showStream();
-        });
+        console.log('Stream is LIVE! Loading Twitch iframe...');
+        // Load iframe directly when stream is confirmed live
+        loadTwitchIframe();
+        showStream();
       }
     })
     .catch(err => {
