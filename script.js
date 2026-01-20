@@ -122,30 +122,33 @@ function animateCounter(element, target, duration = 2000) {
   const timer = setInterval(() => {
     current += increment;
     if (current >= target) {
-      element.textContent = formatNumber(target, isFollowers);
+      // Format the number - add '+' only for followers
+      if (isFollowers) {
+        element.textContent = '+' + formatNumber(target);
+      } else {
+        element.textContent = '+' + formatNumber(target);
+      }
       clearInterval(timer);
     } else {
-      element.textContent = formatNumber(Math.floor(current), isFollowers);
+      // Format the number - add '+' only for followers
+      if (isFollowers) {
+        element.textContent = '+' + formatNumber(Math.floor(current));
+      } else {
+        element.textContent = '+' + formatNumber(Math.floor(current));
+      }
     }
   }, 16);
 }
 
 // Format number with K/M suffix
-function formatNumber(num, isFollowers = false) {
-  let formatted = '';
+function formatNumber(num) {
   if (num >= 1000000) {
-    formatted = (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
   } else if (num >= 1000) {
-    formatted = (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
   } else {
-    formatted = num.toString();
+    return num.toString();
   }
-  
-  // Add '+' prefix for followers
-  if (isFollowers) {
-    return '+' + formatted;
-  }
-  return formatted;
 }
 
 // Fetch real-time follower count from Twitch using DecAPI
