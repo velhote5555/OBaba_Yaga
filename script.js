@@ -283,17 +283,18 @@ function loadTwitchIframe() {
     console.log('Hidden offline card');
   }
 
+  // Load the actual Twitch embed
   container.innerHTML = `
-    <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2rem; color: white; text-align: center; padding: 2rem; border-radius: 1.5rem;">
-      <div style="font-size: 4rem;">🔴</div>
-      <h2 style="margin: 0; font-size: 2rem;">TRANSMISSÃO AO VIVO</h2>
-      <p style="margin: 0; font-size: 1.2rem; opacity: 0.8;">A transmissão está ao vivo agora!</p>
-      <a href="https://www.twitch.tv/obaba_yaga" target="_blank" style="background: #9333ea; color: white; padding: 1rem 2rem; border: none; border-radius: 0.5rem; font-size: 1.1rem; cursor: pointer; text-decoration: none; font-weight: 600; transition: background 0.3s;">
-        Ver em Direto na Twitch
-      </a>
-    </div>
+    <iframe
+      src="https://player.twitch.tv/?channel=obaba_yaga"
+      height="100%"
+      width="100%"
+      frameborder="0"
+      allowfullscreen="true"
+      style="border: none; border-radius: 1.5rem;">
+    </iframe>
   `;
-  console.log('Loaded live panel');
+  console.log('Loaded Twitch iframe');
 }
 }
 
