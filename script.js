@@ -283,13 +283,23 @@ function loadTwitchIframe() {
 
   container.innerHTML = `
     <iframe
-      src="https://player.twitch.tv/?channel=zilhasrcz"
+      id="twitch-player-iframe"
+      src="https://player.twitch.tv/?channel=zilhasrcz&muted=false"
       height="100%"
       width="100%"
       frameborder="0"
       allowfullscreen="true">
     </iframe>
   `;
+  
+  // Check if iframe loaded successfully after a delay
+  setTimeout(() => {
+    const iframe = document.getElementById('twitch-player-iframe');
+    if (iframe && !iframe.contentWindow) {
+      console.log('Iframe failed to load, showing offline card');
+      showOfflineCard();
+    }
+  }, 3000);
 }
 
 
