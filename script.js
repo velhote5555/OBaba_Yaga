@@ -299,7 +299,7 @@ function loadTwitchIframe() {
   // Simple iframe - Twitch player
   container.innerHTML = `
     <iframe
-      src="https://player.twitch.tv/?channel=obaba_yaga&parent=localhost&parent=velhote5555.github.io"
+      src="https://player.twitch.tv/?channel=obaba_yaga&parent=localhost&parent=obabayaga.com"
       height="100%"
       width="100%"
       frameborder="0"
