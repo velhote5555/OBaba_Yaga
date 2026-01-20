@@ -297,12 +297,15 @@ function checkTwitchStreamStatus() {
     .then(status => {
       const statusText = status.trim();
       console.log('Stream status from DecAPI:', statusText);
+      console.log('Status length:', statusText.length);
       
-      // DecAPI returns "obaba_yaga is offline" when not streaming
-      // Only consider live if status does NOT contain "offline" and is not empty
+      // If status is empty or contains offline or error, it's offline
       const isOffline = statusText.toLowerCase().includes('offline') || 
                         statusText === '' || 
-                        statusText.toLowerCase().includes('error');
+                        statusText.toLowerCase().includes('error') ||
+                        statusText.toLowerCase() === 'unavailable';
+      
+      console.log('Is offline:', isOffline);
       
       if (isOffline) {
         console.log('Stream is OFFLINE - showing offline card only');
