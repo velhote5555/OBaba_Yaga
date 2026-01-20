@@ -235,6 +235,9 @@ function checkStreamStatus() {
   checkTwitchStreamStatus();
 }
 
+// Track stream state to avoid unnecessary reloads
+let currentStreamState = null;
+
 // Carregar o embed do Twitch (only called when stream is live)
 let twitchEmbed = null;
 
@@ -314,25 +317,35 @@ function checkTwitchStreamStatus() {
       
       console.log('Is offline (uptime check):', isOffline);
       
-      if (isOffline) {
-        console.log('Stream is OFFLINE - showing offline card only');
-        // Clear the embed container when offline
-        const container = document.getElementById('twitch-embed-container');
-        if (container) {
-          container.innerHTML = '';
+      // Only update if state changed
+      const newState = isOffline ? 'offline' : 'online';
+      if (currentStreamState !== newState) {
+        currentStreamState = newState;
+        console.log('Stream state changed to:', newState);
+        
+        if (isOffline) {
+          console.log('Stream is OFFLINE - showing offline card only');
+          // Clear the embed container when offline
+          const container = document.getElementById('twitch-embed-container');
+          if (container) {
+            container.innerHTML = '';
+          }
+          showOfflineCard();
+        } else {
+          console.log('Stream is LIVE! Loading Twitch player...');
+          // Load player when stream is confirmed live
+          loadTwitchIframe();
+          showStream();
         }
-        showOfflineCard();
-      } else {
-        console.log('Stream is LIVE! Loading Twitch iframe...');
-        // Load iframe directly when stream is confirmed live
-        loadTwitchIframe();
-        showStream();
       }
     })
     .catch(err => {
       console.log('Could not check stream status:', err);
       // On error, keep showing offline card (safer default)
-      showOfflineCard();
+      if (currentStreamState !== 'offline') {
+        currentStreamState = 'offline';
+        showOfflineCard();
+      }
     });
 }
 
