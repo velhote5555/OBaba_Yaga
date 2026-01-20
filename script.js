@@ -296,7 +296,7 @@ function loadTwitchIframe() {
   `;
   console.log('Loaded Twitch iframe');
 }
-}
+
 
 
 // Check stream status using DecAPI (works without API key, CORS-friendly)
