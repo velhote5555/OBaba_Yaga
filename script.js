@@ -283,42 +283,19 @@ function loadTwitchIframe() {
     console.log('Hidden offline card');
   }
 
-  // Load the Twitch embed widget
-  container.innerHTML = '<div id="twitch-embed"></div>';
-  
-  // Load Twitch embed script if not already loaded
-  if (!window.twitchEmbedLoaded) {
-    const script = document.createElement('script');
-    script.src = 'https://embed.twitch.tv/embed.js';
-    script.onload = () => {
-      window.twitchEmbedLoaded = true;
-      // Create the embed
-      if (window.Twitch && window.Twitch.Embed) {
-        new window.Twitch.Embed('twitch-embed', {
-          width: '100%',
-          height: '100%',
-          channel: 'obaba_yaga',
-          layout: 'video',
-          parent: [window.location.hostname]
-        });
-        console.log('Twitch embed loaded');
-      }
-    };
-    script.onerror = () => {
-      console.log('Failed to load Twitch embed script');
-      // Fallback to simple link
-      container.innerHTML = `
-        <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2rem; color: white; text-align: center; padding: 2rem; border-radius: 1.5rem;">
-          <div style="font-size: 3rem;">🎮</div>
-          <h2 style="margin: 0; font-size: 2rem;">STREAM AO VIVO</h2>
-          <a href="https://www.twitch.tv/obaba_yaga" target="_blank" style="background: #9333ea; color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 0.5rem; font-size: 1rem; cursor: pointer; text-decoration: none; font-weight: 600;">
-            Abrir no Twitch
-          </a>
-        </div>
-      `;
-    };
-    document.head.appendChild(script);
-  }
+  // Load simple iframe - no parent parameter needed
+  container.innerHTML = `
+    <iframe
+      src="https://twitch.tv/obaba_yaga/embed"
+      height="100%"
+      width="100%"
+      frameborder="0"
+      scrolling="no"
+      allowfullscreen="true"
+      style="border: none; border-radius: 1.5rem; display: block;">
+    </iframe>
+  `;
+  console.log('Loaded Twitch iframe');
 }
 
 
