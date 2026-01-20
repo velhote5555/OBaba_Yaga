@@ -279,11 +279,10 @@ function loadTwitchIframe() {
   const offlineCard = document.getElementById('offlineCard');
   if (offlineCard) {
     offlineCard.classList.remove('visible');
+    offlineCard.style.display = 'none';
+    console.log('Hidden offline card');
   }
 
-  // Create a live panel that shows the stream is live with a link to Twitch
-  const parent = window.location.hostname;
-  
   container.innerHTML = `
     <div style="width: 100%; height: 100%; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 2rem; color: white; text-align: center; padding: 2rem; border-radius: 1.5rem;">
       <div style="font-size: 4rem;">🔴</div>
@@ -294,6 +293,8 @@ function loadTwitchIframe() {
       </a>
     </div>
   `;
+  console.log('Loaded live panel');
+}
 }
 
 
