@@ -273,7 +273,9 @@ function loadTwitchIframe() {
   const container = document.getElementById('twitch-embed-container');
   if (!container) return;
 
-  const parent = window.location.hostname;
+  // Use hostname for parent domain (e.g., localhost, or your domain)
+  const parent = window.location.hostname || 'localhost';
+  console.log('Loading Twitch iframe with parent domain:', parent);
 
   container.innerHTML = `
     <iframe
@@ -281,7 +283,7 @@ function loadTwitchIframe() {
       height="100%"
       width="100%"
       frameborder="0"
-      allowfullscreen>
+      allowfullscreen="true">
     </iframe>
   `;
 }
