@@ -679,7 +679,7 @@ body {
 .offers-grid {
   display: grid;
   grid-template-columns: repeat(2, max-content);
-  gap: 6rem; /* AQUI a distância REAL */
+  gap: 10rem; /* AQUI a distância REAL */
   justify-content: center;
 }
 
@@ -698,7 +698,7 @@ body {
 .offer-card {
   position: relative;
   border-radius: 1.5rem;
-  margin: 0 12rem;
+  margin: 0 1rem;
   overflow: hidden;
   border: 1px solid var(--border-color);
   background: rgba(24, 24, 27, 0.9);
@@ -720,6 +720,10 @@ body {
   height: 7rem;
   position: relative;
   overflow: hidden;
+}
+
+.captainsbet-header {
+  background: linear-gradient(135deg, #7eaa99, #d6ba3d);
 }
 
 .betlabel-header {
