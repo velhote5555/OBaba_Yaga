@@ -847,7 +847,6 @@ body {
   font-weight: 900;
   color: var(--purple-light);
   letter-spacing: 0.05em;
-  text-transform: uppercase;
   font-size: 1.1rem;
   margin: 0;
   flex: 1;
