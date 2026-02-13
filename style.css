@@ -679,6 +679,7 @@ body {
 .offers-grid {
   display: grid;
   grid-template-columns: repeat(2, max-content);
+  gap: 10rem;
   gap: 10rem; /* AQUI a distância REAL */
   justify-content: center;
 }
@@ -698,6 +699,7 @@ body {
 .offer-card {
   position: relative;
   border-radius: 1.5rem;
+  margin: 0 1rem;
   margin: 0 1rem;
   overflow: hidden;
   border: 1px solid var(--border-color);
@@ -722,6 +724,9 @@ body {
   overflow: hidden;
 }
 
+.captainsbet-header {
+  background: linear-gradient(135deg, #7eaa99, #d6ba3d);
+}
 .captainsbet-header {
   background: linear-gradient(135deg, #7eaa99, #d6ba3d);
 }
