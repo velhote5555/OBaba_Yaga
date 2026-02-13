@@ -652,11 +652,14 @@ body {
   font-style: italic;
 }
 
+
 @media (min-width: 768px) {
   .section-title {
     font-size: 3rem;
   }
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
   .offers-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -668,7 +671,7 @@ body {
   }
 }
 
-}
+
 
 .section-description {
   color: var(--gray-text);
@@ -678,11 +681,10 @@ body {
 
 .offers-grid {
   display: grid;
-  grid-template-columns: repeat(2, max-content);
-  gap: 10rem;
-  gap: 10rem; /* AQUI a distância REAL */
-  justify-content: center;
+  grid-template-columns: 1fr;
+  gap: 2rem;
 }
+
 
 @media (min-width: 768px) {
   .offers-grid {
@@ -724,12 +726,6 @@ body {
   overflow: hidden;
 }
 
-.captainsbet-header {
-  background: linear-gradient(135deg, #7eaa99, #d6ba3d);
-}
-.captainsbet-header {
-  background: linear-gradient(135deg, #7eaa99, #d6ba3d);
-}
 
 .betlabel-header {
   background: linear-gradient(135deg, #c6f0c2, #0c8840);
@@ -739,13 +735,10 @@ body {
   background: linear-gradient(135deg, #eef0df, #387981);
 }
 
-.rokubet-header {
-  background: linear-gradient(135deg, #ea580c, #dc2626);
+.captainsbet-header {
+  background: linear-gradient(135deg, #7eaa99, #d6ba3d);
 }
 
-.acebet-header {
-  background: linear-gradient(135deg, #bacfc4, #337a53);
-}
 
 .popular-badge {
   position: absolute;
