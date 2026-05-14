@@ -668,7 +668,7 @@ body {
 .offers-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 3rem;
+  gap: 2rem;
   justify-content: center;
   align-items: stretch;
 }
@@ -709,6 +709,9 @@ body {
 
 .captainsbet-header {
   background: linear-gradient(135deg, #7eaa99, #d6ba3d);
+}
+.onebit-header {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
 }
 .spinandflix-header {
   background: linear-gradient(135deg, #eeeeee, #0178af);
