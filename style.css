@@ -671,6 +671,8 @@ body {
   gap: 2rem;
   justify-content: center;
   align-items: stretch;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .offer-card {
@@ -683,7 +685,7 @@ body {
   display: grid;
   grid-template-rows: auto 1fr auto;
   width: 280px;
-  flex-shrink: 0;
+  margin: 0 auto;
 }
 
 .offer-card:hover {
@@ -717,6 +719,9 @@ body {
   background: linear-gradient(135deg, #eeeeee, #0178af);
 }
 
+.casino96-header {
+  background: linear-gradient(135deg, #ffb81c, #c41e3a);
+}
 
 .popular-badge {
   position: absolute;
