@@ -666,13 +666,25 @@ body {
 }
 
 .offers-grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  justify-content: center;
+  justify-items: center;
   align-items: stretch;
-  max-width: 950px;
+  max-width: 900px;
   margin: 0 auto;
+}
+
+@media (min-width: 1024px) {
+  .offers-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .offers-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .offer-card {
@@ -684,8 +696,8 @@ body {
   transition: all 0.3s;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  width: 280px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: 280px;
 }
 
 .offer-card:hover {
