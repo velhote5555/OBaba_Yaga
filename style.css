@@ -666,26 +666,13 @@ body {
 }
 
 .offers-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 2rem;
-  justify-items: center;
+  justify-content: center;
   align-items: stretch;
   max-width: 950px;
   margin: 0 auto;
-  padding: 0 1rem;
-}
-
-@media (max-width: 900px) {
-  .offers-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .offers-grid {
-    grid-template-columns: 1fr;
-  }
 }
 
 .offer-card {
@@ -697,8 +684,7 @@ body {
   transition: all 0.3s;
   display: grid;
   grid-template-rows: auto 1fr auto;
-  width: 100%;
-  max-width: 280px;
+  width: 280px;
   margin: 0 auto;
 }
 
@@ -726,8 +712,8 @@ body {
 .captainsbet-header {
   background: linear-gradient(135deg, #7eaa99, #d6ba3d);
 }
-.onebit-header {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
+.hugobets-header {
+  background: linear-gradient(135deg, #f97316, #ea580c);
 }
 .spinandflix-header {
   background: linear-gradient(135deg, #eeeeee, #0178af);
