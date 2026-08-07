@@ -68,6 +68,8 @@
                 <a href="jogos.html" class="nav-link">Jogos</a>
             </div>
 
+            <div class="nav-auth" id="navAuth"></div>
+
             <button class="nav-toggle" id="navToggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -107,63 +109,76 @@
                         </div>
                     </div>
 
-                    <div class="stream-panel">
-                        <div class="stream-placeholder" id="streamContainer">
-                            <div id="twitch-embed-container"></div>
-                            <!-- Offline Card Overlay -->
-                            <div class="offline-card" id="offlineCard">
-                                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="OBABA_YAGA Offline" class="offline-card-image">
-                                <div class="offline-card-content">
-                                    <div class="offline-indicator">
-                                        <div class="offline-dot"></div>
-                                        <span>Stream Offline</span>
+                    <div class="stream-panel hero-gate" data-gate>
+                        <div class="gate-content">
+                            <div class="stream-placeholder" id="streamContainer">
+                                <div id="twitch-embed-container"></div>
+                                <!-- Offline Card Overlay -->
+                                <div class="offline-card" id="offlineCard">
+                                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="OBABA_YAGA Offline" class="offline-card-image">
+                                    <div class="offline-card-content">
+                                        <div class="offline-indicator">
+                                            <div class="offline-dot"></div>
+                                            <span>Stream Offline</span>
+                                        </div>
+                                        <p class="offline-text">
+                                            A stream começa em breve. Segue-me na Twitch!
+                                        </p>
                                     </div>
-                                    <p class="offline-text">
-                                        A stream começa em breve. Segue-me na Twitch!
-                                    </p>
                                 </div>
                             </div>
+                        </div>
+                        <div class="gate-overlay">
+                            <div class="gate-icon"><i class="fab fa-twitch"></i></div>
+                            <h3 class="gate-title">Vê a stream em direto</h3>
+                            <p class="gate-text">Entra com a tua conta Twitch para desbloqueares o player e as estatísticas em tempo real.</p>
+                            <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Live Stats Ticker -->
-            <div class="hero-ticker">
-                <div class="container">
-                    <div class="ticker-grid">
-                        <div class="ticker-item">
-                            <i class="fas fa-users"></i>
-                            <div>
-                                <span class="ticker-value" id="followerCount">+--</span>
-                                <span class="ticker-label">Followers</span>
+            <div class="hero-ticker" data-gate>
+                <div class="gate-content">
+                    <div class="container">
+                        <div class="ticker-grid">
+                            <div class="ticker-item">
+                                <i class="fas fa-users"></i>
+                                <div>
+                                    <span class="ticker-value" id="followerCount">+--</span>
+                                    <span class="ticker-label">Followers</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ticker-divider"></div>
-                        <div class="ticker-item">
-                            <i class="fas fa-trophy"></i>
-                            <div>
-                                <span class="ticker-value">+2.932€</span>
-                                <span class="ticker-label">Maior Vitória</span>
+                            <div class="ticker-divider"></div>
+                            <div class="ticker-item">
+                                <i class="fas fa-trophy"></i>
+                                <div>
+                                    <span class="ticker-value">+2.932€</span>
+                                    <span class="ticker-label">Maior Vitória</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ticker-divider"></div>
-                        <div class="ticker-item">
-                            <i class="fas fa-comments"></i>
-                            <div>
-                                <span class="ticker-value" data-target="100">+100</span>
-                                <span class="ticker-label">Discord</span>
+                            <div class="ticker-divider"></div>
+                            <div class="ticker-item">
+                                <i class="fas fa-comments"></i>
+                                <div>
+                                    <span class="ticker-value" data-target="100">+100</span>
+                                    <span class="ticker-label">Discord</span>
+                                </div>
                             </div>
-                        </div>
-                        <div class="ticker-divider"></div>
-                        <div class="ticker-item">
-                            <i class="fas fa-gamepad"></i>
-                            <div>
-                                <span class="ticker-value" data-target="600">+1300</span>
-                                <span class="ticker-label">Horas Ao Vivo</span>
+                            <div class="ticker-divider"></div>
+                            <div class="ticker-item">
+                                <i class="fas fa-gamepad"></i>
+                                <div>
+                                    <span class="ticker-value" data-target="600">+1300</span>
+                                    <span class="ticker-label">Horas Ao Vivo</span>
+                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="gate-overlay">
+                    <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar para veres as estatísticas</button>
                 </div>
             </div>
         </section>
@@ -514,26 +529,36 @@
                     </p>
                 </div>
 
-                <div class="social-grid">
-                    <a href="https://www.twitch.tv/obaba_yaga" target="_blank" class="social-card twitch">
-                        <i class="fab fa-twitch"></i>
-                        <span>Twitch</span>
-                    </a>
-                    
-                    <a href="https://discord.gg/fDWqsxheRb" target="_blank" class="social-card discord">
-                        <i class="fab fa-discord"></i>
-                        <span>Discord</span>
-                    </a>
-                    
-                    <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" class="social-card instagram">
-                        <i class="fab fa-instagram"></i>
-                        <span>Instagram</span>
-                    </a>
-                    
-                    <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" class="social-card telegram">
-                        <i class="fab fa-telegram"></i>
-                        <span>Telegram</span>
-                    </a>
+                <div class="social-gate" data-gate>
+                    <div class="gate-content">
+                        <div class="social-grid">
+                            <a href="https://www.twitch.tv/obaba_yaga" target="_blank" class="social-card twitch">
+                                <i class="fab fa-twitch"></i>
+                                <span>Twitch</span>
+                            </a>
+                            
+                            <a href="https://discord.gg/fDWqsxheRb" target="_blank" class="social-card discord">
+                                <i class="fab fa-discord"></i>
+                                <span>Discord</span>
+                            </a>
+                            
+                            <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" class="social-card instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            
+                            <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" class="social-card telegram">
+                                <i class="fab fa-telegram"></i>
+                                <span>Telegram</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="gate-overlay">
+                        <div class="gate-icon"><i class="fab fa-twitch"></i></div>
+                        <h3 class="gate-title">Junta-te à comunidade</h3>
+                        <p class="gate-text">Entra com a tua conta Twitch para veres e acederes a todas as redes sociais.</p>
+                        <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
+                    </div>
                 </div>
             </div>
         </section>
@@ -588,5 +613,6 @@
     </main>
 
     <script src="script.js?v=11"></script>
+    <script src="twitch-auth.js?v=1"></script>
 </body>
 </html>

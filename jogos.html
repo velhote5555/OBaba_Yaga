@@ -44,6 +44,8 @@
                 <a href="jogos.html" class="nav-link active">Jogos</a>
             </div>
 
+            <div class="nav-auth" id="navAuth"></div>
+
             <button class="nav-toggle" id="navToggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -77,6 +79,8 @@
         <!-- Games Section -->
         <section class="games-section">
             <div class="container">
+                <div class="page-gate" data-gate>
+                <div class="gate-content">
                 <div class="games-tabs" id="gamesTabs">
                     <button class="game-tab active" data-game="blackjack">
                         <i class="fas fa-heart"></i> Blackjack
@@ -243,6 +247,14 @@
                     <i class="fas fa-circle-info"></i>
                     Fichas virtuais sem valor real, apenas para diversão. Joga com responsabilidade.
                 </p>
+                </div>
+                <div class="gate-overlay">
+                    <div class="gate-icon"><i class="fab fa-twitch"></i></div>
+                    <h3 class="gate-title">Jogos exclusivos para a comunidade</h3>
+                    <p class="gate-text">Entra com a tua conta Twitch para jogares Blackjack, Dados e Minas com fichas virtuais.</p>
+                    <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
+                </div>
+                </div>
             </div>
         </section>
     </main>
@@ -296,6 +308,7 @@
     </footer>
 
     <script src="script.js?v=11"></script>
+    <script src="twitch-auth.js?v=1"></script>
     <script src="games.js?v=1"></script>
 </body>
 </html>
