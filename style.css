@@ -2721,3 +2721,231 @@ h1, h2, h3,
     display: none;
   }
 }
+
+/* ===================================================================
+   PLAYER STATS — pontos e ranking (StreamElements) após login
+   =================================================================== */
+
+.player-stats-section {
+  padding: 0 0 1rem;
+  display: none;
+}
+
+.player-stats-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: linear-gradient(135deg, rgba(145, 70, 255, 0.14), rgba(145, 70, 255, 0.03));
+  border: 1px solid rgba(145, 70, 255, 0.3);
+  border-radius: 1.25rem;
+  padding: 1.5rem 1.75rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}
+
+.player-stats-avatar img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #9146ff;
+  box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
+}
+
+.player-stats-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 200px;
+}
+
+.player-stats-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+.player-stats-metrics {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.player-stats-metric {
+  display: flex;
+  flex-direction: column;
+}
+
+.player-stats-value {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--gold-accent);
+  line-height: 1.2;
+}
+
+.player-stats-label {
+  font-size: 0.7rem;
+  color: var(--gray-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.player-stats-refresh {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.6rem;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-color);
+  color: var(--gray-text);
+  cursor: pointer;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.player-stats-refresh:hover {
+  color: #fff;
+  background: rgba(145, 70, 255, 0.2);
+}
+
+.player-stats-refresh.spinning i {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 640px) {
+  .player-stats-card {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .player-stats-refresh {
+    align-self: flex-end;
+  }
+}
+
+/* ===================================================================
+   RANKING PAGE — leaderboard da StreamElements
+   =================================================================== */
+
+.player-stats-card {
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+
+.ranking-card {
+  background: rgba(24, 24, 27, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+}
+
+.ranking-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.ranking-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.ranking-title i {
+  color: var(--gold-accent);
+}
+
+.ranking-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.ranking-loading {
+  text-align: center;
+  color: var(--gray-text);
+  padding: 1.5rem 0;
+}
+
+.ranking-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  transition: background 0.2s;
+}
+
+.ranking-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.ranking-row-me {
+  background: rgba(145, 70, 255, 0.18);
+  border: 1px solid rgba(145, 70, 255, 0.4);
+}
+
+.ranking-position {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  color: var(--gray-text);
+  text-align: center;
+}
+
+.ranking-username {
+  font-weight: 700;
+  color: #fff;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.ranking-you-tag {
+  color: var(--purple-light);
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.ranking-points {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--gold-accent);
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  .ranking-row {
+    grid-template-columns: 2.25rem 1fr auto;
+    padding: 0.6rem 0.75rem;
+  }
+
+  .ranking-card {
+    padding: 1.25rem;
+  }
+}

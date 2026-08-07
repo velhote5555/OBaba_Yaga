@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contacto - OBABA_YAGA</title>
+    <title>Ranking - OBABA_YAGA</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,6 +11,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
+    <!-- Age Gate Modal -->
+    <div id="ageGate" class="age-gate">
+        <div class="age-gate-content">
+            <div class="age-gate-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2 class="age-gate-title">Verificação de Idade</h2>
+            <p class="age-gate-text">Este site contém conteúdo relacionado a jogos de azar e é destinado apenas a maiores de 18 anos.</p>
+            <p class="age-gate-question">Confirmas que tens 18 anos ou mais?</p>
+            <div class="age-gate-buttons">
+                <button id="ageConfirm" class="age-btn age-btn-confirm">Sim, tenho +18</button>
+                <button id="ageDeny" class="age-btn age-btn-deny">Não, sou menor</button>
+            </div>
+            <p class="age-gate-warning"><i class="fas fa-exclamation-triangle"></i> Joga com responsabilidade</p>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
@@ -18,14 +35,14 @@
                 <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="O BABA YAGA" class="nav-logo">
                 <span class="nav-title">O BABA YAGA</span>
             </div>
-            
+
             <div class="nav-menu" id="navMenu">
                 <a href="index.html#home" class="nav-link">Início</a>
                 <a href="index.html#offers" class="nav-link">Patrocínios</a>
                 <a href="index.html#stats" class="nav-link">Estatísticas</a>
                 <a href="index.html#social" class="nav-link">Redes Sociais</a>
                 <a href="jogos.html" class="nav-link">Jogos</a>
-                <a href="ranking.html" class="nav-link">Ranking</a>
+                <a href="ranking.html" class="nav-link active">Ranking</a>
             </div>
 
             <div class="nav-auth" id="navAuth"></div>
@@ -37,66 +54,50 @@
     </nav>
 
     <main>
-        <!-- Contact Section -->
-        <section class="contact-section">
+        <!-- Ranking Hero -->
+        <section class="games-hero">
             <div class="container">
-                <div class="contact-container">
-                    <div class="contact-header">
-                        <h1 class="contact-title">Contacta-me</h1>
-                        <p class="contact-subtitle">Para propostas de parceria, patrocínios ou outras questões</p>
-                    </div>
+                <div class="games-hero-content">
+                    <h1 class="games-hero-title">Ranking</h1>
+                    <p class="games-hero-subtitle">Os pontos de fidelidade e a tua posição na comunidade.</p>
+                </div>
+            </div>
+        </section>
 
-                    <div class="page-gate" data-gate>
-                    <div class="gate-content">
-                    <div class="contact-grid">
-                        <!-- Email Card -->
-                        <div class="contact-card">
-                            <div class="contact-card-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
-                            <h3 class="contact-card-title">Email</h3>
-                            <p class="contact-card-text">Enviar-me um email para propostas e parcerias</p>
-                            <a href="mailto:parceriasobabayaga@gmail.com" class="contact-card-link">
-                                parceriasobabayaga@gmail.com
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+        <!-- Ranking Section -->
+        <section class="games-section">
+            <div class="container">
+                <div class="page-gate" data-gate>
+                <div class="gate-content">
+
+                    <!-- O teu lugar no ranking -->
+                    <div class="player-stats-card" id="playerStats"></div>
+
+                    <!-- Tabela do leaderboard -->
+                    <div class="ranking-card">
+                        <div class="ranking-header">
+                            <h2 class="ranking-title"><i class="fas fa-ranking-star"></i> Top da Comunidade</h2>
+                            <button class="player-stats-refresh" id="rankingRefresh" title="Atualizar">
+                                <i class="fas fa-rotate-right"></i>
+                            </button>
                         </div>
-
-                        <!-- Instagram Card -->
-                        <div class="contact-card">
-                            <div class="contact-card-icon">
-                                <i class="fab fa-instagram"></i>
-                            </div>
-                            <h3 class="contact-card-title">Instagram</h3>
-                            <p class="contact-card-text">Segue-me no Instagram para updates diários</p>
-                            <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" class="contact-card-link">
-                                @obaba_yaga75
-                                <i class="fas fa-arrow-right"></i>
-                            </a>
+                        <div class="ranking-list" id="rankingList">
+                            <p class="ranking-loading">A carregar ranking...</p>
                         </div>
                     </div>
 
-                    <div class="contact-footer">
-                        <p>Respondo aos emails dentro de 24-48 horas.</p>
-                        <a href="index.html" class="back-link">
-                            <i class="fas fa-arrow-left"></i>
-                            Voltar ao início
-                        </a>
-                    </div>
-                    </div>
-                    <div class="gate-overlay">
-                        <div class="gate-icon"><i class="fab fa-twitch"></i></div>
-                        <h3 class="gate-title">Contacto exclusivo para a comunidade</h3>
-                        <p class="gate-text">Entra com a tua conta Twitch para veres os meios de contacto.</p>
-                        <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
-                    </div>
-                    </div>
+                </div>
+                <div class="gate-overlay">
+                    <div class="gate-icon"><i class="fab fa-twitch"></i></div>
+                    <h3 class="gate-title">Ranking exclusivo para a comunidade</h3>
+                    <p class="gate-text">Entra com a tua conta Twitch para veres os teus pontos e a tabela classificativa.</p>
+                    <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
+                </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-top">
