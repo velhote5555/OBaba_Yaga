@@ -225,7 +225,7 @@ function startFollowerUpdates() {
 const statsObserver = new IntersectionObserver(function(entries) {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      const statValues = entry.target.querySelectorAll('.stat-value[data-target]');
+      const statValues = entry.target.querySelectorAll('.ticker-value[data-target]');
       statValues.forEach(stat => {
         const target = parseInt(stat.getAttribute('data-target'));
         animateCounter(stat, target);
@@ -235,7 +235,7 @@ const statsObserver = new IntersectionObserver(function(entries) {
   });
 }, { threshold: 0.5 });
 
-const statsSection = document.querySelector('.stats');
+const statsSection = document.querySelector('.hero-ticker');
 if (statsSection) {
   statsObserver.observe(statsSection);
 }

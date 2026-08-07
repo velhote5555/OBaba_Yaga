@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -75,9 +75,104 @@
     </nav>
 
     <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-bg"></div>
+            
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <div class="live-badge" id="liveBadge">
+                        <span class="live-dot"></span>
+                        <span id="liveText">AO VIVO EM BREVE</span>
+                        </div>
+
+                        
+                        <h1 class="hero-title">
+                            AS MELHORES <br>
+                            <span class="gradient-text">LIVES & OFERTAS</span>
+                        </h1>
+                        
+                        <p class="hero-description">
+                            Junta-te à comunidade do OBABA_YAGA para as lives insanas de casino, giveaways e os melhores casinos do mercado — onde o saldo sofre e o entretenimento nunca acaba.
+                        </p>
+
+                        <div class="hero-actions">
+                            <button class="cta-button" data-link="https://www.twitch.tv/obaba_yaga">
+                                Twitch <i class="fas fa-external-link-alt"></i>
+                            </button>
+                            <a href="#offers" class="cta-secondary">
+                                <i class="fas fa-gift"></i> Ver Ofertas
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="stream-panel">
+                        <div class="stream-placeholder" id="streamContainer">
+                            <div id="twitch-embed-container"></div>
+                            <!-- Offline Card Overlay -->
+                            <div class="offline-card" id="offlineCard">
+                                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="OBABA_YAGA Offline" class="offline-card-image">
+                                <div class="offline-card-content">
+                                    <div class="offline-indicator">
+                                        <div class="offline-dot"></div>
+                                        <span>Stream Offline</span>
+                                    </div>
+                                    <p class="offline-text">
+                                        A stream começa em breve. Segue-me na Twitch!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Stats Ticker -->
+            <div class="hero-ticker">
+                <div class="container">
+                    <div class="ticker-grid">
+                        <div class="ticker-item">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <span class="ticker-value" id="followerCount">+--</span>
+                                <span class="ticker-label">Followers</span>
+                            </div>
+                        </div>
+                        <div class="ticker-divider"></div>
+                        <div class="ticker-item">
+                            <i class="fas fa-trophy"></i>
+                            <div>
+                                <span class="ticker-value">+2.932€</span>
+                                <span class="ticker-label">Maior Vitória</span>
+                            </div>
+                        </div>
+                        <div class="ticker-divider"></div>
+                        <div class="ticker-item">
+                            <i class="fas fa-comments"></i>
+                            <div>
+                                <span class="ticker-value" data-target="100">+100</span>
+                                <span class="ticker-label">Discord</span>
+                            </div>
+                        </div>
+                        <div class="ticker-divider"></div>
+                        <div class="ticker-item">
+                            <i class="fas fa-gamepad"></i>
+                            <div>
+                                <span class="ticker-value" data-target="600">+1300</span>
+                                <span class="ticker-label">Horas Ao Vivo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Offers Section -->
         <section id="offers" class="offers">
             <div class="container">
                 <div class="section-header">
+                    <span class="section-eyebrow"><i class="fas fa-star"></i> Patrocínios Oficiais</span>
                     <h2 class="section-title">As Nossas Ofertas</h2>
                     <p class="section-description">
                         As parcerias oficiais do OBABA_YAGA - vantagens exclusivas nas melhores plataformas onde jogas com o streamer.
@@ -404,111 +499,21 @@
                     </div>
                     
                 </div>
-</div>
-            </div>
-        </section>
-                </div>
-            </div>
-        </section>
-        <!-- Hero Section -->
-        <section id="home" class="hero">
-            <div class="hero-bg"></div>
-            
-            <div class="container">
-                <div class="hero-grid">
-                    <div class="hero-content">
-                        <div class="live-badge" id="liveBadge">
-                        <span class="live-dot"></span>
-                        <span id="liveText">AO VIVO EM BREVE</span>
-                        </div>
-
-                        
-                        <h1 class="hero-title">
-                            AS MELHORES <br>
-                            <span class="gradient-text">LIVES & OFERTAS</span>
-                        </h1>
-                        
-                        <p class="hero-description">
-                            Junta-te à comunidade do OBABA_YAGA para as lives insanas de casino, giveaways e os melhores casinos do mercado — onde o saldo sofre e o entretenimento nunca acaba.
-                        </p>
-                        
-                        <button class="cta-button" data-link="https://www.twitch.tv/obaba_yaga">
-                            Twitch <i class="fas fa-external-link-alt"></i>
-                        </button>
-                    </div>
-
-                    <div class="stream-panel">
-                        <div class="stream-placeholder" id="streamContainer">
-                            <div id="twitch-embed-container"></div>
-                            <!-- Offline Card Overlay -->
-                            <div class="offline-card" id="offlineCard">
-                                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="OBABA_YAGA Offline" class="offline-card-image">
-                                <div class="offline-card-content">
-                                    <div class="offline-indicator">
-                                        <div class="offline-dot"></div>
-                                        <span>Stream Offline</span>
-                                    </div>
-                                    <p class="offline-text">
-                                        A stream começa em breve. Segue-me na Twitch!
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </section>
 
-        <!-- Stats Section -->
-        <section id="stats" class="stats">
-            <div class="container">
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-users"></i>
-                        </div>
-                        <div class="stat-value" id="followerCount">+--</div>
-                        <div class="stat-label">Followers</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-trophy"></i>
-                        </div>
-                        <div class="stat-value">+2.932€</div>
-                        <div class="stat-label">Biggest Win</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <div class="stat-value" data-target="100">+100</div>
-                        <div class="stat-label">Discord</div>
-                    </div>
-                    
-                    <div class="stat-card">
-                        <div class="stat-icon">
-                            <i class="fas fa-gamepad"></i>
-                        </div>
-                        <div class="stat-value" data-target="600">+1300</div>
-                        <div class="stat-label">Hours Live</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        
-        
 
         <!-- Social Section -->
         <section id="social" class="social">
             <div class="container">
-                <h2 class="section-title">Comunidade do OBABA_YAGA</h2>
-                <p class="section-description">
-                    Segue-nos em todas as plataformas para não perderes nenhum sorteio, big win ou uma stream especial!
-                </p>
-                
+                <div class="section-header">
+                    <span class="section-eyebrow"><i class="fas fa-heart"></i> Junta-te a Nós</span>
+                    <h2 class="section-title">Comunidade do OBABA_YAGA</h2>
+                    <p class="section-description">
+                        Segue-nos em todas as plataformas para não perderes nenhum sorteio, big win ou uma stream especial!
+                    </p>
+                </div>
+
                 <div class="social-grid">
                     <a href="https://www.twitch.tv/obaba_yaga" target="_blank" class="social-card twitch">
                         <i class="fab fa-twitch"></i>
@@ -536,6 +541,22 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="container">
+                <div class="footer-top">
+                    <div class="footer-brand">
+                        <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="O BABA YAGA">
+                        <div>
+                            <div class="footer-brand-name">O BABA YAGA</div>
+                            <div class="footer-brand-tagline">Casino Streamer</div>
+                        </div>
+                    </div>
+                    <div class="footer-social">
+                        <a href="https://www.twitch.tv/obaba_yaga" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
+                        <a href="https://discord.gg/fDWqsxheRb" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+                        <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                    </div>
+                </div>
+
                 <div class="footer-content">
                     <div class="gambling-logos">
                         <div class="age-warning">18+</div>
