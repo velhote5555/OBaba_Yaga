@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking - OBABA_YAGA</title>
+    <title>Loja - OBABA_YAGA</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,8 +42,8 @@
                 <a href="index.html#stats" class="nav-link">Estatísticas</a>
                 <a href="index.html#social" class="nav-link">Redes Sociais</a>
                 <a href="jogos.html" class="nav-link">Jogos</a>
-                <a href="ranking.html" class="nav-link active">Ranking</a>
-                <a href="loja.html" class="nav-link">Loja</a>
+                <a href="ranking.html" class="nav-link">Ranking</a>
+                <a href="loja.html" class="nav-link active">Loja</a>
             </div>
 
             <div class="nav-auth" id="navAuth"></div>
@@ -55,43 +55,56 @@
     </nav>
 
     <main>
-        <!-- Ranking Hero -->
+        <!-- Loja Hero -->
         <section class="games-hero">
             <div class="container">
                 <div class="games-hero-content">
-                    <h1 class="games-hero-title">Ranking</h1>
-                    <p class="games-hero-subtitle">Os pontos de fidelidade e a tua posição na comunidade.</p>
+                    <h1 class="games-hero-title">Loja</h1>
+                    <p class="games-hero-subtitle">Troca os teus pontos por prémios e vantagens exclusivas.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Ranking Section -->
+        <!-- Loja Section -->
         <section class="games-section">
             <div class="container">
                 <div class="page-gate" data-gate>
                 <div class="gate-content">
 
-                    <!-- O teu lugar no ranking -->
-                    <div class="player-stats-card" id="playerStats"></div>
-
-                    <!-- Tabela do leaderboard -->
-                    <div class="ranking-card">
-                        <div class="ranking-header">
-                            <h2 class="ranking-title"><i class="fas fa-ranking-star"></i> Top da Comunidade</h2>
-                            <button class="player-stats-refresh" id="rankingRefresh" title="Atualizar">
-                                <i class="fas fa-rotate-right"></i>
-                            </button>
+                    <div class="store-frame-wrapper">
+                        <div class="store-loading" id="storeLoading">
+                            <i class="fas fa-circle-notch fa-spin"></i>
+                            <span>A carregar a loja...</span>
                         </div>
-                        <div class="ranking-list" id="rankingList">
-                            <p class="ranking-loading">A carregar ranking...</p>
-                        </div>
+                        <iframe
+                            id="storeFrame"
+                            class="store-frame"
+                            src="https://streamelements.com/obaba_yaga/store"
+                            title="Loja OBABA_YAGA"
+                            loading="lazy"
+                            allow="clipboard-write"
+                        ></iframe>
                     </div>
+
+                    <div class="store-fallback" id="storeFallback">
+                        <div class="gate-icon"><i class="fas fa-store"></i></div>
+                        <h3 class="gate-title">Não conseguimos mostrar a loja aqui dentro</h3>
+                        <p class="gate-text">A StreamElements bloqueia a loja de ser incorporada por segurança. Abre-a diretamente — o teu login e os teus pontos são os mesmos.</p>
+                        <a class="gate-login-btn" href="https://streamelements.com/obaba_yaga/store" target="_blank" rel="noopener">
+                            <i class="fas fa-store"></i> Abrir a Loja
+                        </a>
+                    </div>
+
+                    <p class="store-note">
+                        <i class="fas fa-shield-halved"></i>
+                        A loja é gerida pela StreamElements. O teu saldo de pontos e os resgates acontecem diretamente lá, em segurança.
+                    </p>
 
                 </div>
                 <div class="gate-overlay">
                     <div class="gate-icon"><i class="fab fa-twitch"></i></div>
-                    <h3 class="gate-title">Ranking exclusivo para a comunidade</h3>
-                    <p class="gate-text">Entra com a tua conta Twitch para veres os teus pontos e a tabela classificativa.</p>
+                    <h3 class="gate-title">Loja exclusiva para a comunidade</h3>
+                    <p class="gate-text">Entra com a tua conta Twitch para veres os prémios disponíveis e resgatares com os teus pontos.</p>
                     <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
                 </div>
                 </div>
@@ -148,5 +161,36 @@
 
     <script src="script.js?v=11"></script>
     <script src="twitch-auth.js?v=1"></script>
+    <script>
+        // Deteta se o iframe da loja foi bloqueado (X-Frame-Options) e mostra o fallback
+        (function () {
+            const frame = document.getElementById('storeFrame');
+            const loading = document.getElementById('storeLoading');
+            const wrapper = document.querySelector('.store-frame-wrapper');
+            const fallback = document.getElementById('storeFallback');
+            let loaded = false;
+
+            frame.addEventListener('load', () => {
+                loaded = true;
+                if (loading) loading.style.display = 'none';
+            });
+
+            // Se ao fim de alguns segundos o iframe não confirmar carregamento
+            // (comportamento típico de bloqueio por X-Frame-Options), mostra o fallback.
+            setTimeout(() => {
+                let blocked = false;
+                try {
+                    // Se conseguirmos aceder, não está bloqueado (mas cross-origin nunca deixa ler o conteúdo mesmo OK)
+                    if (frame.contentWindow == null) blocked = true;
+                } catch (e) {
+                    blocked = false; // erro de cross-origin é normal e esperado, não significa bloqueio
+                }
+                if (!loaded || blocked) {
+                    if (wrapper) wrapper.style.display = 'none';
+                    if (fallback) fallback.classList.add('visible');
+                }
+            }, 4000);
+        })();
+    </script>
 </body>
 </html>

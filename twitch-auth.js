@@ -22,6 +22,7 @@ const TwitchAuth = (function () {
     REDIRECT_URI: 'https://obabayaga.com/',     // <-- tem de corresponder ao registado na Twitch
     SCOPE: '', // login apenas para identificação, sem permissões extra
     SE_CHANNEL: '66d3ab3e543cc77f5efabde9', // Account ID da StreamElements (canal obaba_yaga)
+    EXCLUDE_FROM_RANKING: ['obaba_yaga', 'own3d'], // contas a esconder da tabela pública (streamer + bots)
   };
 
   const TOKEN_KEY = 'obaba_twitch_token';
@@ -134,17 +135,25 @@ const TwitchAuth = (function () {
     }
   }
 
+  let lastPointsError = null;
+  let lastLeaderboardError = null;
+
   // Lê os pontos e o ranking do StreamElements (API pública, sem chave)
   async function fetchStreamElementsPoints(login) {
     if (!login) return null;
+    lastPointsError = null;
+    const url =
+      'https://api.streamelements.com/kappa/v2/points/' +
+      encodeURIComponent(CONFIG.SE_CHANNEL) +
+      '/' +
+      encodeURIComponent(login);
     try {
-      const res = await fetch(
-        'https://api.streamelements.com/kappa/v2/points/' +
-          encodeURIComponent(CONFIG.SE_CHANNEL) +
-          '/' +
-          encodeURIComponent(login)
-      );
-      if (!res.ok) return null;
+      const res = await fetch(url);
+      if (!res.ok) {
+        lastPointsError = 'HTTP ' + res.status + ' em ' + url;
+        console.warn('[TwitchAuth]', lastPointsError);
+        return null;
+      }
       const data = await res.json();
       // a API devolve nomes de campo ligeiramente diferentes consoante a versão
       return {
@@ -153,7 +162,8 @@ const TwitchAuth = (function () {
         rank: data.rank ?? data.leaderboardRank ?? null,
       };
     } catch (e) {
-      console.warn('[TwitchAuth] Não foi possível obter pontos da StreamElements.', e);
+      lastPointsError = 'Erro de rede/CORS ao aceder a ' + url + ' — ' + e.message;
+      console.warn('[TwitchAuth]', lastPointsError, e);
       return null;
     }
   }
@@ -161,23 +171,34 @@ const TwitchAuth = (function () {
   // Lê o top X do leaderboard de pontos do StreamElements
   async function fetchStreamElementsLeaderboard(limit) {
     limit = limit || 20;
+    lastLeaderboardError = null;
+    const url =
+      'https://api.streamelements.com/kappa/v2/points/' +
+      encodeURIComponent(CONFIG.SE_CHANNEL) +
+      '/top?limit=' +
+      limit;
     try {
-      const res = await fetch(
-        'https://api.streamelements.com/kappa/v2/points/' +
-          encodeURIComponent(CONFIG.SE_CHANNEL) +
-          '/top?limit=' +
-          limit
-      );
-      if (!res.ok) return null;
+      const res = await fetch(url);
+      if (!res.ok) {
+        lastLeaderboardError = 'HTTP ' + res.status + ' em ' + url;
+        console.warn('[TwitchAuth]', lastLeaderboardError);
+        return null;
+      }
       const data = await res.json();
       const list = Array.isArray(data) ? data : data.users || data.top || [];
-      return list.map((item, idx) => ({
-        rank: item.rank ?? idx + 1,
+      const excluded = CONFIG.EXCLUDE_FROM_RANKING.map((u) => u.toLowerCase());
+      const filtered = list.filter((item) => {
+        const uname = (item.username ?? item.user ?? '').toLowerCase();
+        return uname && !excluded.includes(uname);
+      });
+      return filtered.map((item, idx) => ({
+        rank: idx + 1, // reordenado depois de remover contas excluídas
         username: item.username ?? item.user ?? '—',
         points: item.points ?? item.current ?? 0,
       }));
     } catch (e) {
-      console.warn('[TwitchAuth] Não foi possível obter o leaderboard da StreamElements.', e);
+      lastLeaderboardError = 'Erro de rede/CORS ao aceder a ' + url + ' — ' + e.message;
+      console.warn('[TwitchAuth]', lastLeaderboardError, e);
       return null;
     }
   }
@@ -231,6 +252,10 @@ const TwitchAuth = (function () {
     const pointsText = currentUser.points != null ? currentUser.points.toLocaleString('pt-PT') : '--';
     const rankText = currentUser.rank != null ? '#' + currentUser.rank : '--';
     const alltimeText = currentUser.pointsAlltime != null ? currentUser.pointsAlltime.toLocaleString('pt-PT') : '--';
+    const errorNote =
+      currentUser.points == null && lastPointsError
+        ? `<p class="player-stats-error">${lastPointsError}</p>`
+        : '';
 
     card.innerHTML = `
       <div class="player-stats-avatar">
@@ -257,6 +282,7 @@ const TwitchAuth = (function () {
         <i class="fas fa-rotate-right"></i>
       </button>
     `;
+    if (errorNote) card.insertAdjacentHTML('beforeend', errorNote);
 
     const refreshBtn = document.getElementById('playerStatsRefresh');
     if (refreshBtn) {
@@ -280,15 +306,26 @@ const TwitchAuth = (function () {
     }
 
     list.innerHTML = '<p class="ranking-loading">A carregar ranking...</p>';
-    const top = await fetchStreamElementsLeaderboard(20);
+    // pede alguns extra para compensar as contas excluídas (streamer + bots)
+    const buffer = CONFIG.EXCLUDE_FROM_RANKING.length + 2;
+    const top = await fetchStreamElementsLeaderboard(20 + buffer);
+    const trimmed = top ? top.slice(0, 20) : top;
 
-    if (!top || top.length === 0) {
-      list.innerHTML = '<p class="ranking-loading">Não foi possível carregar o ranking de momento.</p>';
+    if (!trimmed || trimmed.length === 0) {
+      list.innerHTML = `
+        <div class="ranking-error">
+          <p>Não foi possível carregar a tabela do ranking agora.</p>
+          <p class="ranking-error-detail">${lastLeaderboardError || 'Erro desconhecido.'}</p>
+          <a class="ranking-fallback-link" href="https://streamelements.com/${encodeURIComponent('obaba_yaga')}/leaderboard" target="_blank" rel="noopener">
+            Ver ranking na StreamElements <i class="fas fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+      `;
       return;
     }
 
     const medals = { 1: '🥇', 2: '🥈', 3: '🥉' };
-    list.innerHTML = top
+    list.innerHTML = trimmed
       .map((entry) => {
         const isMe = currentUser && entry.username && entry.username.toLowerCase() === currentUser.login.toLowerCase();
         return `

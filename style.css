@@ -2949,3 +2949,123 @@ h1, h2, h3,
     padding: 1.25rem;
   }
 }
+
+/* Ranking / player stats error states */
+.player-stats-error {
+  width: 100%;
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: #f87171;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.25);
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  word-break: break-all;
+}
+
+.ranking-error {
+  text-align: center;
+  padding: 1.5rem 1rem;
+  color: var(--gray-text);
+}
+
+.ranking-error-detail {
+  font-size: 0.72rem;
+  color: #f87171;
+  margin-top: 0.5rem;
+  word-break: break-all;
+}
+
+.ranking-fallback-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #9146ff, #772ce8);
+  color: #fff;
+  text-decoration: none;
+  padding: 0.7rem 1.3rem;
+  border-radius: 0.6rem;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* ===================================================================
+   LOJA — embed StreamElements Store
+   =================================================================== */
+
+.store-frame-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 720px;
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  background: rgba(24, 24, 27, 0.9);
+}
+
+.store-frame {
+  width: 100%;
+  height: 720px;
+  border: none;
+  display: block;
+  background: #0e0e10;
+}
+
+.store-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  color: var(--gray-text);
+  font-weight: 700;
+  background: rgba(24, 24, 27, 0.9);
+  z-index: 1;
+}
+
+.store-loading i {
+  font-size: 1.75rem;
+  color: var(--purple-light);
+}
+
+.store-fallback {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1rem;
+  padding: 3rem 1.5rem;
+  background: rgba(24, 24, 27, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 1.25rem;
+}
+
+.store-fallback.visible {
+  display: flex;
+}
+
+.store-note {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--gray-text);
+  text-align: center;
+}
+
+.store-note i {
+  color: var(--green-accent);
+}
+
+@media (max-width: 640px) {
+  .store-frame-wrapper,
+  .store-frame {
+    min-height: 560px;
+    height: 560px;
+  }
+}
