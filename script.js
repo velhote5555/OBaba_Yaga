@@ -7,10 +7,18 @@ console.log('Script.js carregado!');
   const ageDeny = document.getElementById('ageDeny');
   const STORAGE_KEY = 'obaba_age_verified';
 
+  // If this page has no age gate markup, never lock scrolling
+  if (!ageGate || !ageConfirm || !ageDeny) {
+    document.body.style.overflow = '';
+    if (typeof showPromoPopup === 'function') showPromoPopup();
+    return;
+  }
+
   // Check if already verified
   if (localStorage.getItem(STORAGE_KEY) === 'true') {
     ageGate.classList.add('hidden');
     document.body.style.overflow = '';
+    showPromoPopup();
   } else {
     document.body.style.overflow = 'hidden';
   }
@@ -22,6 +30,7 @@ console.log('Script.js carregado!');
     setTimeout(() => {
       ageGate.classList.add('hidden');
       document.body.style.overflow = '';
+      showPromoPopup();
     }, 300);
   });
 
@@ -30,6 +39,30 @@ console.log('Script.js carregado!');
     window.location.href = 'https://www.youtube.com/watch?v=HjiSPhGthHI&list=RDHjiSPhGthHI&start_radio=1';
   });
 })();
+
+// 22bit Promo Popup functionality
+function showPromoPopup() {
+  const promoPopup = document.getElementById('promoPopup');
+  const promoClose = document.getElementById('promoClose');
+  if (!promoPopup) return;
+
+  const SESSION_KEY = 'obaba_promo_shown';
+  if (sessionStorage.getItem(SESSION_KEY) === 'true') return;
+
+  promoPopup.classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+  sessionStorage.setItem(SESSION_KEY, 'true');
+
+  function closePromo() {
+    promoPopup.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  promoClose.addEventListener('click', closePromo);
+  promoPopup.addEventListener('click', function(e) {
+    if (e.target === promoPopup) closePromo();
+  });
+}
 
 // Cache DOM elements
 const navToggle = document.getElementById('navToggle');

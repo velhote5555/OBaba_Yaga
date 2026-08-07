@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogos - OBABA_YAGA</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+    <!-- Age Gate Modal -->
+    <div id="ageGate" class="age-gate">
+        <div class="age-gate-content">
+            <div class="age-gate-icon">
+                <i class="fas fa-user-shield"></i>
+            </div>
+            <h2 class="age-gate-title">Verificação de Idade</h2>
+            <p class="age-gate-text">Este site contém conteúdo relacionado a jogos de azar e é destinado apenas a maiores de 18 anos.</p>
+            <p class="age-gate-question">Confirmas que tens 18 anos ou mais?</p>
+            <div class="age-gate-buttons">
+                <button id="ageConfirm" class="age-btn age-btn-confirm">Sim, tenho +18</button>
+                <button id="ageDeny" class="age-btn age-btn-deny">Não, sou menor</button>
+            </div>
+            <p class="age-gate-warning"><i class="fas fa-exclamation-triangle"></i> Joga com responsabilidade</p>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="O BABA YAGA" class="nav-logo">
+                <span class="nav-title">O BABA YAGA</span>
+            </div>
+
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html#home" class="nav-link">Início</a>
+                <a href="index.html#offers" class="nav-link">Patrocínios</a>
+                <a href="index.html#stats" class="nav-link">Estatísticas</a>
+                <a href="index.html#social" class="nav-link">Redes Sociais</a>
+                <a href="jogos.html" class="nav-link active">Jogos</a>
+            </div>
+
+            <button class="nav-toggle" id="navToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Games Hero -->
+        <section class="games-hero">
+            <div class="container">
+                <div class="games-hero-content">
+                    <h1 class="games-hero-title">Jogos</h1>
+                    <p class="games-hero-subtitle">Blackjack, Dados e Minas. Fichas virtuais, sem dinheiro real.</p>
+
+                    <div class="games-balance-bar">
+                        <div class="balance-info">
+                            <i class="fas fa-coins"></i>
+                            <div>
+                                <span class="balance-label">Saldo</span>
+                                <span class="balance-value" id="balanceDisplay">1.000</span>
+                            </div>
+                        </div>
+                        <button class="balance-reset" id="balanceReset">
+                            <i class="fas fa-rotate-right"></i> Repor
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Games Section -->
+        <section class="games-section">
+            <div class="container">
+                <div class="games-tabs" id="gamesTabs">
+                    <button class="game-tab active" data-game="blackjack">
+                        <i class="fas fa-heart"></i> Blackjack
+                    </button>
+                    <button class="game-tab" data-game="dice">
+                        <i class="fas fa-dice"></i> Dados
+                    </button>
+                    <button class="game-tab" data-game="mines">
+                        <i class="fas fa-bomb"></i> Minas
+                    </button>
+                </div>
+
+                <!-- BLACKJACK -->
+                <div class="game-panel active" id="panel-blackjack">
+                    <div class="game-card">
+                        <div class="bj-table">
+                            <div class="bj-hand-area">
+                                <div class="bj-hand-label">
+                                    <span>Dealer</span>
+                                    <span class="bj-hand-score" id="dealerScore">0</span>
+                                </div>
+                                <div class="bj-cards" id="dealerCards"></div>
+                            </div>
+
+                            <hr class="bj-divider">
+
+                            <div class="bj-hand-area">
+                                <div class="bj-hand-label">
+                                    <span>A Tua Mão</span>
+                                    <span class="bj-hand-score" id="playerScore">0</span>
+                                </div>
+                                <div class="bj-cards" id="playerCards"></div>
+                            </div>
+
+                            <p class="bj-message" id="bjMessage">Faz a tua aposta para começar.</p>
+                        </div>
+
+                        <div class="game-controls">
+                            <div class="bet-control">
+                                <label for="bjBet">Aposta</label>
+                                <div class="bet-input-group">
+                                    <button class="bet-step" data-target="bjBet" data-step="-10">−</button>
+                                    <input type="number" id="bjBet" value="50" min="10" step="10">
+                                    <button class="bet-step" data-target="bjBet" data-step="10">+</button>
+                                </div>
+                            </div>
+
+                            <div class="game-actions" id="bjPreActions">
+                                <button class="btn-primary" id="bjDealBtn">Distribuir Cartas</button>
+                            </div>
+
+                            <div class="game-actions hidden" id="bjInGameActions">
+                                <button class="btn-secondary" id="bjHitBtn">Pedir Carta</button>
+                                <button class="btn-secondary" id="bjStandBtn">Ficar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DICE -->
+                <div class="game-panel" id="panel-dice">
+                    <div class="game-card">
+                        <div class="dice-table">
+                            <div class="dice-result-display">
+                                <span class="dice-result-label">Resultado</span>
+                                <span class="dice-result-value" id="diceResultValue">--</span>
+                            </div>
+
+                            <div class="dice-track-wrapper">
+                                <div class="dice-track">
+                                    <div class="dice-track-fill" id="diceTrackFill"></div>
+                                    <div class="dice-track-marker" id="diceTrackMarker"></div>
+                                </div>
+                                <div class="dice-track-labels">
+                                    <span>0</span>
+                                    <span>25</span>
+                                    <span>50</span>
+                                    <span>75</span>
+                                    <span>100</span>
+                                </div>
+                            </div>
+
+                            <p class="dice-message" id="diceMessage">Escolhe um número e roda os dados.</p>
+                        </div>
+
+                        <div class="game-controls">
+                            <div class="dice-config-row">
+                                <div class="bet-control">
+                                    <label for="diceTarget">Rolar abaixo de</label>
+                                    <input type="number" id="diceTarget" value="50" min="2" max="98">
+                                </div>
+                                <div class="bet-control">
+                                    <label>Hipótese de Ganhar</label>
+                                    <div class="dice-static-value" id="diceChance">50.00%</div>
+                                </div>
+                                <div class="bet-control">
+                                    <label>Multiplicador</label>
+                                    <div class="dice-static-value" id="diceMultiplier">1.9500x</div>
+                                </div>
+                            </div>
+
+                            <div class="bet-control">
+                                <label for="diceBet">Aposta</label>
+                                <div class="bet-input-group">
+                                    <button class="bet-step" data-target="diceBet" data-step="-10">−</button>
+                                    <input type="number" id="diceBet" value="50" min="10" step="10">
+                                    <button class="bet-step" data-target="diceBet" data-step="10">+</button>
+                                </div>
+                            </div>
+
+                            <div class="game-actions">
+                                <button class="btn-primary" id="diceRollBtn">Rodar Dados</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MINES -->
+                <div class="game-panel" id="panel-mines">
+                    <div class="game-card">
+                        <div class="mines-table">
+                            <div class="mines-grid" id="minesGrid"></div>
+                            <p class="mines-message" id="minesMessage">Escolhe o número de minas e começa a jogar.</p>
+                        </div>
+
+                        <div class="game-controls">
+                            <div class="dice-config-row">
+                                <div class="bet-control">
+                                    <label for="minesBet">Aposta</label>
+                                    <div class="bet-input-group">
+                                        <button class="bet-step" data-target="minesBet" data-step="-10">−</button>
+                                        <input type="number" id="minesBet" value="50" min="10" step="10">
+                                        <button class="bet-step" data-target="minesBet" data-step="10">+</button>
+                                    </div>
+                                </div>
+                                <div class="bet-control">
+                                    <label for="minesCount">Nº de Minas</label>
+                                    <select id="minesCount">
+                                        <option value="3">3</option>
+                                        <option value="5" selected>5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="24">24</option>
+                                    </select>
+                                </div>
+                                <div class="bet-control">
+                                    <label>Multiplicador Atual</label>
+                                    <div class="dice-static-value" id="minesMultiplier">1.00x</div>
+                                </div>
+                            </div>
+
+                            <div class="game-actions" id="minesPreActions">
+                                <button class="btn-primary" id="minesStartBtn">Iniciar Jogo</button>
+                            </div>
+
+                            <div class="game-actions hidden" id="minesInGameActions">
+                                <button class="btn-secondary" id="minesCashoutBtn">Recolher <span id="minesCashoutValue"></span></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="games-disclaimer">
+                    <i class="fas fa-circle-info"></i>
+                    Fichas virtuais sem valor real, apenas para diversão. Joga com responsabilidade.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2026 O BABA YAGA Casino Streamer. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="index.html">Termos de Uso</a>
+                    <a href="index.html">Privacidade</a>
+                    <a href="contacto.html">Contacto</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=11"></script>
+    <script src="games.js?v=1"></script>
+</body>
+</html>
