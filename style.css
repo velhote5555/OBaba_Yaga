@@ -307,6 +307,80 @@
   gap: 0.4rem;
 }
 
+/* DBBET Promo Popup variant */
+.promo-popup-dbbet {
+  background: linear-gradient(160deg, #1a1a2e 0%, #0d0d16 100%);
+  padding: 1.25rem 1.25rem 1.75rem;
+  max-width: 360px;
+}
+
+.promo-popup-dbbet::before {
+  background: radial-gradient(circle, rgba(240, 76, 100, 0.3), transparent 60%);
+}
+
+.promo-image-link {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+  margin-bottom: 1.25rem;
+  transition: transform 0.2s;
+}
+
+.promo-image-link:hover {
+  transform: scale(1.02);
+}
+
+.promo-image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.promo-code-box {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 0.85rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.promo-code-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: #f04c64;
+}
+
+.promo-code-value {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #1a1a2e;
+  letter-spacing: 0.02em;
+}
+
+.promo-cta-dbbet {
+  background: linear-gradient(135deg, #f04c64, #ff2d55);
+  box-shadow: 0 10px 25px rgba(240, 76, 100, 0.45);
+}
+
+@keyframes promoPulseDbbet {
+  0%, 100% { box-shadow: 0 10px 25px rgba(240, 76, 100, 0.45); }
+  50% { box-shadow: 0 10px 32px rgba(240, 76, 100, 0.75); }
+}
+
+.promo-cta-dbbet {
+  animation: promoPulseDbbet 1.8s ease-in-out infinite;
+}
+
 /* Variables */
 :root {
   --primary-dark: #0a0a0b;
@@ -982,6 +1056,22 @@ h1, h2, h3,
   overflow: hidden;
 }
 
+
+.dbbet-header {
+  background: linear-gradient(135deg, #1a1a2e, #d4af37);
+}
+
+.dbbet-header-image {
+  padding: 0;
+}
+
+.offer-header-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+  display: block;
+}
 
 .betlabel-header {
   background: linear-gradient(135deg, #c6f0c2, #0c8840);
