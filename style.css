@@ -381,6 +381,43 @@
   animation: promoPulseDbbet 1.8s ease-in-out infinite;
 }
 
+/* SafeCasino Promo Popup variant */
+.promo-popup-safecasino {
+  background: linear-gradient(160deg, #1f3b40 0%, #387981 60%, #1f3b40 100%);
+}
+
+.promo-popup-safecasino::before {
+  background: radial-gradient(circle, rgba(238, 240, 223, 0.25), transparent 60%);
+}
+
+.promo-badge-safecasino {
+  background: linear-gradient(135deg, #eef0df, #c9cf9a);
+  color: #1f3b40;
+  box-shadow: 0 4px 14px rgba(238, 240, 223, 0.3);
+}
+
+.promo-logo-safecasino {
+  font-size: 1.9rem;
+  font-family: 'Unbounded', sans-serif;
+  font-weight: 800;
+  color: #eef0df;
+  letter-spacing: -0.02em;
+}
+
+.promo-cta-safecasino {
+  background: linear-gradient(135deg, #387981, #2a5a61);
+  box-shadow: 0 10px 25px rgba(56, 121, 129, 0.5);
+}
+
+@keyframes promoPulseSafecasino {
+  0%, 100% { box-shadow: 0 10px 25px rgba(56, 121, 129, 0.5); }
+  50% { box-shadow: 0 10px 32px rgba(56, 121, 129, 0.8); }
+}
+
+.promo-cta-safecasino {
+  animation: promoPulseSafecasino 1.8s ease-in-out infinite;
+}
+
 /* Variables */
 :root {
   --primary-dark: #0a0a0b;
