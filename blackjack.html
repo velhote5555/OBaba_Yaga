@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loja de pontos — O BABA YAGA</title>
-    <meta name="description" content="Troca os teus pontos de fidelidade por prémios e vantagens exclusivas.">
-    <link rel="canonical" href="https://obabayaga.com/loja.html">
+    <title>Blackjack — Minijogos O BABA YAGA</title>
+    <meta name="description" content="Blackjack com fichas virtuais. Vence o dealer, paga 3 para 2.">
+    <link rel="canonical" href="https://obabayaga.com/blackjack.html">
     <meta name="theme-color" content="#040d1c">
     <meta name="rating" content="adult">
     <link rel="icon" href="assets/favicon-64.png" type="image/png">
@@ -13,15 +13,15 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="O BABA YAGA">
     <meta property="og:locale" content="pt_PT">
-    <meta property="og:title" content="Loja de pontos — O BABA YAGA">
-    <meta property="og:description" content="Troca os teus pontos de fidelidade por prémios e vantagens exclusivas.">
-    <meta property="og:url" content="https://obabayaga.com/loja.html">
+    <meta property="og:title" content="Blackjack — Minijogos O BABA YAGA">
+    <meta property="og:description" content="Blackjack com fichas virtuais. Vence o dealer, paga 3 para 2.">
+    <meta property="og:url" content="https://obabayaga.com/blackjack.html">
     <meta property="og:image" content="https://obabayaga.com/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Loja de pontos — O BABA YAGA">
-    <meta name="twitter:description" content="Troca os teus pontos de fidelidade por prémios e vantagens exclusivas.">
+    <meta name="twitter:title" content="Blackjack — Minijogos O BABA YAGA">
+    <meta name="twitter:description" content="Blackjack com fichas virtuais. Vence o dealer, paga 3 para 2.">
     <meta name="twitter:image" content="https://obabayaga.com/assets/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="style.css?v=25">
 </head>
-<body>
+<body data-game="blackjack">
 <div id="ageGate" class="age-gate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle">
   <div class="age-gate-content">
     <div class="age-gate-icon"><i class="fas fa-user-shield" aria-hidden="true"></i></div>
@@ -47,13 +47,13 @@
 <div class="app has-chat" id="app">
 <aside class="sidebar" id="sidebar" aria-label="Navegação principal">
   <a class="sidebar-brand" href="index.html"><img src="assets/logo-160.png" alt="" width="64" height="64"><span>OBABA_<em>YAGA</em></span></a>
-  <nav><div class="sidebar-group">Principal</div><a class="sidebar-link" href="index.html"><i class="fas fa-house" aria-hidden="true"></i>Início</a><a class="sidebar-link" href="casinos.html"><i class="fas fa-gift" aria-hidden="true"></i>Casinos</a><a class="sidebar-link" href="comunidade.html"><i class="fas fa-users" aria-hidden="true"></i>Comunidade</a><a class="sidebar-link active" href="loja.html"><i class="fas fa-cart-shopping" aria-hidden="true"></i>Loja</a><div class="sidebar-group">Live</div><a class="sidebar-link" href="index.html#live"><i class="fas fa-tower-broadcast" aria-hidden="true"></i>Live Hub<span class="pill live" id="navLivePill" hidden>LIVE</span></a><a class="sidebar-link" href="ranking.html"><i class="fas fa-trophy" aria-hidden="true"></i>Ranking</a><div class="sidebar-group">Ferramentas</div><a class="sidebar-link" href="jogos.html"><i class="fas fa-gamepad" aria-hidden="true"></i>Minijogos</a><a class="sidebar-link" href="contacto.html"><i class="fas fa-envelope" aria-hidden="true"></i>Contacto</a></nav>
+  <nav><div class="sidebar-group">Principal</div><a class="sidebar-link" href="index.html"><i class="fas fa-house" aria-hidden="true"></i>Início</a><a class="sidebar-link" href="casinos.html"><i class="fas fa-gift" aria-hidden="true"></i>Casinos</a><a class="sidebar-link" href="comunidade.html"><i class="fas fa-users" aria-hidden="true"></i>Comunidade</a><a class="sidebar-link" href="loja.html"><i class="fas fa-cart-shopping" aria-hidden="true"></i>Loja</a><div class="sidebar-group">Live</div><a class="sidebar-link" href="index.html#live"><i class="fas fa-tower-broadcast" aria-hidden="true"></i>Live Hub<span class="pill live" id="navLivePill" hidden>LIVE</span></a><a class="sidebar-link" href="ranking.html"><i class="fas fa-trophy" aria-hidden="true"></i>Ranking</a><div class="sidebar-group">Ferramentas</div><a class="sidebar-link active" href="jogos.html"><i class="fas fa-gamepad" aria-hidden="true"></i>Minijogos</a><a class="sidebar-link" href="contacto.html"><i class="fas fa-envelope" aria-hidden="true"></i>Contacto</a></nav>
   <div class="sidebar-socials"><a href="https://www.twitch.tv/obaba_yaga" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><i class="fab fa-twitch" aria-hidden="true"></i></a><a href="https://discord.gg/fDWqsxheRb" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a><a href="https://www.instagram.com/obaba_yaga75/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></div>
 </aside>
 <div class="main">
 <header class="topbar">
   <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar"><i class="fas fa-bars" aria-hidden="true"></i></button>
-  <div class="crumb"><small>Estás em</small><strong>Loja</strong></div>
+  <div class="crumb"><small>Estás em</small><strong>Blackjack</strong></div>
   <form class="search" role="search" action="casinos.html" method="get"><i class="fas fa-magnifying-glass" aria-hidden="true"></i><input type="search" name="q" id="siteSearch" placeholder="Pesquisar casinos, ofertas, códigos..." autocomplete="off" aria-label="Pesquisar"></form>
   <div class="topbar-actions">
     <div class="nav-auth" id="navAuth"></div>
@@ -61,19 +61,74 @@
   </div>
 </header>
 <main id="content">
-<section class="panel page-hero">
-  <div class="icon gold"><i class="fas fa-cart-shopping" aria-hidden="true"></i></div>
-  <div><h1>Loja</h1><p>Troca os teus pontos por prémios e vantagens exclusivas.</p></div>
+
+<section class="panel game-header">
+  <a class="back-hub" href="jogos.html"><i class="fas fa-arrow-left" aria-hidden="true"></i> Hub</a>
+  <span class="game-icon"><i class="fas fa-clone" aria-hidden="true"></i></span>
+  <h1>Blackjack</h1>
+  <span class="game-tag">Fichas virtuais · sem dinheiro real</span>
 </section>
-<section class="panel">
-  <div class="store-card">
-    <div class="gate-icon"><i class="fas fa-store" aria-hidden="true"></i></div>
-    <h2 class="gate-title">A loja abre na StreamElements</h2>
-    <p class="gate-text">Por segurança, a StreamElements não permite incorporar a loja noutros sites. Abre-a diretamente: entras com a tua conta Twitch e os teus pontos são os mesmos.</p>
-    <a class="btn-gold" href="https://streamelements.com/obaba_yaga/store" target="_blank" rel="noopener noreferrer"><i class="fas fa-store" aria-hidden="true"></i> Abrir a loja</a>
+
+<a class="partner-banner" href="casinos.html">
+  <span class="pb-icon"><i class="fas fa-coins" aria-hidden="true"></i></span>
+  <span class="pb-text"><strong>Queres jogar a sério?</strong><small>Bónus exclusivos nos parceiros oficiais do O BABA YAGA</small></span>
+  <span class="btn-gold">Ver parceiros <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+  <span class="pb-age">18+</span>
+</a>
+<section class="game-layout">
+  <aside class="panel game-controls">
+    
+<div class="balance-box">
+  <div><span class="balance-label">Saldo</span><span class="balance-value"><i class="fas fa-coins" aria-hidden="true"></i> <span data-balance>1.000</span></span></div>
+  <button class="balance-reset" id="balanceReset" type="button"><i class="fas fa-rotate-right" aria-hidden="true"></i> Repor</button>
+</div>
+    
+<div class="bet-control">
+  <label for="bjBet">Aposta</label>
+  <div class="bet-input-group">
+    <button class="bet-step" type="button" data-target="bjBet" data-step="-10" aria-label="Diminuir aposta">−</button>
+    <input type="number" id="bjBet" value="50" min="10" step="10">
+    <button class="bet-step" type="button" data-target="bjBet" data-step="10" aria-label="Aumentar aposta">+</button>
   </div>
-  <p class="store-note"><i class="fas fa-shield-halved" aria-hidden="true"></i> A loja é gerida pela StreamElements. O teu saldo de pontos e os resgates acontecem diretamente lá, em segurança.</p>
+  <div class="bet-quick">
+    <button class="bet-step" type="button" data-target="bjBet" data-op="half">½</button>
+    <button class="bet-step" type="button" data-target="bjBet" data-op="double">2×</button>
+    <button class="bet-step" type="button" data-target="bjBet" data-op="max">Máx</button>
+  </div>
+</div>
+<div class="game-actions" id="bjPreActions"><button class="btn-primary" id="bjDealBtn" type="button">Distribuir cartas</button></div>
+<div class="game-actions hidden" id="bjInGameActions">
+  <button class="btn-secondary" id="bjHitBtn" type="button">Pedir (H)</button>
+  <button class="btn-secondary" id="bjStandBtn" type="button">Ficar (S)</button>
+  <button class="btn-secondary" id="bjDoubleBtn" type="button" disabled>Dobrar</button>
+</div>
+<p class="game-message" id="bjMessage" aria-live="polite">Faz a tua aposta para começar.</p>
+  </aside>
+  <div class="panel game-table-wrap">
+<div class="felt">
+  <div class="felt-mark">BY</div>
+  <div class="bj-hand-area">
+    <div class="bj-hand-label"><span>Dealer</span><span class="bj-hand-score" id="dealerScore">—</span></div>
+    <div class="bj-cards" id="dealerCards"></div>
+  </div>
+  <div class="felt-plaque"><strong>Blackjack paga 3 para 2</strong><small>Dealer fica a 17 · Dobrar disponível</small></div>
+  <div class="bj-hand-area">
+    <div class="bj-hand-label"><span>A tua mão</span><span class="bj-hand-score" id="playerScore">—</span></div>
+    <div class="bj-cards" id="playerCards"></div>
+  </div>
+  <div class="felt-shoe" aria-hidden="true"><span></span><span></span><span></span></div>
+</div></div>
 </section>
+
+<section class="panel">
+  <div class="panel-head"><div><h2 class="panel-title">Histórico</h2><p class="panel-sub">As tuas últimas jogadas em Blackjack · guardadas neste browser</p></div><span class="fair-tag"><i class="fas fa-shield-halved" aria-hidden="true"></i> Fichas virtuais</span></div>
+  <div class="stats-grid stats-inline" id="gameStats"></div>
+  <div class="history-wrap"><table class="history">
+    <thead><tr><th>Jogador</th><th>Aposta</th><th>Jogada</th><th>Resultado</th></tr></thead>
+    <tbody id="historyBody" data-game="blackjack"></tbody>
+  </table></div>
+</section>
+<div class="game-toast" id="gameToast" role="status" aria-live="polite"></div>
 </main>
 <footer class="footer">
   <div class="footer-top">
@@ -104,5 +159,6 @@
 </div>
 <script src="script.js?v=25"></script>
 <script src="twitch-auth.js?v=25"></script>
+<script src="games.js?v=25"></script>
 </body>
 </html>

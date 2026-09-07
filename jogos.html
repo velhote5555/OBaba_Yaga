@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minijogos — O BABA YAGA</title>
-    <meta name="description" content="Blackjack, Dados e Minas com fichas virtuais, sem dinheiro real. Diverte-te e joga com responsabilidade.">
+    <meta name="description" content="Crash, Blackjack, Dados e Minas com fichas virtuais, sem dinheiro real. Diverte-te e joga com responsabilidade.">
     <link rel="canonical" href="https://obabayaga.com/jogos.html">
     <meta name="theme-color" content="#040d1c">
     <meta name="rating" content="adult">
@@ -14,22 +14,22 @@
     <meta property="og:site_name" content="O BABA YAGA">
     <meta property="og:locale" content="pt_PT">
     <meta property="og:title" content="Minijogos — O BABA YAGA">
-    <meta property="og:description" content="Blackjack, Dados e Minas com fichas virtuais, sem dinheiro real. Diverte-te e joga com responsabilidade.">
+    <meta property="og:description" content="Crash, Blackjack, Dados e Minas com fichas virtuais, sem dinheiro real. Diverte-te e joga com responsabilidade.">
     <meta property="og:url" content="https://obabayaga.com/jogos.html">
     <meta property="og:image" content="https://obabayaga.com/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Minijogos — O BABA YAGA">
-    <meta name="twitter:description" content="Blackjack, Dados e Minas com fichas virtuais, sem dinheiro real. Diverte-te e joga com responsabilidade.">
+    <meta name="twitter:description" content="Crash, Blackjack, Dados e Minas com fichas virtuais, sem dinheiro real. Diverte-te e joga com responsabilidade.">
     <meta name="twitter:image" content="https://obabayaga.com/assets/og-image.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css?v=24">
+    <link rel="stylesheet" href="style.css?v=25">
 </head>
-<body>
+<body data-game="hub">
 <div id="ageGate" class="age-gate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle">
   <div class="age-gate-content">
     <div class="age-gate-icon"><i class="fas fa-user-shield" aria-hidden="true"></i></div>
@@ -62,192 +62,55 @@
 </header>
 <main id="content">
 <section class="panel page-hero">
-  <div class="icon gold"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
-  <div><h1>Minijogos</h1><p>Blackjack, Dados e Minas. Fichas virtuais, sem dinheiro real, só para diversão.</p></div>
+  <div class="icon"><i class="fas fa-gamepad" aria-hidden="true"></i></div>
+  <div><h1>Minijogos</h1><p>Joga com fichas virtuais da comunidade: crash, blackjack, dados e minas. Sem dinheiro real, só diversão.</p></div>
 </section>
+
+<a class="partner-banner" href="casinos.html">
+  <span class="pb-icon"><i class="fas fa-coins" aria-hidden="true"></i></span>
+  <span class="pb-text"><strong>Queres jogar a sério?</strong><small>Bónus exclusivos nos parceiros oficiais do O BABA YAGA</small></span>
+  <span class="btn-gold">Ver parceiros <i class="fas fa-arrow-right" aria-hidden="true"></i></span>
+  <span class="pb-age">18+</span>
+</a>
 <section class="panel">
-  <div class="games-balance-bar">
-                        <div class="balance-info">
-                            <i class="fas fa-coins" aria-hidden="true"></i>
-                            <div>
-                                <span class="balance-label">Saldo</span>
-                                <span class="balance-value" id="balanceDisplay" aria-live="polite">1.000</span>
-                            </div>
-                        </div>
-                        <button class="balance-reset" id="balanceReset">
-                            <i class="fas fa-rotate-right" aria-hidden="true"></i> Repor
-                        </button>
-                    </div>
-
+  
+<div class="balance-box">
+  <div><span class="balance-label">Saldo</span><span class="balance-value"><i class="fas fa-coins" aria-hidden="true"></i> <span data-balance>1.000</span></span></div>
+  <button class="balance-reset" id="balanceReset" type="button"><i class="fas fa-rotate-right" aria-hidden="true"></i> Repor</button>
+</div>
 </section>
-<section class="panel games-section">
-  <div class="games-tabs" id="gamesTabs">
-                    <button class="game-tab active" data-game="blackjack">
-                        <i class="fas fa-heart" aria-hidden="true"></i> Blackjack
-                    </button>
-                    <button class="game-tab" data-game="dice">
-                        <i class="fas fa-dice" aria-hidden="true"></i> Dados
-                    </button>
-                    <button class="game-tab" data-game="mines">
-                        <i class="fas fa-bomb" aria-hidden="true"></i> Minas
-                    </button>
-                </div>
-
-                <!-- BLACKJACK -->
-                <div class="game-panel active" id="panel-blackjack">
-                    <div class="game-card">
-                        <div class="bj-table">
-                            <div class="bj-hand-area">
-                                <div class="bj-hand-label">
-                                    <span>Dealer</span>
-                                    <span class="bj-hand-score" id="dealerScore">0</span>
-                                </div>
-                                <div class="bj-cards" id="dealerCards"></div>
-                            </div>
-
-                            <hr class="bj-divider">
-
-                            <div class="bj-hand-area">
-                                <div class="bj-hand-label">
-                                    <span>A Tua Mão</span>
-                                    <span class="bj-hand-score" id="playerScore">0</span>
-                                </div>
-                                <div class="bj-cards" id="playerCards"></div>
-                            </div>
-
-                            <p class="bj-message" id="bjMessage" aria-live="polite">Faz a tua aposta para começar.</p>
-                        </div>
-
-                        <div class="game-controls">
-                            <div class="bet-control">
-                                <label for="bjBet">Aposta</label>
-                                <div class="bet-input-group">
-                                    <button class="bet-step" data-target="bjBet" data-step="-10" aria-label="Diminuir aposta">−</button>
-                                    <input type="number" id="bjBet" value="50" min="10" step="10">
-                                    <button class="bet-step" data-target="bjBet" data-step="10" aria-label="Aumentar aposta">+</button>
-                                </div>
-                            </div>
-
-                            <div class="game-actions" id="bjPreActions">
-                                <button class="btn-primary" id="bjDealBtn">Distribuir Cartas</button>
-                            </div>
-
-                            <div class="game-actions hidden" id="bjInGameActions">
-                                <button class="btn-secondary" id="bjHitBtn">Pedir Carta</button>
-                                <button class="btn-secondary" id="bjStandBtn">Ficar</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- DICE -->
-                <div class="game-panel" id="panel-dice">
-                    <div class="game-card">
-                        <div class="dice-table">
-                            <div class="dice-result-display">
-                                <span class="dice-result-label">Resultado</span>
-                                <span class="dice-result-value" id="diceResultValue">--</span>
-                            </div>
-
-                            <div class="dice-track-wrapper">
-                                <div class="dice-track">
-                                    <div class="dice-track-fill" id="diceTrackFill"></div>
-                                    <div class="dice-track-marker" id="diceTrackMarker"></div>
-                                </div>
-                                <div class="dice-track-labels">
-                                    <span>0</span>
-                                    <span>25</span>
-                                    <span>50</span>
-                                    <span>75</span>
-                                    <span>100</span>
-                                </div>
-                            </div>
-
-                            <p class="dice-message" id="diceMessage" aria-live="polite">Escolhe um número e roda os dados.</p>
-                        </div>
-
-                        <div class="game-controls">
-                            <div class="dice-config-row">
-                                <div class="bet-control">
-                                    <label for="diceTarget">Rolar abaixo de</label>
-                                    <input type="number" id="diceTarget" value="50" min="2" max="98">
-                                </div>
-                                <div class="bet-control">
-                                    <span class="bet-label" id="diceChanceLabel">Hipótese de Ganhar</span>
-                                    <div class="dice-static-value" id="diceChance" aria-labelledby="diceChanceLabel" aria-live="polite">50.00%</div>
-                                </div>
-                                <div class="bet-control">
-                                    <span class="bet-label" id="diceMultLabel">Multiplicador</span>
-                                    <div class="dice-static-value" id="diceMultiplier" aria-labelledby="diceMultLabel" aria-live="polite">1.9500x</div>
-                                </div>
-                            </div>
-
-                            <div class="bet-control">
-                                <label for="diceBet">Aposta</label>
-                                <div class="bet-input-group">
-                                    <button class="bet-step" data-target="diceBet" data-step="-10" aria-label="Diminuir aposta">−</button>
-                                    <input type="number" id="diceBet" value="50" min="10" step="10">
-                                    <button class="bet-step" data-target="diceBet" data-step="10" aria-label="Aumentar aposta">+</button>
-                                </div>
-                            </div>
-
-                            <div class="game-actions">
-                                <button class="btn-primary" id="diceRollBtn">Rodar Dados</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MINES -->
-                <div class="game-panel" id="panel-mines">
-                    <div class="game-card">
-                        <div class="mines-table">
-                            <div class="mines-grid" id="minesGrid"></div>
-                            <p class="mines-message" id="minesMessage" aria-live="polite">Escolhe o número de minas e começa a jogar.</p>
-                        </div>
-
-                        <div class="game-controls">
-                            <div class="dice-config-row">
-                                <div class="bet-control">
-                                    <label for="minesBet">Aposta</label>
-                                    <div class="bet-input-group">
-                                        <button class="bet-step" data-target="minesBet" data-step="-10" aria-label="Diminuir aposta">−</button>
-                                        <input type="number" id="minesBet" value="50" min="10" step="10">
-                                        <button class="bet-step" data-target="minesBet" data-step="10" aria-label="Aumentar aposta">+</button>
-                                    </div>
-                                </div>
-                                <div class="bet-control">
-                                    <label for="minesCount">Nº de Minas</label>
-                                    <select id="minesCount">
-                                        <option value="3">3</option>
-                                        <option value="5" selected>5</option>
-                                        <option value="10">10</option>
-                                        <option value="15">15</option>
-                                        <option value="24">24</option>
-                                    </select>
-                                </div>
-                                <div class="bet-control">
-                                    <span class="bet-label" id="minesMultLabel">Multiplicador Atual</span>
-                                    <div class="dice-static-value" id="minesMultiplier" aria-labelledby="minesMultLabel" aria-live="polite">1.00x</div>
-                                </div>
-                            </div>
-
-                            <div class="game-actions" id="minesPreActions">
-                                <button class="btn-primary" id="minesStartBtn">Iniciar Jogo</button>
-                            </div>
-
-                            <div class="game-actions hidden" id="minesInGameActions">
-                                <button class="btn-secondary" id="minesCashoutBtn">Recolher <span id="minesCashoutValue"></span></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <p class="games-disclaimer">
-                    <i class="fas fa-circle-info" aria-hidden="true"></i>
-                    Fichas virtuais sem valor real, apenas para diversão. Joga com responsabilidade.
-                </p>
+<div class="hub-grid">
+  <div class="games-grid">
+<a class="game-card-hub" href="crash.html" style="--art: linear-gradient(135deg, #3a0a0a, #b3202a 60%, #ff7a3d)">
+  <div class="gch-art"><i class="fas fa-rocket" aria-hidden="true"></i></div>
+  <div class="gch-body"><strong><i class="fas fa-rocket" aria-hidden="true"></i> Crash</strong><span>Arrisca tudo por multiplicadores massivos. Recolhe antes de rebentar.</span><em class="btn-gold">Jogar</em></div>
+</a>
+<a class="game-card-hub" href="blackjack.html" style="--art: linear-gradient(135deg, #062c1c, #0b6b3a 60%, #1fad7e)">
+  <div class="gch-art"><i class="fas fa-clone" aria-hidden="true"></i></div>
+  <div class="gch-body"><strong><i class="fas fa-clone" aria-hidden="true"></i> Blackjack</strong><span>Vence o dealer e acumula fichas. Paga 3 para 2.</span><em class="btn-gold">Jogar</em></div>
+</a>
+<a class="game-card-hub" href="dados.html" style="--art: linear-gradient(135deg, #0a1a33, #12408a 60%, #00c8ff)">
+  <div class="gch-art"><i class="fas fa-dice" aria-hidden="true"></i></div>
+  <div class="gch-body"><strong><i class="fas fa-dice" aria-hidden="true"></i> Dados</strong><span>Escolhe o alvo, define a hipótese e roda.</span><em class="btn-gold">Jogar</em></div>
+</a>
+<a class="game-card-hub" href="minas.html" style="--art: linear-gradient(135deg, #1a1030, #4a2478 60%, #9146ff)">
+  <div class="gch-art"><i class="fas fa-bomb" aria-hidden="true"></i></div>
+  <div class="gch-body"><strong><i class="fas fa-bomb" aria-hidden="true"></i> Minas</strong><span>Limpa a grelha e foge das minas.</span><em class="btn-gold">Jogar</em></div>
+</a>
+<div class="game-card-hub soon">
+  <div class="gch-art"><i class="fas fa-hourglass-half" aria-hidden="true"></i></div>
+  <div class="gch-body"><strong>Em breve</strong><span>Roleta, Plinko e torneios da comunidade.</span><em class="btn-ghost">Em breve</em></div>
+</div></div>
+  
+<section class="panel">
+  <div class="panel-head"><div><h2 class="panel-title">Histórico</h2><p class="panel-sub">As tuas últimas jogadas · guardadas neste browser</p></div><span class="fair-tag"><i class="fas fa-shield-halved" aria-hidden="true"></i> Fichas virtuais</span></div>
+  <div class="stats-grid stats-inline" id="gameStats"></div>
+  <div class="history-wrap"><table class="history">
+    <thead><tr><th>Jogador</th><th>Aposta</th><th>Jogada</th><th>Resultado</th></tr></thead>
+    <tbody id="historyBody" data-game=""></tbody>
+  </table></div>
 </section>
+</div>
 </main>
 <footer class="footer">
   <div class="footer-top">
@@ -276,8 +139,8 @@
   <iframe id="chatFrame" title="Chat da Twitch do obaba_yaga" loading="lazy" data-channel="obaba_yaga"></iframe>
 </aside>
 </div>
-<script src="script.js?v=24"></script>
-<script src="twitch-auth.js?v=24"></script>
-<script src="games.js?v=24"></script>
+<script src="script.js?v=25"></script>
+<script src="twitch-auth.js?v=25"></script>
+<script src="games.js?v=25"></script>
 </body>
 </html>
