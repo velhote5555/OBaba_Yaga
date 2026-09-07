@@ -243,10 +243,11 @@ if (scheduleGrid) {
   const todayIdx = (new Date().getDay() + 6) % 7; // 0 = segunda
   scheduleGrid.innerHTML = SCHEDULE.map((d, i) => {
     const off = /folga/i.test(d.time);
+    const whatHtml = d.what ? `<span class="what">${d.what}</span>` : (off ? `<span class="what">Sem live</span>` : '');
     return `<div class="day-card${i === todayIdx ? ' today' : ''}${off ? ' off' : ''}">
       <span class="day">${d.day}${i === todayIdx ? ' · hoje' : ''}</span>
       <span class="time">${d.time}</span>
-      <span class="what">${d.what || 'Sem live'}</span>
+      ${whatHtml}
     </div>`;
   }).join('');
 }
