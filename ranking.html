@@ -3,167 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ranking da Comunidade — O BABA YAGA</title>
-    <meta name="description" content="Vê os teus pontos de fidelidade e a tabela classificativa da comunidade do O BABA YAGA na Twitch.">
+    <title>Ranking da comunidade — O BABA YAGA</title>
+    <meta name="description" content="Vê os teus pontos de fidelidade e a tabela classificativa da comunidade do O BABA YAGA.">
     <link rel="canonical" href="https://obabayaga.com/ranking.html">
-    <meta name="theme-color" content="#0a0a0b">
+    <meta name="theme-color" content="#040d1c">
     <meta name="rating" content="adult">
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="assets/og-image.png">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="O BABA YAGA">
     <meta property="og:locale" content="pt_PT">
-    <meta property="og:title" content="Ranking da Comunidade — O BABA YAGA">
-    <meta property="og:description" content="Vê os teus pontos de fidelidade e a tabela classificativa da comunidade do O BABA YAGA na Twitch.">
+    <meta property="og:title" content="Ranking da comunidade — O BABA YAGA">
+    <meta property="og:description" content="Vê os teus pontos de fidelidade e a tabela classificativa da comunidade do O BABA YAGA.">
     <meta property="og:url" content="https://obabayaga.com/ranking.html">
     <meta property="og:image" content="https://obabayaga.com/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Ranking da Comunidade — O BABA YAGA">
-    <meta name="twitter:description" content="Vê os teus pontos de fidelidade e a tabela classificativa da comunidade do O BABA YAGA na Twitch.">
+    <meta name="twitter:title" content="Ranking da comunidade — O BABA YAGA">
+    <meta name="twitter:description" content="Vê os teus pontos de fidelidade e a tabela classificativa da comunidade do O BABA YAGA.">
     <meta name="twitter:image" content="https://obabayaga.com/assets/og-image.png">
-    <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Unbounded:wght@600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css?v=22">
 </head>
 <body>
-    <!-- Age Gate Modal -->
-    <div id="ageGate" class="age-gate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle">
-        <div class="age-gate-content">
-            <div class="age-gate-icon">
-                <i class="fas fa-user-shield" aria-hidden="true"></i>
-            </div>
-            <h2 class="age-gate-title" id="ageGateTitle">Verificação de Idade</h2>
-            <p class="age-gate-text">Este site contém conteúdo relacionado a jogos de azar e é destinado apenas a maiores de 18 anos.</p>
-            <p class="age-gate-question">Confirmas que tens 18 anos ou mais?</p>
-            <div class="age-gate-buttons">
-                <button id="ageConfirm" class="age-btn age-btn-confirm">Sim, tenho +18</button>
-                <button id="ageDeny" class="age-btn age-btn-deny">Não, sou menor</button>
-            </div>
-            <p class="age-gate-warning"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Joga com responsabilidade</p>
-        </div>
+<div id="ageGate" class="age-gate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle">
+  <div class="age-gate-content">
+    <div class="age-gate-icon"><i class="fas fa-user-shield" aria-hidden="true"></i></div>
+    <h2 class="age-gate-title" id="ageGateTitle">Verificação de idade</h2>
+    <p class="age-gate-text">Este site contém conteúdo relacionado com jogos de fortuna e azar e destina-se apenas a maiores de 18 anos.</p>
+    <p class="age-gate-question">Confirmas que tens 18 anos ou mais?</p>
+    <div class="age-gate-buttons">
+      <button id="ageConfirm" class="age-btn age-btn-confirm">Sim, tenho +18</button>
+      <button id="ageDeny" class="age-btn age-btn-deny">Não, sou menor</button>
     </div>
-
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="O BABA YAGA" class="nav-logo">
-                <span class="nav-title">O BABA YAGA</span>
-            </div>
-
-            <div class="nav-menu" id="navMenu">
-                <a href="index.html#home" class="nav-link">Início</a>
-                <a href="index.html#offers" class="nav-link">Patrocínios</a>
-                <a href="index.html#social" class="nav-link">Redes Sociais</a>
-                <a href="jogos.html" class="nav-link">Jogos</a>
-                <a href="ranking.html" class="nav-link active">Ranking</a>
-                <a href="loja.html" class="nav-link">Loja</a>
-                <a href="contacto.html" class="nav-link">Contacto</a>
-            </div>
-
-            <div class="nav-auth" id="navAuth"></div>
-
-            <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
-                <i class="fas fa-bars" aria-hidden="true"></i>
-            </button>
-        </div>
-    </nav>
-
-    <main>
-        <!-- Ranking Hero -->
-        <section class="games-hero">
-            <div class="container">
-                <div class="games-hero-content">
-                    <h1 class="games-hero-title">Ranking</h1>
-                    <p class="games-hero-subtitle">Os pontos de fidelidade e a tua posição na comunidade.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Ranking Section -->
-        <section class="games-section">
-            <div class="container">
-                <div class="page-gate">
-                <div class="gate-content">
-
-                    <!-- O teu lugar no ranking -->
-                    <div class="player-stats-card" id="playerStats"></div>
-
-                    <!-- Tabela do leaderboard -->
-                    <div class="ranking-card">
-                        <div class="ranking-header">
-                            <h2 class="ranking-title"><i class="fas fa-ranking-star" aria-hidden="true"></i> Top da Comunidade</h2>
-                            <button class="player-stats-refresh" id="rankingRefresh" title="Atualizar" aria-label="Atualizar ranking">
-                                <i class="fas fa-rotate-right" aria-hidden="true"></i>
-                            </button>
-                        </div>
-                        <div class="ranking-list" id="rankingList" aria-live="polite">
-                            <p class="ranking-loading">A carregar ranking...</p>
-                        </div>
-                    </div>
-
-                </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="O BABA YAGA">
-                    <div>
-                        <div class="footer-brand-name">O BABA YAGA</div>
-                        <div class="footer-brand-tagline">Casino Streamer</div>
-                    </div>
-                </div>
-                <div class="footer-social">
-                    <a href="https://www.twitch.tv/obaba_yaga" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><i class="fab fa-twitch" aria-hidden="true"></i></a>
-                    <a href="https://discord.gg/fDWqsxheRb" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a>
-                    <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-                    <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a>
-                </div>
-            </div>
-
-            <div class="footer-content">
-                <div class="gambling-logos">
-                    <span class="age-warning" title="Apenas para maiores de 18 anos">18+</span>
-                    <a class="gambleaware" href="https://www.jogoresponsavel.pt/" target="_blank" rel="noopener noreferrer">Jogo Responsável (SRIJ)</a>
-                    <a class="responsible" href="https://www.sicad.pt/" target="_blank" rel="noopener noreferrer">SICAD · Linha Vida 1414</a>
-                    <a class="gambleaware" href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware</a>
-                </div>
-
-                <div class="warning-box">
-                    <div class="warning-header">
-                        <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
-                        <span>Aviso Importante</span>
-                    </div>
-                    <p class="warning-text">
-                        O jogo deve ser visto como uma forma de entretenimento, não uma forma de ganhar dinheiro. Joga apenas com dinheiro que podes perder. Se sentes que estás a perder o controlo, procura ajuda: <a href="https://www.jogoresponsavel.pt/" target="_blank" rel="noopener noreferrer">jogoresponsavel.pt</a> ou Linha Vida <a href="tel:1414">1414</a>. Todos os bónus mostrados neste site têm termos e condições aplicáveis.
-                    </p>
-                    <p class="warning-text affiliate-disclosure">
-                        <strong>Transparência:</strong> os links para casinos neste site são links de afiliado. Se te registares através deles, o O BABA YAGA pode receber uma comissão, sem custo adicional para ti. Confirma sempre se o operador está autorizado no teu país antes de jogares.
-                    </p>
-                </div>
-
-                <div class="footer-bottom">
-                    <p>© <span id="year">2026</span> O BABA YAGA · Casino Streamer. Todos os direitos reservados.</p>
-                    <div class="footer-links">
-                        <a href="termos.html">Termos de Uso</a>
-                        <a href="privacidade.html">Privacidade</a>
-                        <a href="contacto.html">Contacto</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="script.js?v=12"></script>
-    <script src="twitch-auth.js?v=2"></script>
+    <p class="age-gate-warning"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Joga com responsabilidade</p>
+  </div>
+</div>
+<div class="backdrop" id="backdrop"></div>
+<div class="app has-chat" id="app">
+<aside class="sidebar" id="sidebar" aria-label="Navegação principal">
+  <a class="sidebar-brand" href="index.html"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt="" width="64" height="64"><span>OBABA_<em>YAGA</em></span></a>
+  <nav><div class="sidebar-group">Principal</div><a class="sidebar-link" href="index.html"><i class="fas fa-house" aria-hidden="true"></i>Início</a><a class="sidebar-link" href="casinos.html"><i class="fas fa-gift" aria-hidden="true"></i>Casinos</a><a class="sidebar-link" href="comunidade.html"><i class="fas fa-users" aria-hidden="true"></i>Comunidade</a><a class="sidebar-link" href="loja.html"><i class="fas fa-cart-shopping" aria-hidden="true"></i>Loja</a><div class="sidebar-group">Live</div><a class="sidebar-link" href="index.html#live"><i class="fas fa-tower-broadcast" aria-hidden="true"></i>Live Hub<span class="pill live" id="navLivePill" hidden>LIVE</span></a><a class="sidebar-link active" href="ranking.html"><i class="fas fa-trophy" aria-hidden="true"></i>Ranking</a><div class="sidebar-group">Ferramentas</div><a class="sidebar-link" href="jogos.html"><i class="fas fa-gamepad" aria-hidden="true"></i>Minijogos</a><a class="sidebar-link" href="contacto.html"><i class="fas fa-envelope" aria-hidden="true"></i>Contacto</a></nav>
+  <div class="sidebar-socials"><a href="https://www.twitch.tv/obaba_yaga" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><i class="fab fa-twitch" aria-hidden="true"></i></a><a href="https://discord.gg/fDWqsxheRb" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a><a href="https://www.instagram.com/obaba_yaga75/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></div>
+</aside>
+<div class="main">
+<header class="topbar">
+  <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="sidebar"><i class="fas fa-bars" aria-hidden="true"></i></button>
+  <div class="crumb"><small>Estás em</small><strong>Ranking</strong></div>
+  <form class="search" role="search" action="casinos.html" method="get"><i class="fas fa-magnifying-glass" aria-hidden="true"></i><input type="search" name="q" id="siteSearch" placeholder="Pesquisar casinos, ofertas, códigos..." autocomplete="off" aria-label="Pesquisar"></form>
+  <div class="topbar-actions">
+    <div class="nav-auth" id="navAuth"></div>
+    <button class="chat-toggle" id="chatToggle" aria-label="Abrir chat da comunidade"><i class="fas fa-comments" aria-hidden="true"></i></button>
+  </div>
+</header>
+<main id="content">
+<section class="panel page-hero">
+  <div class="icon gold"><i class="fas fa-trophy" aria-hidden="true"></i></div>
+  <div><h1>Ranking da comunidade</h1><p>Os pontos de fidelidade e a tua posição entre os membros mais ativos.</p></div>
+</section>
+<div class="player-stats-card" id="playerStats"></div>
+<section class="panel ranking-card">
+  <div class="ranking-header">
+    <h2 class="ranking-title"><i class="fas fa-ranking-star" aria-hidden="true"></i> Top da comunidade</h2>
+    <button class="player-stats-refresh" id="rankingRefresh" title="Atualizar" aria-label="Atualizar ranking"><i class="fas fa-rotate-right" aria-hidden="true"></i></button>
+  </div>
+  <div class="ranking-list" id="rankingList" aria-live="polite"><p class="ranking-loading">A carregar ranking...</p></div>
+</section>
+</main>
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand"><img src="https://static-cdn.jtvnw.net/jtv_user_pictures/fd8e088f-6a39-4c5d-aaa6-d86b92ac3859-profile_image-150x150.png" alt=""><div><div class="footer-brand-name">O Baba Yaga</div><div class="footer-brand-tagline">Casino Streamer · Twitch</div></div></div>
+    <div class="footer-social"><a href="https://www.twitch.tv/obaba_yaga" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><i class="fab fa-twitch" aria-hidden="true"></i></a><a href="https://discord.gg/fDWqsxheRb" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a><a href="https://www.instagram.com/obaba_yaga75/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a><a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a></div>
+  </div>
+  <div class="gambling-logos">
+    <span class="age-warning" title="Apenas para maiores de 18 anos">18+</span>
+    <a href="https://www.jogoresponsavel.pt/" target="_blank" rel="noopener noreferrer">Jogo Responsável (SRIJ)</a>
+    <a href="https://www.sicad.pt/" target="_blank" rel="noopener noreferrer">SICAD · Linha Vida 1414</a>
+    <a href="https://www.begambleaware.org/" target="_blank" rel="noopener noreferrer">BeGambleAware</a>
+  </div>
+  <div>
+    <div class="warning-header"><i class="fas fa-triangle-exclamation" aria-hidden="true"></i> Aviso importante</div>
+    <p class="warning-text">Este site apresenta e compara ofertas de bónus de vários operadores de jogo. Destina-se exclusivamente a adultos, em países onde a utilização dos operadores apresentados é legalmente permitida. Não organizamos jogos de fortuna e azar nem aceitamos apostas. A informação é verificada com cuidado, mas sem garantia de estar completa, exata ou atualizada. O jogo é entretenimento, não uma fonte de rendimento, e pode criar dependência. Se sentes que estás a perder o controlo, procura ajuda em <a href="https://www.jogoresponsavel.pt/" target="_blank" rel="noopener noreferrer">jogoresponsavel.pt</a> ou na Linha Vida <a href="tel:1414">1414</a>.</p>
+    <p class="warning-text affiliate-disclosure"><strong>Transparência:</strong> os links para casinos são links de afiliado. Se te registares através deles, o O BABA YAGA pode receber uma comissão, sem custo adicional para ti. Confirma sempre se o operador está autorizado no teu país antes de jogares.</p>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="year">2026</span> O Baba Yaga · Joga com responsabilidade. 18+</p>
+    <div class="footer-links"><a href="termos.html">Termos e Condições</a><a href="privacidade.html">Política de Privacidade</a><a href="cookies.html">Política de Cookies</a><a href="contacto.html">Contacto</a></div>
+  </div>
+</footer>
+</div>
+<aside class="chat" id="chat" aria-label="Chat da comunidade">
+  <div class="chat-head"><i class="fas fa-comment" aria-hidden="true"></i><span>Chat da comunidade <em class="live" id="chatLive">● OFFLINE</em></span><button class="chat-collapse" id="chatCollapse" aria-label="Recolher chat"><i class="fas fa-chevron-right" aria-hidden="true"></i></button></div>
+  <iframe id="chatFrame" title="Chat da Twitch do obaba_yaga" loading="lazy" data-channel="obaba_yaga"></iframe>
+</aside>
+</div>
+<script src="script.js?v=22"></script>
+<script src="twitch-auth.js?v=22"></script>
 </body>
 </html>

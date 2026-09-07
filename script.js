@@ -95,27 +95,70 @@ function schedulePromoPopup() {
 }
 
 // -------------------------------------------------------------------
-// Navegação
+// Layout: sidebar (mobile), chat da comunidade, pesquisa
 // -------------------------------------------------------------------
-const navToggle = document.getElementById('navToggle');
-const navMenu = document.getElementById('navMenu');
-const navLinks = document.querySelectorAll('.nav-link');
-const navbar = document.querySelector('.navbar');
+const sidebar = document.getElementById('sidebar');
+const menuToggle = document.getElementById('menuToggle');
+const backdrop = document.getElementById('backdrop');
+const chatPanel = document.getElementById('chat');
+const chatToggle = document.getElementById('chatToggle');
+const chatCollapse = document.getElementById('chatCollapse');
+const app = document.getElementById('app');
+const navLinks = document.querySelectorAll('.sidebar-link');
 
-function setMenu(open) {
-  navMenu.classList.toggle('active', open);
-  const icon = navToggle.querySelector('i');
-  icon.classList.toggle('fa-bars', !open);
-  icon.classList.toggle('fa-times', open);
-  navToggle.setAttribute('aria-expanded', String(open));
-  navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+function closeOverlays() {
+  if (sidebar) sidebar.classList.remove('open');
+  if (chatPanel) chatPanel.classList.remove('open');
+  if (backdrop) backdrop.classList.remove('show');
+  if (menuToggle) menuToggle.setAttribute('aria-expanded', 'false');
 }
 
-if (navToggle && navMenu) {
-  navToggle.addEventListener('click', () => setMenu(!navMenu.classList.contains('active')));
-  navLinks.forEach((link) => link.addEventListener('click', () => {
-    if (navMenu.classList.contains('active')) setMenu(false);
-  }));
+if (menuToggle && sidebar) {
+  menuToggle.addEventListener('click', () => {
+    const open = !sidebar.classList.contains('open');
+    closeOverlays();
+    if (open) { sidebar.classList.add('open'); backdrop.classList.add('show'); }
+    menuToggle.setAttribute('aria-expanded', String(open));
+  });
+}
+
+if (chatToggle && chatPanel) {
+  chatToggle.addEventListener('click', () => {
+    const open = !chatPanel.classList.contains('open');
+    closeOverlays();
+    if (open) { chatPanel.classList.add('open'); backdrop.classList.add('show'); }
+  });
+}
+
+if (backdrop) backdrop.addEventListener('click', closeOverlays);
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeOverlays(); });
+navLinks.forEach((l) => l.addEventListener('click', closeOverlays));
+
+// Chat da Twitch: o "parent" tem de ser o domínio atual
+const chatFrame = document.getElementById('chatFrame');
+if (chatFrame) {
+  const hosts = new Set(['obabayaga.com', 'www.obabayaga.com', window.location.hostname]);
+  const parents = [...hosts].filter(Boolean).map((h) => 'parent=' + encodeURIComponent(h)).join('&');
+  chatFrame.src = `https://www.twitch.tv/embed/${chatFrame.dataset.channel}/chat?${parents}&darkpopout`;
+}
+
+// Recolher / expandir o painel do chat em desktop (lembra a escolha)
+if (chatCollapse && app) {
+  const KEY = 'obaba_chat_collapsed';
+  const apply = (collapsed) => {
+    app.classList.toggle('chat-collapsed', collapsed);
+    chatCollapse.setAttribute('aria-label', collapsed ? 'Expandir chat' : 'Recolher chat');
+    chatCollapse.querySelector('i').className = collapsed ? 'fas fa-chevron-left' : 'fas fa-chevron-right';
+  };
+  let collapsed = false;
+  try { collapsed = localStorage.getItem(KEY) === '1'; } catch (e) { /* ignora */ }
+  apply(collapsed);
+  chatCollapse.addEventListener('click', () => {
+    if (chatPanel.classList.contains('open')) { closeOverlays(); return; }
+    collapsed = !app.classList.contains('chat-collapsed');
+    apply(collapsed);
+    try { localStorage.setItem(KEY, collapsed ? '1' : '0'); } catch (e) { /* ignora */ }
+  });
 }
 
 // Scroll suave para âncoras da própria página
@@ -124,47 +167,88 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
     const target = document.querySelector(this.getAttribute('href'));
     if (!target) return;
     e.preventDefault();
-    const top = target.getBoundingClientRect().top + window.pageYOffset - navbar.offsetHeight;
-    window.scrollTo({ top, behavior: 'smooth' });
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
 
-// Botões que abrem links externos (afiliados, Twitch)
-document.querySelectorAll('[data-link]').forEach((el) => {
-  el.addEventListener('click', function () {
-    window.open(this.getAttribute('data-link'), '_blank', 'noopener,noreferrer');
+// -------------------------------------------------------------------
+// Ofertas: filtros, pesquisa e "mais info"
+// -------------------------------------------------------------------
+const offerCards = document.querySelectorAll('.offer-card');
+const filterBtns = document.querySelectorAll('.filter-btn');
+const searchInput = document.getElementById('siteSearch');
+const searchForm = document.querySelector('.search');
+let activeFilter = 'all';
+let query = '';
+
+function applyOfferFilters() {
+  let shown = 0;
+  offerCards.forEach((card) => {
+    const cats = card.dataset.cats || '';
+    const hay = (card.dataset.name + ' ' + card.innerText).toLowerCase();
+    const okFilter = activeFilter === 'all' || cats.split(' ').includes(activeFilter);
+    const okQuery = !query || hay.includes(query);
+    card.classList.toggle('is-hidden', !(okFilter && okQuery));
+    if (okFilter && okQuery) shown++;
   });
-});
-
-// Sombra da navbar + link ativo + parallax, num único listener (throttled)
-const heroBg = document.querySelector('.hero-bg');
-const sections = document.querySelectorAll('section[id]');
-let ticking = false;
-
-function onScroll() {
-  const y = window.pageYOffset;
-  navbar.style.boxShadow = y <= 0 ? 'none' : '0 4px 6px -1px rgba(0, 0, 0, 0.3)';
-  if (heroBg) heroBg.style.transform = `translateX(-50%) translateY(${y * 0.5}px)`;
-  updateActiveNavLink(y);
-  ticking = false;
+  const empty = document.getElementById('noResults');
+  if (empty) empty.hidden = shown > 0;
 }
 
-window.addEventListener('scroll', () => {
-  if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
-}, { passive: true });
+filterBtns.forEach((btn) => btn.addEventListener('click', () => {
+  filterBtns.forEach((b) => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeFilter = btn.dataset.filter;
+  applyOfferFilters();
+}));
 
-function updateActiveNavLink(y) {
-  if (!sections.length) return;
-  const navbarHeight = navbar.offsetHeight;
-  sections.forEach((section) => {
-    const top = section.offsetTop - navbarHeight - 100;
-    const bottom = top + section.offsetHeight;
-    if (y >= top && y < bottom) {
-      navLinks.forEach((l) => l.classList.remove('active'));
-      const current = document.querySelector(`.nav-link[href="#${section.id}"]`);
-      if (current) current.classList.add('active');
-    }
-  });
+if (searchInput) {
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('q')) { query = params.get('q').toLowerCase(); searchInput.value = params.get('q'); }
+  searchInput.addEventListener('input', () => { query = searchInput.value.trim().toLowerCase(); applyOfferFilters(); });
+  if (searchForm && offerCards.length) searchForm.addEventListener('submit', (e) => e.preventDefault());
+  if (query) applyOfferFilters();
+}
+
+document.querySelectorAll('.more-btn').forEach((btn) => btn.addEventListener('click', () => {
+  const card = btn.closest('.offer-card');
+  const open = card.classList.toggle('open');
+  btn.setAttribute('aria-expanded', String(open));
+  btn.innerHTML = open
+    ? 'Menos info <i class="fas fa-chevron-up" aria-hidden="true"></i>'
+    : 'Mais info <i class="fas fa-chevron-down" aria-hidden="true"></i>';
+}));
+
+// Abrir automaticamente o cartão referido na âncora (casinos.html#offer-x)
+if (window.location.hash.startsWith('#offer-')) {
+  const target = document.querySelector(window.location.hash);
+  if (target) { target.classList.add('open'); setTimeout(() => target.scrollIntoView({ block: 'center' }), 100); }
+}
+
+// -------------------------------------------------------------------
+// Horário das lives — EDITA AQUI (hora local de Portugal)
+// -------------------------------------------------------------------
+const SCHEDULE = [
+  { day: 'Segunda', time: '21:00 – 01:00', what: 'Slots & bonus hunt' },
+  { day: 'Terça', time: '21:00 – 01:00', what: 'Slots & bonus hunt' },
+  { day: 'Quarta', time: 'Folga', what: '' },
+  { day: 'Quinta', time: '21:00 – 01:00', what: 'Slots & bonus hunt' },
+  { day: 'Sexta', time: '21:00 – 02:00', what: 'Bonus buys + giveaway' },
+  { day: 'Sábado', time: '22:00 – 02:00', what: 'Live especial' },
+  { day: 'Domingo', time: 'Folga', what: '' },
+];
+
+const scheduleGrid = document.getElementById('scheduleGrid');
+if (scheduleGrid) {
+  const todayIdx = (new Date().getDay() + 6) % 7; // 0 = segunda
+  scheduleGrid.innerHTML = SCHEDULE.map((d, i) => {
+    const off = /folga/i.test(d.time);
+    return `<div class="day-card${i === todayIdx ? ' today' : ''}${off ? ' off' : ''}">
+      <span class="day">${d.day}${i === todayIdx ? ' · hoje' : ''}</span>
+      <span class="time">${d.time}</span>
+      <span class="what">${d.what || 'Sem live'}</span>
+    </div>`;
+  }).join('');
 }
 
 // -------------------------------------------------------------------
@@ -265,6 +349,10 @@ function setLiveUI(isLive) {
   if (offlineCard) offlineCard.classList.toggle('visible', !isLive);
   if (liveBadge) liveBadge.classList.toggle('live-active', isLive);
   if (liveText) liveText.textContent = isLive ? 'AO VIVO' : 'OFFLINE';
+  const pill = document.getElementById('navLivePill');
+  if (pill) pill.hidden = !isLive;
+  const chatLive = document.getElementById('chatLive');
+  if (chatLive) { chatLive.textContent = isLive ? '● LIVE' : '● OFFLINE'; chatLive.style.color = isLive ? '' : 'var(--muted)'; }
 }
 
 function checkTwitchStreamStatus() {
@@ -281,7 +369,7 @@ function checkTwitchStreamStatus() {
         if (container) container.innerHTML = '';
         setLiveUI(false);
       } else {
-        loadTwitchIframe();
+        if (document.getElementById('twitch-embed-container')) loadTwitchIframe();
         setLiveUI(true);
       }
     })
@@ -302,7 +390,7 @@ function initializeApp() {
     setInterval(fetchFollowerCount, FOLLOWER_CHECK_INTERVAL);
   }
 
-  if (document.getElementById('twitch-embed-container')) {
+  if (document.getElementById('twitch-embed-container') || document.getElementById('navLivePill')) {
     setLiveUI(false);
     checkTwitchStreamStatus();
     setInterval(checkTwitchStreamStatus, STREAM_CHECK_INTERVAL);
@@ -312,7 +400,6 @@ function initializeApp() {
     });
   }
 
-  updateActiveNavLink(window.pageYOffset);
 }
 
 if (document.readyState === 'loading') {

@@ -423,7 +423,7 @@ function renderMinesGrid(revealAll) {
       cell.classList.add(minesBoard[i] ? 'mines-cell-bomb' : 'mines-cell-safe');
       cell.innerHTML = minesBoard[i] ? '<i class="fas fa-bomb"></i>' : '<i class="fas fa-gem"></i>';
     } else if (revealAll) {
-      cell.classList.add(minesBoard[i] ? 'mines-cell-bomb-dim' : '');
+      if (minesBoard[i]) cell.classList.add('mines-cell-bomb-dim');
       cell.innerHTML = minesBoard[i] ? '<i class="fas fa-bomb"></i>' : '';
       cell.disabled = true;
     } else {

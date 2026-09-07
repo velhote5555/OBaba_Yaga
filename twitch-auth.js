@@ -259,7 +259,7 @@ const TwitchAuth = (function () {
     } else {
       slot.innerHTML = `
         <button class="nav-login-btn" id="navLoginBtn">
-          <i class="fab fa-twitch" aria-hidden="true"></i> Entrar com Twitch
+          <i class="fab fa-twitch" aria-hidden="true"></i> <span>Entrar com Twitch</span>
         </button>
       `;
       document.getElementById('navLoginBtn').addEventListener('click', login);
