@@ -1,486 +1,322 @@
-console.log('Script.js carregado!');
+// ===================================================================
+// OBABA_YAGA — script principal (navegação, verificação de idade,
+// popup promocional, estado da stream, contadores)
+// ===================================================================
 
-// Age Gate functionality
-(function() {
+const TWITCH_CHANNEL = 'obaba_yaga';
+const STREAM_CHECK_INTERVAL = 60 * 1000;      // 60 s (a DecAPI bloqueia pedidos abusivos)
+const FOLLOWER_CHECK_INTERVAL = 5 * 60 * 1000; // 5 min
+const PROMO_DELAY = 5000;                      // popup só 5 s depois de entrar
+const RESPONSIBLE_GAMBLING_URL = 'https://www.jogoresponsavel.pt/';
+
+// -------------------------------------------------------------------
+// Verificação de idade
+// -------------------------------------------------------------------
+(function initAgeGate() {
   const ageGate = document.getElementById('ageGate');
   const ageConfirm = document.getElementById('ageConfirm');
   const ageDeny = document.getElementById('ageDeny');
   const STORAGE_KEY = 'obaba_age_verified';
 
-  // If this page has no age gate markup, never lock scrolling
+  // Páginas sem verificação de idade (ex.: contacto) nunca bloqueiam o scroll
   if (!ageGate || !ageConfirm || !ageDeny) {
     document.body.style.overflow = '';
-    if (typeof showPromoPopup === 'function') showPromoPopup();
+    schedulePromoPopup();
     return;
   }
 
-  // Check if already verified
-  if (localStorage.getItem(STORAGE_KEY) === 'true') {
+  let verified = false;
+  try { verified = localStorage.getItem(STORAGE_KEY) === 'true'; } catch (e) { /* storage indisponível */ }
+
+  if (verified) {
     ageGate.classList.add('hidden');
     document.body.style.overflow = '';
-    showPromoPopup();
-  } else {
-    document.body.style.overflow = 'hidden';
+    schedulePromoPopup();
+    return;
   }
 
-  // Confirm age (18+)
-  ageConfirm.addEventListener('click', function() {
-    localStorage.setItem(STORAGE_KEY, 'true');
+  document.body.style.overflow = 'hidden';
+  ageConfirm.focus();
+
+  // Mantém o foco dentro do modal (acessibilidade)
+  ageGate.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = [ageConfirm, ageDeny];
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  ageConfirm.addEventListener('click', () => {
+    try { localStorage.setItem(STORAGE_KEY, 'true'); } catch (e) { /* ignora */ }
     ageGate.style.animation = 'fadeOut 0.3s ease forwards';
     setTimeout(() => {
       ageGate.classList.add('hidden');
       document.body.style.overflow = '';
-      showPromoPopup();
+      schedulePromoPopup();
     }, 300);
   });
 
-  // Deny (under 18)
-  ageDeny.addEventListener('click', function() {
-    window.location.href = 'https://www.youtube.com/watch?v=HjiSPhGthHI&list=RDHjiSPhGthHI&start_radio=1';
+  ageDeny.addEventListener('click', () => {
+    window.location.href = RESPONSIBLE_GAMBLING_URL;
   });
 })();
 
-// 22bit Promo Popup functionality
-function showPromoPopup() {
+// -------------------------------------------------------------------
+// Popup promocional (uma vez por sessão, com atraso)
+// -------------------------------------------------------------------
+function schedulePromoPopup() {
   const promoPopup = document.getElementById('promoPopup');
-  const promoClose = document.getElementById('promoClose');
   if (!promoPopup) return;
 
   const SESSION_KEY = 'obaba_promo_shown';
-  if (sessionStorage.getItem(SESSION_KEY) === 'true') return;
+  try { if (sessionStorage.getItem(SESSION_KEY) === 'true') return; } catch (e) { /* ignora */ }
 
-  promoPopup.classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-  sessionStorage.setItem(SESSION_KEY, 'true');
+  setTimeout(() => {
+    try { sessionStorage.setItem(SESSION_KEY, 'true'); } catch (e) { /* ignora */ }
+    promoPopup.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
 
-  function closePromo() {
-    promoPopup.classList.add('hidden');
-    document.body.style.overflow = '';
-  }
+    const promoClose = document.getElementById('promoClose');
+    if (promoClose) promoClose.focus();
 
-  promoClose.addEventListener('click', closePromo);
-  promoPopup.addEventListener('click', function(e) {
-    if (e.target === promoPopup) closePromo();
-  });
+    function closePromo() {
+      promoPopup.classList.add('hidden');
+      document.body.style.overflow = '';
+      document.removeEventListener('keydown', onKey);
+    }
+    function onKey(e) { if (e.key === 'Escape') closePromo(); }
+
+    if (promoClose) promoClose.addEventListener('click', closePromo);
+    promoPopup.addEventListener('click', (e) => { if (e.target === promoPopup) closePromo(); });
+    document.addEventListener('keydown', onKey);
+  }, PROMO_DELAY);
 }
 
-// Cache DOM elements
+// -------------------------------------------------------------------
+// Navegação
+// -------------------------------------------------------------------
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
 const navLinks = document.querySelectorAll('.nav-link');
 const navbar = document.querySelector('.navbar');
 
-// Toggle mobile menu
-navToggle.addEventListener('click', toggleMenu);
-
-function toggleMenu() {
-  navMenu.classList.toggle('active');
+function setMenu(open) {
+  navMenu.classList.toggle('active', open);
   const icon = navToggle.querySelector('i');
-  icon.classList.toggle('fa-bars');
-  icon.classList.toggle('fa-times');
+  icon.classList.toggle('fa-bars', !open);
+  icon.classList.toggle('fa-times', open);
+  navToggle.setAttribute('aria-expanded', String(open));
+  navToggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
 }
 
-// Close mobile menu when clicking on links
-navLinks.forEach(link => {
-  link.addEventListener('click', () => {
-    if (navMenu.classList.contains('active')) {
-      navMenu.classList.remove('active');
-      navToggle.querySelector('i').classList.add('fa-bars');
-      navToggle.querySelector('i').classList.remove('fa-times');
-    }
-  });
-});
+if (navToggle && navMenu) {
+  navToggle.addEventListener('click', () => setMenu(!navMenu.classList.contains('active')));
+  navLinks.forEach((link) => link.addEventListener('click', () => {
+    if (navMenu.classList.contains('active')) setMenu(false);
+  }));
+}
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+// Scroll suave para âncoras da própria página
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   anchor.addEventListener('click', function (e) {
-    e.preventDefault();
     const target = document.querySelector(this.getAttribute('href'));
-    
-    if (target) {
-      const navbarHeight = navbar.offsetHeight;
-      const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-      
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
+    if (!target) return;
+    e.preventDefault();
+    const top = target.getBoundingClientRect().top + window.pageYOffset - navbar.offsetHeight;
+    window.scrollTo({ top, behavior: 'smooth' });
   });
 });
 
-// Handle external links
-document.querySelectorAll('[data-link]').forEach(element => {
-  element.addEventListener('click', function() {
-    window.open(this.getAttribute('data-link'), '_blank');
+// Botões que abrem links externos (afiliados, Twitch)
+document.querySelectorAll('[data-link]').forEach((el) => {
+  el.addEventListener('click', function () {
+    window.open(this.getAttribute('data-link'), '_blank', 'noopener,noreferrer');
   });
 });
 
+// Sombra da navbar + link ativo + parallax, num único listener (throttled)
+const heroBg = document.querySelector('.hero-bg');
+const sections = document.querySelectorAll('section[id]');
+let ticking = false;
 
-
-// Add scroll effect to navbar
-window.addEventListener('scroll', function() {
-  const currentScroll = window.pageYOffset;
-  navbar.style.boxShadow = currentScroll <= 0 ? 'none' : '0 4px 6px -1px rgba(0, 0, 0, 0.3)';
-});
-
-// Intersection Observer for fade-in animations
-const observerOptions = {
-  threshold: 0.1,
-  rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
-      entry.target.style.opacity = '1';
-    }
-  });
-}, observerOptions);
-
-// Observe elements for animations
-document.querySelectorAll('.stat-card, .offer-card').forEach(el => {
-  el.style.opacity = '0';
-  observer.observe(el);
-});
-
-// Counter animation for stats
-function animateCounter(element, target, duration = 2000) {
-  const start = 0;
-  const increment = target / (duration / 16);
-  let current = start;
-  const isFollowers = element.id === 'followerCount';
-  
-  const timer = setInterval(() => {
-    current += increment;
-    if (current >= target) {
-      // Format the number - add '+' only for followers
-      if (isFollowers) {
-        element.textContent = '+' + formatNumber(target);
-      } else {
-        element.textContent = '+' + formatNumber(target);
-      }
-      clearInterval(timer);
-    } else {
-      // Format the number - add '+' only for followers
-      if (isFollowers) {
-        element.textContent = '+' + formatNumber(Math.floor(current));
-      } else {
-        element.textContent = '+' + formatNumber(Math.floor(current));
-      }
-    }
-  }, 16);
+function onScroll() {
+  const y = window.pageYOffset;
+  navbar.style.boxShadow = y <= 0 ? 'none' : '0 4px 6px -1px rgba(0, 0, 0, 0.3)';
+  if (heroBg) heroBg.style.transform = `translateX(-50%) translateY(${y * 0.5}px)`;
+  updateActiveNavLink(y);
+  ticking = false;
 }
 
-// Format number with K/M suffix
-function formatNumber(num) {
-  if (num >= 1000000) {
-    return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
-  } else if (num >= 1000) {
-    return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-  } else {
-    return num.toString();
-  }
+window.addEventListener('scroll', () => {
+  if (!ticking) { window.requestAnimationFrame(onScroll); ticking = true; }
+}, { passive: true });
+
+function updateActiveNavLink(y) {
+  if (!sections.length) return;
+  const navbarHeight = navbar.offsetHeight;
+  sections.forEach((section) => {
+    const top = section.offsetTop - navbarHeight - 100;
+    const bottom = top + section.offsetHeight;
+    if (y >= top && y < bottom) {
+      navLinks.forEach((l) => l.classList.remove('active'));
+      const current = document.querySelector(`.nav-link[href="#${section.id}"]`);
+      if (current) current.classList.add('active');
+    }
+  });
 }
 
-// Fetch real-time follower count from Twitch using DecAPI
-function fetchFollowerCount() {
-  const followerElement = document.getElementById('followerCount');
-  
-  if (!followerElement) return;
-  
-  // Using DecAPI - a free API that provides Twitch stats
-  fetch('https://decapi.me/twitch/followcount/obaba_yaga')
-    .then(response => response.text())
-    .then(count => {
-      const followerCount = parseInt(count.trim());
-      
-      if (!isNaN(followerCount)) {
-        // Animate the counter
-        animateCounter(followerElement, followerCount, 2000);
-        console.log('Follower count fetched:', followerCount);
-      } else {
-        // Fallback if API returns non-number
-        followerElement.textContent = '1K+';
-        console.log('Could not parse follower count:', count);
+// -------------------------------------------------------------------
+// Animações de entrada
+// -------------------------------------------------------------------
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (!reduceMotion) {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+        entry.target.style.opacity = '1';
+        observer.unobserve(entry.target);
       }
-    })
-    .catch(err => {
-      console.log('Error fetching follower count:', err);
-      followerElement.textContent = '1K+';
     });
-}
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
-// Update follower count periodically (every 5 minutes)
-function startFollowerUpdates() {
-  // Fetch immediately
-  fetchFollowerCount();
-  
-  // Then update every 5 minutes (300000ms)
-  setInterval(fetchFollowerCount, 300000);
-}
-
-// Observe stats section for counter animation
-const statsObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const statValues = entry.target.querySelectorAll('.ticker-value[data-target]');
-      statValues.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        animateCounter(stat, target);
-      });
-      statsObserver.unobserve(entry.target);
-    }
+  document.querySelectorAll('.stat-card, .offer-card').forEach((el) => {
+    el.style.opacity = '0';
+    observer.observe(el);
   });
-}, { threshold: 0.5 });
+}
+
+// -------------------------------------------------------------------
+// Contadores (ticker)
+// -------------------------------------------------------------------
+function formatNumber(num) {
+  // 1300 -> "1.300" (coerente com os valores escritos no HTML)
+  return String(Math.round(num)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+}
+
+function animateCounter(element, target, duration = 2000) {
+  if (reduceMotion) { element.textContent = '+' + formatNumber(target); return; }
+  const start = performance.now();
+  function step(now) {
+    const progress = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    element.textContent = '+' + formatNumber(target * eased);
+    if (progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
 
 const statsSection = document.querySelector('.hero-ticker');
 if (statsSection) {
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      entry.target.querySelectorAll('.ticker-value[data-target]').forEach((stat) => {
+        animateCounter(stat, parseInt(stat.getAttribute('data-target'), 10));
+      });
+      statsObserver.unobserve(entry.target);
+    });
+  }, { threshold: 0.5 });
   statsObserver.observe(statsSection);
 }
 
-// Parallax effect for hero background
-window.addEventListener('scroll', function() {
-  const heroBg = document.querySelector('.hero-bg');
-  if (heroBg) {
-    const scrolled = window.pageYOffset;
-    heroBg.style.transform = `translateX(-50%) translateY(${scrolled * 0.5}px)`;
-  }
-});
-
-// Add active state to navigation based on scroll position
-function updateActiveNavLink() {
-  const sections = document.querySelectorAll('section[id]');
-  const navbarHeight = navbar.offsetHeight;
-  
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - navbarHeight - 100;
-    const sectionBottom = sectionTop + section.offsetHeight;
-    const scrollPosition = window.pageYOffset;
-    
-    if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-      navLinks.forEach(link => link.classList.remove('active'));
-      
-      const currentLink = document.querySelector(`.nav-link[href="#${section.id}"]`);
-      if (currentLink) {
-        currentLink.classList.add('active');
-      }
-    }
-  });
+// Followers em tempo real (DecAPI, sem chave)
+function fetchFollowerCount() {
+  const el = document.getElementById('followerCount');
+  if (!el) return;
+  fetch(`https://decapi.me/twitch/followcount/${TWITCH_CHANNEL}`)
+    .then((r) => r.text())
+    .then((text) => {
+      const count = parseInt(text.trim(), 10);
+      if (!isNaN(count)) animateCounter(el, count, 2000);
+      else el.textContent = '+1.000';
+    })
+    .catch(() => { el.textContent = '+1.000'; });
 }
 
-
-window.addEventListener('scroll', updateActiveNavLink);
-
-// Check if stream is live FIRST, then decide whether to load embed
-function checkStreamStatus() {
-  console.log('Verificando status da stream...');
-  checkTwitchStreamStatus();
-}
-
-// Track stream state to avoid unnecessary reloads
+// -------------------------------------------------------------------
+// Estado da stream (só na página com player)
+// -------------------------------------------------------------------
 let currentStreamState = null;
 
-// Carregar o embed do Twitch (only called when stream is live)
-let twitchEmbed = null;
-
-function loadTwitchEmbed() {
-  const container = document.getElementById('twitch-embed-container');
-  if (!container) return;
-
-  const parent = window.location.hostname;
-
-  container.innerHTML = '';
-
-  try {
-    if (!window.Twitch || !window.Twitch.Embed) {
-      console.log('Twitch Embed not available, using iframe fallback');
-      loadTwitchIframe();
-      return;
-    }
-
-    twitchEmbed = new Twitch.Embed('twitch-embed-container', {
-      channel: 'obaba_yaga',
-      width: '100%',
-      height: '100%',
-      parent: [parent]
-    });
-
-    console.log('Twitch embed criado com sucesso');
-  } catch (e) {
-    console.error('Erro no embed, usando iframe:', e);
-    loadTwitchIframe();
-  }
-}
-
-
-// Load Twitch iframe directly (fallback)
 function loadTwitchIframe() {
   const container = document.getElementById('twitch-embed-container');
   if (!container) return;
-
-  console.log('Loading Twitch player for obaba_yaga');
-
-  // Clear any offline card first
-  const offlineCard = document.getElementById('offlineCard');
-  if (offlineCard) {
-    offlineCard.classList.remove('visible');
-    offlineCard.style.display = 'none';
-  }
-
-  // Simple iframe - Twitch player
+  const parents = ['obabayaga.com', 'www.obabayaga.com', 'localhost']
+    .map((p) => 'parent=' + p).join('&');
   container.innerHTML = `
     <iframe
-      src="https://player.twitch.tv/?channel=obaba_yaga&parent=localhost&parent=obabayaga.com"
+      src="https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&${parents}&muted=true"
+      title="Stream ao vivo do ${TWITCH_CHANNEL} na Twitch"
       height="100%"
       width="100%"
-      frameborder="0"
-      allowfullscreen="true">
-    </iframe>
-  `;
-  console.log('Twitch player loaded');
+      allowfullscreen="true"
+      allow="autoplay; fullscreen">
+    </iframe>`;
 }
 
+function setLiveUI(isLive) {
+  const offlineCard = document.getElementById('offlineCard');
+  const liveBadge = document.getElementById('liveBadge');
+  const liveText = document.getElementById('liveText');
+  if (offlineCard) offlineCard.classList.toggle('visible', !isLive);
+  if (liveBadge) liveBadge.classList.toggle('live-active', isLive);
+  if (liveText) liveText.textContent = isLive ? 'AO VIVO' : 'OFFLINE';
+}
 
-
-// Check stream status using DecAPI (works without API key, CORS-friendly)
 function checkTwitchStreamStatus() {
-  // Use a simpler endpoint that returns just 0 (offline) or 1 (online)
-  fetch('https://decapi.me/twitch/uptime/obaba_yaga')
-    .then(response => response.text())
-    .then(status => {
-      const statusText = status.trim();
-      console.log('Stream uptime from DecAPI:', statusText);
-      
-      // DecAPI returns "-1" or error message if offline, or uptime in seconds if online
-      const isOffline = statusText === '-1' || 
-                        statusText.toLowerCase().includes('offline') || 
-                        statusText.toLowerCase().includes('error') ||
-                        statusText === '';
-      
-      console.log('Is offline (uptime check):', isOffline);
-      
-      // Only update if state changed
+  fetch(`https://decapi.me/twitch/uptime/${TWITCH_CHANNEL}`)
+    .then((r) => r.text())
+    .then((status) => {
+      const text = status.trim().toLowerCase();
+      const isOffline = text === '' || text === '-1' || text.includes('offline') || text.includes('error');
       const newState = isOffline ? 'offline' : 'online';
-      if (currentStreamState !== newState) {
-        currentStreamState = newState;
-        console.log('Stream state changed to:', newState);
-        
-        if (isOffline) {
-          console.log('Stream is OFFLINE - showing offline card only');
-          // Clear the embed container when offline
-          const container = document.getElementById('twitch-embed-container');
-          if (container) {
-            container.innerHTML = '';
-          }
-          showOfflineCard();
-        } else {
-          console.log('Stream is LIVE! Loading Twitch player...');
-          // Load player when stream is confirmed live
-          loadTwitchIframe();
-          showStream();
-        }
+      if (currentStreamState === newState) return;
+      currentStreamState = newState;
+      if (isOffline) {
+        const container = document.getElementById('twitch-embed-container');
+        if (container) container.innerHTML = '';
+        setLiveUI(false);
+      } else {
+        loadTwitchIframe();
+        setLiveUI(true);
       }
     })
-    .catch(err => {
-      console.log('Could not check stream status:', err);
-      // On error, keep showing offline card (safer default)
-      if (currentStreamState !== 'offline') {
-        currentStreamState = 'offline';
-        showOfflineCard();
-      }
+    .catch(() => {
+      if (currentStreamState !== 'offline') { currentStreamState = 'offline'; setLiveUI(false); }
     });
 }
 
-// Load Twitch embed script dynamically only when needed
-function loadTwitchScript() {
-  return new Promise((resolve, reject) => {
-    if (window.Twitch && window.Twitch.Embed) {
-      resolve();
-      return;
-    }
-    
-    const script = document.createElement('script');
-    script.src = 'https://embed.twitch.tv/embed.js';
-    script.onload = () => {
-      console.log('Twitch script loaded');
-      resolve();
-    };
-    script.onerror = () => {
-      console.log('Failed to load Twitch script');
-      reject();
-    };
-    document.head.appendChild(script);
-  });
+// -------------------------------------------------------------------
+// Arranque
+// -------------------------------------------------------------------
+function initializeApp() {
+  // Ano do copyright
+  document.querySelectorAll('#year').forEach((el) => { el.textContent = new Date().getFullYear(); });
+
+  if (document.getElementById('followerCount')) {
+    fetchFollowerCount();
+    setInterval(fetchFollowerCount, FOLLOWER_CHECK_INTERVAL);
+  }
+
+  if (document.getElementById('twitch-embed-container')) {
+    setLiveUI(false);
+    checkTwitchStreamStatus();
+    setInterval(checkTwitchStreamStatus, STREAM_CHECK_INTERVAL);
+    // Volta a verificar quando o utilizador regressa ao separador
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) checkTwitchStreamStatus();
+    });
+  }
+
+  updateActiveNavLink(window.pageYOffset);
 }
 
-// Show the offline card overlay
-function showOfflineCard() {
-  const offlineCard = document.getElementById('offlineCard');
-  const liveBadge = document.getElementById('liveBadge');
-  const liveText = document.getElementById('liveText');
-  
-  if (offlineCard) {
-    offlineCard.classList.add('visible');
-  }
-  
-  if (liveBadge) {
-    liveBadge.classList.remove('live-active');
-  }
-  
-  if (liveText) {
-    liveText.textContent = 'OFFLINE';
-  }
-  
-  console.log('Showing offline card');
-}
-
-// Hide offline card and show stream
-function showStream() {
-  const offlineCard = document.getElementById('offlineCard');
-  const liveBadge = document.getElementById('liveBadge');
-  const liveText = document.getElementById('liveText');
-  
-  if (offlineCard) {
-    offlineCard.classList.remove('visible');
-  }
-  
-  if (liveBadge) {
-    liveBadge.classList.add('live-active');
-  }
-  
-  if (liveText) {
-    liveText.textContent = 'AO VIVO';
-  }
-  
-  console.log('Showing live stream');
-}
-
-// Initialize on page load
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', initializeApp);
 } else {
   initializeApp();
-}
-
-function initializeApp() {
-  console.log('App inicializando...');
-  
-  // Show offline card initially
-  showOfflineCard();
-  
-  // Start real-time follower count updates
-  startFollowerUpdates();
-  
-  // Check stream status immediately (don't wait for Twitch API)
-  checkStreamStatus();
-  
-  // Re-check stream status every 1 second
-  setInterval(function() {
-    console.log('Atualizando status da stream...');
-    checkStreamStatus();
-  }, 1000);
-  
-  updateActiveNavLink();
 }

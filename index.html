@@ -1,9 +1,28 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OBABA_YAGA - Casino Streamer</title>
+    <title>O BABA YAGA — Casino Streamer</title>
+    <meta name="description" content="Lives de casino na Twitch, ofertas exclusivas dos patrocínios oficiais, jogos grátis com fichas virtuais, ranking da comunidade e loja de pontos. 18+ Joga com responsabilidade.">
+    <link rel="canonical" href="https://obabayaga.com/">
+    <meta name="theme-color" content="#0a0a0b">
+    <meta name="rating" content="adult">
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/og-image.png">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="O BABA YAGA">
+    <meta property="og:locale" content="pt_PT">
+    <meta property="og:title" content="O BABA YAGA — Casino Streamer">
+    <meta property="og:description" content="Lives de casino na Twitch, ofertas exclusivas dos patrocínios oficiais, jogos grátis com fichas virtuais, ranking da comunidade e loja de pontos. 18+ Joga com responsabilidade.">
+    <meta property="og:url" content="https://obabayaga.com/">
+    <meta property="og:image" content="https://obabayaga.com/assets/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="O BABA YAGA — Casino Streamer">
+    <meta name="twitter:description" content="Lives de casino na Twitch, ofertas exclusivas dos patrocínios oficiais, jogos grátis com fichas virtuais, ranking da comunidade e loja de pontos. 18+ Joga com responsabilidade.">
+    <meta name="twitter:image" content="https://obabayaga.com/assets/og-image.png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,30 +31,30 @@
 </head>
 <body>
     <!-- Age Gate Modal -->
-    <div id="ageGate" class="age-gate">
+    <div id="ageGate" class="age-gate" role="dialog" aria-modal="true" aria-labelledby="ageGateTitle">
         <div class="age-gate-content">
             <div class="age-gate-icon">
-                <i class="fas fa-user-shield"></i>
+                <i class="fas fa-user-shield" aria-hidden="true"></i>
             </div>
-            <h2 class="age-gate-title">Verificação de Idade</h2>
+            <h2 class="age-gate-title" id="ageGateTitle">Verificação de Idade</h2>
             <p class="age-gate-text">Este site contém conteúdo relacionado a jogos de azar e é destinado apenas a maiores de 18 anos.</p>
             <p class="age-gate-question">Confirmas que tens 18 anos ou mais?</p>
             <div class="age-gate-buttons">
                 <button id="ageConfirm" class="age-btn age-btn-confirm">Sim, tenho +18</button>
                 <button id="ageDeny" class="age-btn age-btn-deny">Não, sou menor</button>
             </div>
-            <p class="age-gate-warning"><i class="fas fa-exclamation-triangle"></i> Joga com responsabilidade</p>
+            <p class="age-gate-warning"><i class="fas fa-exclamation-triangle" aria-hidden="true"></i> Joga com responsabilidade</p>
         </div>
     </div>
 
     <!-- SafeCasino Promo Popup -->
-    <div id="promoPopup" class="promo-popup hidden">
+    <div id="promoPopup" class="promo-popup hidden" role="dialog" aria-modal="true" aria-label="Oferta em destaque">
         <div class="promo-popup-content promo-popup-safecasino">
             <button id="promoClose" class="promo-close" aria-label="Fechar">
-                <i class="fas fa-times"></i>
+                <i class="fas fa-times" aria-hidden="true"></i>
             </button>
 
-            <span class="promo-badge promo-badge-safecasino"><i class="fas fa-fire"></i> Oferta Popular</span>
+            <span class="promo-badge promo-badge-safecasino"><i class="fas fa-fire" aria-hidden="true"></i> Oferta Popular</span>
 
             <a href="https://moy.auraodin.com/redirect.aspx?pid=155521&lpid=1687&bid=1719" target="_blank" rel="noopener" class="promo-logo-link">
                 <span class="offer-title promo-logo promo-logo-safecasino">SAFECASINO</span>
@@ -45,10 +64,10 @@
             <p class="promo-subtext">+7.000 jogos de mais de 120 fornecedores, Roda da Fortuna diária e levantamentos rápidos.</p>
 
             <a href="https://moy.auraodin.com/redirect.aspx?pid=155521&lpid=1687&bid=1719" target="_blank" rel="noopener" class="promo-cta promo-cta-safecasino">
-                Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
             </a>
 
-            <p class="promo-fineprint"><i class="fas fa-clock"></i> Oferta por tempo limitado · 18+ Joga com responsabilidade</p>
+            <p class="promo-fineprint"><i class="fas fa-clock" aria-hidden="true"></i> Oferta por tempo limitado · 18+ Joga com responsabilidade</p>
         </div>
     </div>
 
@@ -61,19 +80,19 @@
             </div>
             
             <div class="nav-menu" id="navMenu">
-                <a href="#home" class="nav-link">Início</a>
+                <a href="#home" class="nav-link active">Início</a>
                 <a href="#offers" class="nav-link">Patrocínios</a>
-                <a href="#stats" class="nav-link">Estatísticas</a>
                 <a href="#social" class="nav-link">Redes Sociais</a>
                 <a href="jogos.html" class="nav-link">Jogos</a>
                 <a href="ranking.html" class="nav-link">Ranking</a>
                 <a href="loja.html" class="nav-link">Loja</a>
+                <a href="contacto.html" class="nav-link">Contacto</a>
             </div>
 
             <div class="nav-auth" id="navAuth"></div>
 
-            <button class="nav-toggle" id="navToggle">
-                <i class="fas fa-bars"></i>
+            <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="navMenu">
+                <i class="fas fa-bars" aria-hidden="true"></i>
             </button>
         </div>
     </nav>
@@ -103,15 +122,15 @@
 
                         <div class="hero-actions">
                             <button class="cta-button" data-link="https://www.twitch.tv/obaba_yaga">
-                                Twitch <i class="fas fa-external-link-alt"></i>
+                                Twitch <i class="fas fa-external-link-alt" aria-hidden="true"></i>
                             </button>
                             <a href="#offers" class="cta-secondary">
-                                <i class="fas fa-gift"></i> Ver Ofertas
+                                <i class="fas fa-gift" aria-hidden="true"></i> Ver Ofertas
                             </a>
                         </div>
                     </div>
 
-                    <div class="stream-panel hero-gate" data-gate>
+                    <div class="stream-panel hero-gate">
                         <div class="gate-content">
                             <div class="stream-placeholder" id="streamContainer">
                                 <div id="twitch-embed-container"></div>
@@ -130,31 +149,25 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="gate-overlay">
-                            <div class="gate-icon"><i class="fab fa-twitch"></i></div>
-                            <h3 class="gate-title">Vê a stream em direto</h3>
-                            <p class="gate-text">Entra com a tua conta Twitch para desbloqueares o player e as estatísticas em tempo real.</p>
-                            <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
-                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Live Stats Ticker -->
-            <div class="hero-ticker" data-gate>
+            <div class="hero-ticker">
                 <div class="gate-content">
                     <div class="container">
                         <div class="ticker-grid">
                             <div class="ticker-item">
-                                <i class="fas fa-users"></i>
+                                <i class="fas fa-users" aria-hidden="true"></i>
                                 <div>
-                                    <span class="ticker-value" id="followerCount">+--</span>
+                                    <span class="ticker-value" id="followerCount" aria-live="polite">+--</span>
                                     <span class="ticker-label">Followers</span>
                                 </div>
                             </div>
                             <div class="ticker-divider"></div>
                             <div class="ticker-item">
-                                <i class="fas fa-trophy"></i>
+                                <i class="fas fa-trophy" aria-hidden="true"></i>
                                 <div>
                                     <span class="ticker-value">+2.932€</span>
                                     <span class="ticker-label">Maior Vitória</span>
@@ -162,7 +175,7 @@
                             </div>
                             <div class="ticker-divider"></div>
                             <div class="ticker-item">
-                                <i class="fas fa-comments"></i>
+                                <i class="fas fa-comments" aria-hidden="true"></i>
                                 <div>
                                     <span class="ticker-value" data-target="100">+100</span>
                                     <span class="ticker-label">Discord</span>
@@ -170,17 +183,14 @@
                             </div>
                             <div class="ticker-divider"></div>
                             <div class="ticker-item">
-                                <i class="fas fa-gamepad"></i>
+                                <i class="fas fa-gamepad" aria-hidden="true"></i>
                                 <div>
-                                    <span class="ticker-value" data-target="600">+1300</span>
+                                    <span class="ticker-value" data-target="1300">+1.300</span>
                                     <span class="ticker-label">Horas Ao Vivo</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="gate-overlay">
-                    <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar para veres as estatísticas</button>
                 </div>
             </div>
         </section>
@@ -189,7 +199,7 @@
         <section id="offers" class="offers">
             <div class="container">
                 <div class="section-header">
-                    <span class="section-eyebrow"><i class="fas fa-star"></i> Patrocínios Oficiais</span>
+                    <span class="section-eyebrow"><i class="fas fa-star" aria-hidden="true"></i> Patrocínios Oficiais</span>
                     <h2 class="section-title">As Nossas Ofertas</h2>
                     <p class="section-description">
                         As parcerias oficiais do OBABA_YAGA - vantagens exclusivas nas melhores plataformas onde jogas com o streamer.
@@ -201,7 +211,7 @@
                     <div class="offer-card">
                         <div class="offer-header dbbet-header">
                             <span class="popular-badge">
-                                <i class="fas fa-crown"></i> Exclusivo
+                                <i class="fas fa-crown" aria-hidden="true"></i> Exclusivo
                             </span>
                             <span class="offer-title dbbet-title"><span class="dbbet-db">DB</span><span class="dbbet-bet">bet</span></span>
                         </div>
@@ -216,23 +226,23 @@
                             
                             <div class="offer-perks">
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Bónus repartido pelos 4 primeiros depósitos</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>+6.000 jogos, incluindo mais de 400 ao vivo</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Depósitos e levantamentos em criptomoedas</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Clube de fidelidade com 8 níveis e cashback diário</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Suporte via chat 24/7</span>
                                 </div>
                             </div>
@@ -241,10 +251,10 @@
                                 <div class="code-placeholder invisible">
                                     <div class="code-label">CÓDIGO</div>
                                     <div class="code-value">CODE</div>
-                                    <i class="fas fa-gift"></i>
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
                                 </div>
                                 <button class="register-button" data-link="https://dbbt.me/OBABAYAGA">
-                                    Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                                    Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -254,7 +264,7 @@
                     <div class="offer-card">
                         <div class="offer-header betlabel-header">
                             <span class="popular-badge">
-                                <i class="fas fa-fire"></i> Popular
+                                <i class="fas fa-fire" aria-hidden="true"></i> Popular
                             </span>
                             <span class="offer-title">BETLABEL</span>
                         </div>
@@ -269,23 +279,23 @@
                             
                             <div class="offer-perks">
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Bónus repartido pelos 4 primeiros depósitos</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>+9.000 jogos de casino e apostas desportivas</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Levantamentos rápidos sem comissões</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Bónus de recarga todas as quartas-feiras</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Suporte multilingue 24/7</span>
                                 </div>
                             </div>
@@ -294,10 +304,10 @@
                                 <div class="code-placeholder invisible">
                                     <div class="code-label">CÓDIGO</div>
                                     <div class="code-value">CODE</div>
-                                    <i class="fas fa-gift"></i>
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
                                 </div>
                                 <button class="register-button" data-link="https://moy.auraodin.com/redirect.aspx?pid=150609&lpid=1119&bid=1650">
-                                    Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                                    Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -307,7 +317,7 @@
                     <div class="offer-card">
                         <div class="offer-header bit22-header">
                             <span class="popular-badge">
-                                <i class="fas fa-star"></i> New
+                                <i class="fas fa-star" aria-hidden="true"></i> New
                             </span>
                             <span class="offer-title bit22-title"><span class="bit22-num">22</span><span class="bit22-text">BIT</span></span>
                         </div>
@@ -322,23 +332,23 @@
                             
                             <div class="offer-perks">
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Pacote de boas-vindas em 4 depósitos</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Levantamentos cripto instantâneos e sem limite</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>+9.000 jogos e apostas desportivas</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Programa VIP com até 11% de cashback</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Suporte 24/7 e pagamentos anónimos</span>
                                 </div>
                             </div>
@@ -347,10 +357,10 @@
                                 <div class="code-placeholder invisible">
                                     <div class="code-label">CÓDIGO</div>
                                     <div class="code-value">CODE</div>
-                                    <i class="fas fa-gift"></i>
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
                                 </div>
                                 <button class="register-button" data-link="https://che.fluxbrox.com/redirect.aspx?pid=190723&lpid=1735&bid=1717">
-                                    Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                                    Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -360,7 +370,7 @@
                     <div class="offer-card">
                         <div class="offer-header safecasino-header">
                             <span class="popular-badge">
-                                <i class="fas fa-fire"></i> Popular
+                                <i class="fas fa-fire" aria-hidden="true"></i> Popular
                             </span>
                             <span class="offer-title">SAFECASINO</span>
                         </div>
@@ -375,23 +385,23 @@
                             
                             <div class="offer-perks">
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Bónus repartido pelos 4 primeiros depósitos</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>+7.000 jogos de mais de 120 fornecedores</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Roda da Fortuna em cada depósito</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Recarga de 100% até 3 vezes por semana</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Levantamentos rápidos</span>
                                 </div>
                             </div>
@@ -400,10 +410,10 @@
                                 <div class="code-placeholder invisible">
                                     <div class="code-label">CÓDIGO</div>
                                     <div class="code-value">CODE</div>
-                                    <i class="fas fa-gift"></i>
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
                                 </div>
                                 <button class="register-button" data-link="https://moy.auraodin.com/redirect.aspx?pid=155521&lpid=1687&bid=1719">
-                                    Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                                    Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -413,7 +423,7 @@
                     <div class="offer-card">
                         <div class="offer-header captainsbet-header">
                             <span class="popular-badge">
-                                <i class="fas fa-anchor"></i> Recomendado
+                                <i class="fas fa-anchor" aria-hidden="true"></i> Recomendado
                             </span>
                             <span class="offer-title">CAPTAINSBET</span>
                         </div>
@@ -428,23 +438,23 @@
                             
                             <div class="offer-perks">
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Bónus de boas-vindas + 50 Giros Grátis</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Casino ao vivo powered by Evolution Gaming</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Sportsbook com mais de 50 categorias</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Programa de fidelidade com 7 níveis</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Levantamentos rápidos</span>
                                 </div>
                             </div>
@@ -453,10 +463,10 @@
                                 <div class="code-box">
                                     <div class="code-label">CÓDIGO</div>
                                     <div class="code-value">BabaYaga</div>
-                                    <i class="fas fa-gift"></i>
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
                                 </div>
                                 <button class="register-button" data-link="https://captainspartners.com/processing/click?btag=22821_33956">
-                                    Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                                    Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -466,7 +476,7 @@
                     <div class="offer-card">
                         <div class="offer-header bit1x-header">
                             <span class="popular-badge">
-                                <i class="fas fa-star"></i> New
+                                <i class="fas fa-star" aria-hidden="true"></i> New
                             </span>
                             <span class="offer-title bit1x-title"><span class="bit1x-num">1×</span><span class="bit1x-text">Bit</span></span>
                         </div>
@@ -481,23 +491,23 @@
                             
                             <div class="offer-perks">
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Bónus repartido pelos 4 primeiros depósitos</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Sem verificação (KYC) e levantamentos instantâneos</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>+30 criptomoedas aceites, incluindo BTC, ETH e USDT</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Apostas ao vivo com odds atualizadas em tempo real</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Torneios semanais com prémios em cripto</span>
                                 </div>
                             </div>
@@ -506,10 +516,10 @@
                                 <div class="code-placeholder invisible">
                                     <div class="code-label">CÓDIGO</div>
                                     <div class="code-value">CODE</div>
-                                    <i class="fas fa-gift"></i>
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
                                 </div>
                                 <button class="register-button" data-link="https://refpa04636.pro/L?tag=d_5571359m_129584c_BABAYAGA&site=5571359&ad=129584&r=registration">
-                                    Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                                    Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -519,7 +529,7 @@
                     <div class="offer-card">
                         <div class="offer-header hugobets-header">
                             <span class="popular-badge">
-                                <i class="fas fa-fire"></i> Popular
+                                <i class="fas fa-fire" aria-hidden="true"></i> Popular
                             </span>
                             <span class="offer-title">HUGOBETS</span>
                         </div>
@@ -534,23 +544,23 @@
                             
                             <div class="offer-perks">
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Bónus sem rollover nos primeiros 3 depósitos</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>+9.500 slots e casino ao vivo</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Apostas desportivas e eSports</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Clube VIP com 5 escalões e até 25% de cashback</span>
                                 </div>
                                 <div class="perk-item">
-                                    <i class="fas fa-check-circle"></i>
+                                    <i class="fas fa-check-circle" aria-hidden="true"></i>
                                     <span>Recarga de 100% todas as sextas-feiras</span>
                                 </div>
                             </div>
@@ -559,10 +569,10 @@
                                 <div class="code-placeholder invisible">
                                     <div class="code-label">CÓDIGO</div>
                                     <div class="code-value">CODE</div>
-                                    <i class="fas fa-gift"></i>
+                                    <i class="fas fa-gift" aria-hidden="true"></i>
                                 </div>
                                 <button class="register-button" data-link="https://partners.hbetpartners.com/v2/text/255/38/09e5c8b2-60d1-11f1-a1b8-f6136488bd8f/1">
-                                    Reclamar Bónus <i class="fas fa-arrow-right"></i>
+                                    Reclamar Bónus <i class="fas fa-arrow-right" aria-hidden="true"></i>
                                 </button>
                             </div>
                         </div>
@@ -577,42 +587,36 @@
         <section id="social" class="social">
             <div class="container">
                 <div class="section-header">
-                    <span class="section-eyebrow"><i class="fas fa-heart"></i> Junta-te a Nós</span>
+                    <span class="section-eyebrow"><i class="fas fa-heart" aria-hidden="true"></i> Junta-te a Nós</span>
                     <h2 class="section-title">Comunidade do OBABA_YAGA</h2>
                     <p class="section-description">
                         Segue-nos em todas as plataformas para não perderes nenhum sorteio, big win ou uma stream especial!
                     </p>
                 </div>
 
-                <div class="social-gate" data-gate>
+                <div class="social-gate">
                     <div class="gate-content">
                         <div class="social-grid">
-                            <a href="https://www.twitch.tv/obaba_yaga" target="_blank" class="social-card twitch">
-                                <i class="fab fa-twitch"></i>
+                            <a href="https://www.twitch.tv/obaba_yaga" target="_blank" rel="noopener noreferrer" class="social-card twitch">
+                                <i class="fab fa-twitch" aria-hidden="true"></i>
                                 <span>Twitch</span>
                             </a>
                             
-                            <a href="https://discord.gg/fDWqsxheRb" target="_blank" class="social-card discord">
-                                <i class="fab fa-discord"></i>
+                            <a href="https://discord.gg/fDWqsxheRb" target="_blank" rel="noopener noreferrer" class="social-card discord">
+                                <i class="fab fa-discord" aria-hidden="true"></i>
                                 <span>Discord</span>
                             </a>
                             
-                            <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" class="social-card instagram">
-                                <i class="fab fa-instagram"></i>
+                            <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" rel="noopener noreferrer" class="social-card instagram">
+                                <i class="fab fa-instagram" aria-hidden="true"></i>
                                 <span>Instagram</span>
                             </a>
                             
-                            <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" class="social-card telegram">
-                                <i class="fab fa-telegram"></i>
+                            <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" rel="noopener noreferrer" class="social-card telegram">
+                                <i class="fab fa-telegram" aria-hidden="true"></i>
                                 <span>Telegram</span>
                             </a>
                         </div>
-                    </div>
-                    <div class="gate-overlay">
-                        <div class="gate-icon"><i class="fab fa-twitch"></i></div>
-                        <h3 class="gate-title">Junta-te à comunidade</h3>
-                        <p class="gate-text">Entra com a tua conta Twitch para veres e acederes a todas as redes sociais.</p>
-                        <button class="gate-login-btn"><i class="fab fa-twitch"></i> Entrar com Twitch</button>
                     </div>
                 </div>
             </div>
@@ -630,44 +634,48 @@
                         </div>
                     </div>
                     <div class="footer-social">
-                        <a href="https://www.twitch.tv/obaba_yaga" target="_blank" aria-label="Twitch"><i class="fab fa-twitch"></i></a>
-                        <a href="https://discord.gg/fDWqsxheRb" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
-                        <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" aria-label="Telegram"><i class="fab fa-telegram"></i></a>
+                        <a href="https://www.twitch.tv/obaba_yaga" target="_blank" rel="noopener noreferrer" aria-label="Twitch"><i class="fab fa-twitch" aria-hidden="true"></i></a>
+                        <a href="https://discord.gg/fDWqsxheRb" target="_blank" rel="noopener noreferrer" aria-label="Discord"><i class="fab fa-discord" aria-hidden="true"></i></a>
+                        <a href="https://www.instagram.com/obaba_yaga75/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="https://t.me/+IZ6rt8kCZixmNzY0" target="_blank" rel="noopener noreferrer" aria-label="Telegram"><i class="fab fa-telegram" aria-hidden="true"></i></a>
                     </div>
                 </div>
 
                 <div class="footer-content">
                     <div class="gambling-logos">
-                        <div class="age-warning">18+</div>
-                        <div class="gambleaware">GambleAware</div>
-                        <div class="responsible">Jogar com Responsabilidade</div>
-                    </div>
+                    <span class="age-warning" title="Apenas para maiores de 18 anos">18+</span>
+                    <a class="gambleaware" href="https://www.jogoresponsavel.pt/" target="_blank" rel="noopener noreferrer">Jogo Responsável (SRIJ)</a>
+                    <a class="responsible" href="https://www.sicad.pt/" target="_blank" rel="noopener noreferrer">SICAD · Linha Vida 1414</a>
+                    <a class="gambleaware" href="https://www.gambleaware.org/" target="_blank" rel="noopener noreferrer">GambleAware</a>
+                </div>
                     
                     <div class="warning-box">
                         <div class="warning-header">
-                            <i class="fas fa-exclamation-triangle"></i>
+                            <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
                             <span>Aviso Importante</span>
                         </div>
                         <p class="warning-text">
-                            O jogo deve ser visto como uma forma de entretenimento, não uma forma de ganhar dinheiro. Apenas jogue com dinheiro que pode perder. Se sente que está a perder o controlo, procure ajuda. Todos os bónus mostrados nesta página têm termos e condições aplicáveis.
+                            O jogo deve ser visto como uma forma de entretenimento, não uma forma de ganhar dinheiro. Joga apenas com dinheiro que podes perder. Se sentes que estás a perder o controlo, procura ajuda: <a href="https://www.jogoresponsavel.pt/" target="_blank" rel="noopener noreferrer">jogoresponsavel.pt</a> ou Linha Vida <a href="tel:1414">1414</a>. Todos os bónus mostrados neste site têm termos e condições aplicáveis.
+                    </p>
+                    <p class="warning-text affiliate-disclosure">
+                        <strong>Transparência:</strong> os links para casinos neste site são links de afiliado. Se te registares através deles, o O BABA YAGA pode receber uma comissão, sem custo adicional para ti. Confirma sempre se o operador está autorizado no teu país antes de jogares.
                         </p>
                     </div>
 
                     <div class="footer-bottom">
-                        <p>© 2026 O BABA YAGA Casino Streamer. All rights reserved.</p>
+                        <p>© <span id="year">2026</span> O BABA YAGA · Casino Streamer. Todos os direitos reservados.</p>
                         <div class="footer-links">
-                            <a href="https://www.gambleaware.org/">Termos de Uso</a>
-                            <a href="#">Privacidade</a>
-                            <a href="contacto.html">Contacto</a>
-                        </div>
+                        <a href="termos.html">Termos de Uso</a>
+                        <a href="privacidade.html">Privacidade</a>
+                        <a href="contacto.html">Contacto</a>
+                    </div>
                     </div>
                 </div>
             </div>
         </footer>
     </main>
 
-    <script src="script.js?v=11"></script>
-    <script src="twitch-auth.js?v=1"></script>
+    <script src="script.js?v=12"></script>
+    <script src="twitch-auth.js?v=2"></script>
 </body>
 </html>

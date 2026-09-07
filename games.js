@@ -29,7 +29,7 @@ function adjustBalance(delta) {
 }
 
 function formatCoins(n) {
-  return Math.round(n).toLocaleString('pt-PT');
+  return String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 }
 
 function renderBalance() {
@@ -38,7 +38,8 @@ function renderBalance() {
 }
 
 function flashMessage(text) {
-  console.log('[Jogos]', text);
+  const active = document.querySelector('.game-panel.active .bj-message, .game-panel.active .dice-message, .game-panel.active .mines-message');
+  if (active) active.textContent = text;
 }
 
 // Clamp a bet input to the current balance and minimum

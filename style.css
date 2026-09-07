@@ -1127,13 +1127,7 @@ h1, h2, h3,
 .hugobets-header {
   background: linear-gradient(135deg, #f97316, #ea580c);
 }
-.spinandflix-header {
-  background: linear-gradient(135deg, #eeeeee, #0178af);
-}
 
-.casino96-header {
-  background: linear-gradient(135deg, #ffb81c, #c41e3a);
-}
 
 .bit22-header {
   background: linear-gradient(135deg, #004147, #0a8f9b);
@@ -1539,15 +1533,22 @@ h1, h2, h3,
 .gambling-logos {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
-  opacity: 0.5;
-  filter: grayscale(100%);
-  transition: all 0.5s;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
-.gambling-logos:hover {
-  filter: grayscale(0%);
+.gambling-logos a {
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.75;
+  transition: opacity 0.2s, border-color 0.2s;
+}
+
+.gambling-logos a:hover,
+.gambling-logos a:focus-visible {
   opacity: 1;
+  border-color: var(--purple-light);
 }
 
 .age-warning {
@@ -1607,13 +1608,28 @@ h1, h2, h3,
   line-height: 1.75;
 }
 
+.warning-text a {
+  color: var(--purple-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.affiliate-disclosure {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+.affiliate-disclosure strong {
+  color: #fff;
+}
+
 .footer-bottom {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
-  color: #4b5563;
+  color: #9ca3af;
   font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -1633,7 +1649,7 @@ h1, h2, h3,
 }
 
 .footer-links a {
-  color: #4b5563;
+  color: #9ca3af;
   text-decoration: none;
   transition: color 0.2s;
 }
@@ -1877,16 +1893,6 @@ h1, h2, h3,
   }
 }
 
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
 
 /* Responsive Contact */
 @media (max-width: 768px) {
@@ -2753,40 +2759,6 @@ h1, h2, h3,
 }
 
 /* Content gating */
-[data-gate] {
-  position: relative;
-}
-
-[data-gate] .gate-content {
-  filter: blur(10px) brightness(0.6);
-  pointer-events: none;
-  user-select: none;
-  transition: filter 0.4s ease;
-}
-
-[data-gate].gate-unlocked .gate-content {
-  filter: none;
-  pointer-events: auto;
-  user-select: auto;
-}
-
-[data-gate] .gate-overlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  text-align: center;
-  padding: 2rem;
-  z-index: 5;
-}
-
-[data-gate].gate-unlocked .gate-overlay {
-  display: none;
-}
-
 .gate-icon {
   width: 3.5rem;
   height: 3.5rem;
@@ -2842,8 +2814,8 @@ h1, h2, h3,
   overflow: hidden;
 }
 
-.page-gate .gate-overlay {
-  min-height: 320px;
+.stream-panel .gate-content {
+  height: 100%;
 }
 
 @media (max-width: 767px) {
@@ -3124,59 +3096,6 @@ h1, h2, h3,
    LOJA — embed StreamElements Store
    =================================================================== */
 
-.store-frame-wrapper {
-  position: relative;
-  width: 100%;
-  min-height: 720px;
-  border-radius: 1.25rem;
-  overflow: hidden;
-  border: 1px solid var(--border-color);
-  background: rgba(24, 24, 27, 0.9);
-}
-
-.store-frame {
-  width: 100%;
-  height: 720px;
-  border: none;
-  display: block;
-  background: #0e0e10;
-}
-
-.store-loading {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
-  color: var(--gray-text);
-  font-weight: 700;
-  background: rgba(24, 24, 27, 0.9);
-  z-index: 1;
-}
-
-.store-loading i {
-  font-size: 1.75rem;
-  color: var(--purple-light);
-}
-
-.store-fallback {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 1rem;
-  padding: 3rem 1.5rem;
-  background: rgba(24, 24, 27, 0.9);
-  border: 1px solid var(--border-color);
-  border-radius: 1.25rem;
-}
-
-.store-fallback.visible {
-  display: flex;
-}
-
 .store-note {
   display: flex;
   align-items: center;
@@ -3192,10 +3111,162 @@ h1, h2, h3,
   color: var(--green-accent);
 }
 
-@media (max-width: 640px) {
-  .store-frame-wrapper,
-  .store-frame {
-    min-height: 560px;
-    height: 560px;
+
+
+
+/* ===================================================================
+   Loja (link direto para a StreamElements)
+   =================================================================== */
+.store-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  background: rgba(24, 24, 27, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
+  padding: 3rem 1.5rem;
+  max-width: 560px;
+  margin: 0 auto 1.5rem;
+}
+
+.store-card .gate-title {
+  font-family: var(--font-display);
+}
+
+.store-card .gate-login-btn {
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+/* ===================================================================
+   Ranking — cartão de convite ao login
+   =================================================================== */
+.player-stats-login {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.player-stats-login .gate-icon {
+  flex: 0 0 3.5rem;
+}
+
+.player-stats-login > div {
+  flex: 1;
+  min-width: 200px;
+}
+
+.player-stats-login-title {
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+
+.player-stats-login-text {
+  color: var(--gray-text);
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ===================================================================
+   Jogos — labels não interativas
+   =================================================================== */
+.bet-label {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--gray-text);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ===================================================================
+   Páginas legais (Termos, Privacidade, 404)
+   =================================================================== */
+.legal-section {
+  min-height: 100vh;
+  padding: 9rem 1rem 4rem;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(147, 51, 234, 0.18), transparent 45%),
+    linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+}
+
+.legal-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.legal-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.legal-body {
+  background: rgba(24, 24, 27, 0.9);
+  border: 1px solid var(--border-color);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  margin-bottom: 2rem;
+  color: #d1d5db;
+  line-height: 1.7;
+}
+
+.legal-updated {
+  font-size: 0.8rem;
+  color: var(--gray-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1.5rem;
+}
+
+.legal-body h2 {
+  font-size: 1.15rem;
+  color: #fff;
+  margin: 1.75rem 0 0.6rem;
+}
+
+.legal-body h2:first-of-type {
+  margin-top: 0;
+}
+
+.legal-body p {
+  margin-bottom: 0.9rem;
+  font-size: 0.95rem;
+}
+
+.legal-body a {
+  color: var(--purple-light);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.legal-body strong {
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .legal-body {
+    padding: 1.5rem;
+  }
+}
+
+/* Acessibilidade: foco visível e menos movimento quando pedido */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--purple-light);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

@@ -7,9 +7,9 @@
 // 2. Em "OAuth Redirect URLs", adiciona exatamente o valor de REDIRECT_URI
 //    abaixo (tem de ser IDÊNTICO, incluindo a barra final "/").
 // 3. Copia o "Client ID" gerado e cola-o em CLIENT_ID abaixo.
-// 4. Se o teu site ainda não estiver no domínio próprio (obabayaga.com),
-//    muda REDIRECT_URI para o teu link do GitHub Pages, por exemplo:
-//    'https://velhote5555.github.io/OBaba_Yaga/'
+// 4. O REDIRECT_URI tem de ser https e igual ao registado na Twitch.
+//    Garante que www.obabayaga.com redireciona para obabayaga.com, senão o
+//    login falha para quem entrar pelo "www".
 // 5. SE_CHANNEL: o nome do teu canal na StreamElements (normalmente é
 //    igual ao teu username da Twitch). Se os pontos não aparecerem,
 //    troca por o "Channel ID" numérico, disponível no StreamElements
@@ -32,6 +32,29 @@ const TwitchAuth = (function () {
   const STATE_KEY = 'obaba_twitch_state';
 
   let currentUser = null; // { login, displayName, avatar, points, pointsAlltime, rank }
+
+  const DEFAULT_AVATAR = 'https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-70x70.png';
+
+  // Escapa qualquer texto vindo de APIs externas antes de o inserir em innerHTML (evita XSS)
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Só aceita URLs https para avatares
+  function safeUrl(url) {
+    return typeof url === 'string' && /^https:\/\//i.test(url) ? escapeHtml(url) : DEFAULT_AVATAR;
+  }
+
+  function formatPoints(n) {
+    const num = Number(n);
+    if (!Number.isFinite(num)) return '--';
+    return String(Math.round(num)).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
 
   function randomState() {
     return Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -209,26 +232,34 @@ const TwitchAuth = (function () {
 
     if (currentUser) {
       slot.innerHTML = `
-        <div class="nav-user" id="navUserToggle">
-          <img src="${currentUser.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-70x70.png'}" alt="${currentUser.displayName}" class="nav-user-avatar">
-          <span class="nav-user-name">${currentUser.displayName}</span>
-          <i class="fas fa-chevron-down nav-user-caret"></i>
+        <div class="nav-user" id="navUserToggle" role="button" tabindex="0" aria-haspopup="true" aria-expanded="false" aria-label="Conta de ${escapeHtml(currentUser.displayName)}">
+          <img src="${safeUrl(currentUser.avatar)}" alt="" class="nav-user-avatar">
+          <span class="nav-user-name">${escapeHtml(currentUser.displayName)}</span>
+          <i class="fas fa-chevron-down nav-user-caret" aria-hidden="true"></i>
           <div class="nav-user-menu" id="navUserMenu">
-            <button id="navLogoutBtn" class="nav-user-logout"><i class="fas fa-arrow-right-from-bracket"></i> Sair</button>
+            <button id="navLogoutBtn" class="nav-user-logout"><i class="fas fa-arrow-right-from-bracket" aria-hidden="true"></i> Sair</button>
           </div>
         </div>
       `;
       const toggle = document.getElementById('navUserToggle');
       const menu = document.getElementById('navUserMenu');
-      toggle.addEventListener('click', () => menu.classList.toggle('open'));
+      const setOpen = (open) => {
+        menu.classList.toggle('open', open);
+        toggle.setAttribute('aria-expanded', String(open));
+      };
+      toggle.addEventListener('click', () => setOpen(!menu.classList.contains('open')));
+      toggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setOpen(!menu.classList.contains('open')); }
+        if (e.key === 'Escape') setOpen(false);
+      });
       document.addEventListener('click', (e) => {
-        if (!toggle.contains(e.target)) menu.classList.remove('open');
+        if (!toggle.contains(e.target)) setOpen(false);
       });
       document.getElementById('navLogoutBtn').addEventListener('click', logout);
     } else {
       slot.innerHTML = `
         <button class="nav-login-btn" id="navLoginBtn">
-          <i class="fab fa-twitch"></i> Entrar com Twitch
+          <i class="fab fa-twitch" aria-hidden="true"></i> Entrar com Twitch
         </button>
       `;
       document.getElementById('navLoginBtn').addEventListener('click', login);
@@ -242,44 +273,55 @@ const TwitchAuth = (function () {
     const section = card.closest('.player-stats-section');
 
     if (!currentUser) {
-      card.innerHTML = '';
-      if (section) section.style.display = 'none';
+      if (section) section.style.display = '';
+      card.innerHTML = `
+        <div class="player-stats-login">
+          <div class="gate-icon"><i class="fab fa-twitch" aria-hidden="true"></i></div>
+          <div>
+            <p class="player-stats-login-title">Vê a tua posição no ranking</p>
+            <p class="player-stats-login-text">Entra com a tua conta Twitch para veres os teus pontos e o teu lugar na comunidade.</p>
+          </div>
+          <button class="gate-login-btn" id="playerStatsLogin"><i class="fab fa-twitch" aria-hidden="true"></i> Entrar com Twitch</button>
+        </div>
+      `;
+      const btn = document.getElementById('playerStatsLogin');
+      if (btn) btn.addEventListener('click', login);
       return;
     }
 
     if (section) section.style.display = '';
 
-    const pointsText = currentUser.points != null ? currentUser.points.toLocaleString('pt-PT') : '--';
-    const rankText = currentUser.rank != null ? '#' + currentUser.rank : '--';
-    const alltimeText = currentUser.pointsAlltime != null ? currentUser.pointsAlltime.toLocaleString('pt-PT') : '--';
+    const pointsText = currentUser.points != null ? formatPoints(currentUser.points) : '--';
+    const rankText = currentUser.rank != null ? '#' + escapeHtml(currentUser.rank) : '--';
+    const alltimeText = currentUser.pointsAlltime != null ? formatPoints(currentUser.pointsAlltime) : '--';
     const errorNote =
       currentUser.points == null && lastPointsError
-        ? `<p class="player-stats-error">${lastPointsError}</p>`
+        ? `<p class="player-stats-error">Não foi possível obter os teus pontos agora. Tenta atualizar daqui a pouco.</p>`
         : '';
 
     card.innerHTML = `
       <div class="player-stats-avatar">
-        <img src="${currentUser.avatar || 'https://static-cdn.jtvnw.net/user-default-pictures-uv/de130ab0-def7-11e9-b668-784f43822e80-profile_image-70x70.png'}" alt="${currentUser.displayName}">
+        <img src="${safeUrl(currentUser.avatar)}" alt="">
       </div>
       <div class="player-stats-info">
-        <span class="player-stats-name">${currentUser.displayName}</span>
+        <span class="player-stats-name">${escapeHtml(currentUser.displayName)}</span>
         <div class="player-stats-metrics">
           <div class="player-stats-metric">
             <span class="player-stats-value">${pointsText}</span>
-            <span class="player-stats-label"><i class="fas fa-coins"></i> Pontos</span>
+            <span class="player-stats-label"><i class="fas fa-coins" aria-hidden="true"></i> Pontos</span>
           </div>
           <div class="player-stats-metric">
             <span class="player-stats-value">${rankText}</span>
-            <span class="player-stats-label"><i class="fas fa-ranking-star"></i> Ranking</span>
+            <span class="player-stats-label"><i class="fas fa-ranking-star" aria-hidden="true"></i> Ranking</span>
           </div>
           <div class="player-stats-metric">
             <span class="player-stats-value">${alltimeText}</span>
-            <span class="player-stats-label"><i class="fas fa-infinity"></i> Total (all-time)</span>
+            <span class="player-stats-label"><i class="fas fa-infinity" aria-hidden="true"></i> Total (all-time)</span>
           </div>
         </div>
       </div>
-      <button class="player-stats-refresh" id="playerStatsRefresh" title="Atualizar">
-        <i class="fas fa-rotate-right"></i>
+      <button class="player-stats-refresh" id="playerStatsRefresh" title="Atualizar" aria-label="Atualizar os meus pontos">
+        <i class="fas fa-rotate-right" aria-hidden="true"></i>
       </button>
     `;
     if (errorNote) card.insertAdjacentHTML('beforeend', errorNote);
@@ -300,10 +342,6 @@ const TwitchAuth = (function () {
   async function renderLeaderboard() {
     const list = document.getElementById('rankingList');
     if (!list) return;
-    if (!currentUser) {
-      list.innerHTML = '';
-      return;
-    }
 
     list.innerHTML = '<p class="ranking-loading">A carregar ranking...</p>';
     // pede alguns extra para compensar as contas excluídas (streamer + bots)
@@ -315,9 +353,8 @@ const TwitchAuth = (function () {
       list.innerHTML = `
         <div class="ranking-error">
           <p>Não foi possível carregar a tabela do ranking agora.</p>
-          <p class="ranking-error-detail">${lastLeaderboardError || 'Erro desconhecido.'}</p>
-          <a class="ranking-fallback-link" href="https://streamelements.com/${encodeURIComponent('obaba_yaga')}/leaderboard" target="_blank" rel="noopener">
-            Ver ranking na StreamElements <i class="fas fa-arrow-up-right-from-square"></i>
+          <a class="ranking-fallback-link" href="https://streamelements.com/obaba_yaga/leaderboard" target="_blank" rel="noopener noreferrer">
+            Ver ranking na StreamElements <i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
           </a>
         </div>
       `;
@@ -331,21 +368,17 @@ const TwitchAuth = (function () {
         return `
           <div class="ranking-row${isMe ? ' ranking-row-me' : ''}">
             <span class="ranking-position">${medals[entry.rank] || '#' + entry.rank}</span>
-            <span class="ranking-username">${entry.username}${isMe ? ' <span class="ranking-you-tag">(tu)</span>' : ''}</span>
-            <span class="ranking-points">${entry.points.toLocaleString('pt-PT')} <i class="fas fa-coins"></i></span>
+            <span class="ranking-username">${escapeHtml(entry.username)}${isMe ? ' <span class="ranking-you-tag">(tu)</span>' : ''}</span>
+            <span class="ranking-points">${formatPoints(entry.points)} <i class="fas fa-coins" aria-hidden="true"></i></span>
           </div>
         `;
       })
       .join('');
   }
 
+  // Liga qualquer botão de login espalhado pela página (ex.: cartão do ranking)
   function applyGates() {
-    const isLoggedIn = !!currentUser;
-    document.querySelectorAll('[data-gate]').forEach((el) => {
-      el.classList.toggle('gate-unlocked', isLoggedIn);
-    });
-    // liga qualquer botão de login dentro dos overlays de bloqueio
-    document.querySelectorAll('.gate-login-btn').forEach((btn) => {
+    document.querySelectorAll('button.gate-login-btn').forEach((btn) => {
       btn.onclick = login;
     });
   }
