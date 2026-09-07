@@ -229,12 +229,12 @@ if (window.location.hash.startsWith('#offer-')) {
 // Horário das lives — EDITA AQUI (hora local de Portugal)
 // -------------------------------------------------------------------
 const SCHEDULE = [
-  { day: 'Segunda', time: '21:00 – 01:00', what: 'Slots & bonus hunt' },
-  { day: 'Terça', time: '21:00 – 01:00', what: 'Slots & bonus hunt' },
-  { day: 'Quarta', time: 'Folga', what: '' },
-  { day: 'Quinta', time: '21:00 – 01:00', what: 'Slots & bonus hunt' },
-  { day: 'Sexta', time: '21:00 – 02:00', what: 'Bonus buys + giveaway' },
-  { day: 'Sábado', time: '22:00 – 02:00', what: 'Live especial' },
+  { day: 'Segunda', time: 'Folga', what: '' },
+  { day: 'Terça', time: 'A partir das 21h30', what: '' },
+  { day: 'Quarta', time: 'A partir das 21h30', what: '' },
+  { day: 'Quinta', time: 'A partir das 21h30', what: '' },
+  { day: 'Sexta', time: 'A partir das 22h00', what: '' },
+  { day: 'Sábado', time: 'A partir das 22h00', what: '' },
   { day: 'Domingo', time: 'Folga', what: '' },
 ];
 
