@@ -685,6 +685,15 @@ input, select { font-family: inherit; }
   color: rgba(255, 255, 255, 0.85);
 }
 
+.offer-art .art-logo img {
+  height: 38px;
+  width: auto;
+  max-width: 70%;
+  object-fit: contain;
+  object-position: left center;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
+}
+
 .offer-art .art-logo {
   display: block;
   margin-bottom: 0.5rem;
@@ -850,8 +859,12 @@ input, select { font-family: inherit; }
   margin-top: 1.25rem;
 }
 
+.brand-chip img { height: 22px; width: auto; max-width: 140px; object-fit: contain; }
+
 .brand-chip {
   flex: 0 0 auto;
+  display: flex;
+  align-items: center;
   background: var(--bg-deep);
   border: 1px solid var(--border-soft);
   border-radius: 10px;
