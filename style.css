@@ -128,10 +128,10 @@ input, select { font-family: inherit; }
 }
 
 .sidebar-brand img {
-  width: 64px;
-  height: 64px;
-  border-radius: 16px;
-  border: 2px solid var(--border);
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 14px rgba(0, 200, 255, 0.35));
 }
 
 .sidebar-brand span {
@@ -557,10 +557,9 @@ input, select { font-family: inherit; }
 .offline-card.visible { opacity: 1; visibility: visible; }
 
 .offline-card-image {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  border: 3px solid var(--primary);
   box-shadow: 0 0 30px rgba(106, 149, 179, 0.4);
 }
 
@@ -1014,7 +1013,7 @@ input, select { font-family: inherit; }
 
 .footer-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 .footer-brand { display: flex; align-items: center; gap: 0.75rem; }
-.footer-brand img { width: 40px; height: 40px; border-radius: 10px; }
+.footer-brand img { width: 44px; height: 44px; border-radius: 50%; }
 .footer-brand-name { font-weight: 800; color: #fff; text-transform: uppercase; letter-spacing: 0.04em; font-size: 0.9rem; }
 .footer-brand-tagline { font-size: 0.7rem; }
 .footer-social { display: flex; gap: 0.5rem; }
