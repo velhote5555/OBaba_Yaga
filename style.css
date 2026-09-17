@@ -1,48 +1,62 @@
 /* ===================================================================
    O BABA YAGA — tema v2 (layout com barra lateral, chat da comunidade,
-   cartões de oferta com dados). Fonte: Sora.
+   cartões de oferta com dados).
+   Fonte: Inter + JetBrains Mono nos números, como na overlay do OBS.
    =================================================================== */
 
 :root {
-  --bg: #040d1c;
-  --bg-deep: #02080f;
-  --card: #061225;
-  --card-2: #08182f;
-  --card-3: #0b2140;
-  --border: #0b3357;
-  --border-soft: rgba(11, 51, 87, 0.7);
-  --text: #e8f1fb;
-  --text-soft: #b4c6db;
-  --muted: #6f8aa6;
-  --primary: #29a9ea;
-  --primary-2: #5cc4f5;
-  --gold: #00c8ff;
-  --gold-2: #0090d8;
-  --green: #12b76a;
-  --green-2: #0e9a5a;
-  --red: #ff4444;
+  /* -----------------------------------------------------------------
+     Paleta da overlay (OBS) trazida para o site.
+     Regra: o azul e o ambiente (contornos, riscos, pontos, focos);
+     o dourado e so dinheiro e destaques. Nada de cor saturada em
+     preenchimentos grandes — e isso que separa isto de amador.
+     Diferenca em relacao a overlay: os cinzentos de texto sobem,
+     porque um site tem de se ler no telemovel e com luz ambiente.
+     ----------------------------------------------------------------- */
+  --bg: #080c13;
+  --bg-deep: #050810;
+  --card: #1a2431;
+  --card-2: #1f2b3b;
+  --card-3: #273548;
+  --border: rgba(105, 165, 240, 0.24);
+  --border-soft: rgba(105, 165, 240, 0.17);
+  --text: #f0f5fb;
+  --text-soft: #c8d6e8;
+  --muted: #93a7c0;
+  --primary: #4da3ff;
+  --primary-2: #7dbcff;
+  --azul: #4da3ff;
+  --azul-2: #2b86f0;
+  --gold: #f0c14b;
+  --gold-2: #d6a52f;
+  --green: #3ddc84;
+  --green-2: #2bb96b;
+  --red: #ff5f5f;
   --red-2: #e8305e;
-  --blue: #29a9ea;
+  --blue: #4da3ff;
   --twitch: #9146ff;
   --twitch-2: #772ce8;
 
-  --gradient-card: linear-gradient(160deg, #08182f, #040d1c);
-  --gradient-gold: linear-gradient(135deg, #00c8ff, #0090d8);
-  --gradient-success: linear-gradient(135deg, #12b76a, #0e9a5a);
-  --gradient-danger: linear-gradient(135deg, #ff4444, #e8305e);
+  --gradient-card: linear-gradient(160deg, #1f2b3b, #0f151f);
+  --gradient-gold: linear-gradient(135deg, #f5d178, #dca62c);
+  --gradient-success: linear-gradient(135deg, #3ddc84, #2bb96b);
+  --gradient-danger: linear-gradient(135deg, #ff5f5f, #e8305e);
   --gradient-twitch: linear-gradient(135deg, #9146ff, #772ce8);
-  --gradient-primary: linear-gradient(135deg, #0b3357, #040d1c);
-  --shadow-card: 0 4px 8px -2px rgba(0, 4, 12, 0.5), 0 16px 48px -6px rgba(0, 4, 12, 0.8);
-  --shadow-elevated: 0 8px 16px -4px rgba(0, 4, 12, 0.5), 0 28px 64px -12px rgba(0, 40, 80, 0.5), 0 0 0 1px rgba(0, 200, 255, 0.08);
+  --gradient-primary: linear-gradient(135deg, #22304a, #0f151f);
+  --gradient-painel: linear-gradient(180deg, rgba(33, 51, 77, 0.94) 0%, rgba(23, 33, 48, 0.95) 50%, rgba(18, 25, 37, 0.96) 100%);
+  --shadow-card: 0 4px 10px -2px rgba(0, 0, 0, 0.5), 0 16px 44px -8px rgba(0, 0, 0, 0.62), 0 0 40px rgba(40, 110, 205, 0.12);
+  --shadow-elevated: 0 8px 16px -4px rgba(0, 0, 0, 0.5), 0 28px 64px -12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(105, 165, 240, 0.14);
+  --escuro: #17202c;
 
-  --radius: 0.875rem;
-  --radius-lg: 1.25rem;
+  --radius: 0.75rem;
+  --radius-lg: 14px;
   --sidebar-w: 250px;
   --chat-w: 320px;
   --topbar-h: 64px;
-  --font: 'Sora', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
 
-  /* aliases usados pelas secções herdadas (jogos, login, ranking) */
+  /* aliases usados pelas seccoes herdadas (jogos, login, ranking) */
   --primary-dark: var(--bg);
   --secondary-dark: var(--card);
   --purple-accent: var(--primary);
@@ -75,7 +89,7 @@ button { font-family: inherit; }
 input, select { font-family: inherit; }
 
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-thumb { background: rgba(11, 51, 87, 0.7); border-radius: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(105, 165, 240, 0.28); border-radius: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 
 .hidden { display: none !important; }
@@ -108,7 +122,7 @@ input, select { font-family: inherit; }
   position: sticky;
   top: 1rem;
   height: calc(100vh - 2rem);
-  background: rgba(6, 18, 37, 0.95);
+  background: var(--gradient-painel);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);
   display: flex;
@@ -131,7 +145,7 @@ input, select { font-family: inherit; }
   width: 88px;
   height: 88px;
   border-radius: 50%;
-  filter: drop-shadow(0 0 14px rgba(0, 200, 255, 0.35));
+  filter: drop-shadow(0 0 16px rgba(77, 163, 255, 0.32));
 }
 
 .sidebar-brand span {
@@ -229,7 +243,7 @@ input, select { font-family: inherit; }
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: rgba(6, 18, 37, 0.95);
+  background: var(--gradient-painel);
   border: 1px solid var(--border-soft);
   border-radius: var(--radius-lg);
   padding: 0.6rem 1rem;
@@ -323,8 +337,8 @@ input, select { font-family: inherit; }
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  background: linear-gradient(90deg, #041427, #0b3357 40%, #0b5a8c 60%, #041427);
-  border: 1px solid rgba(0, 200, 255, 0.35);
+  background: linear-gradient(90deg, #131c2a, #22304a 40%, #2a3c5c 60%, #131c2a);
+  border: 1px solid rgba(240, 193, 75, 0.32);
   border-radius: 12px;
   padding: 0.55rem 1rem;
   font-size: 0.72rem;
@@ -419,11 +433,11 @@ input, select { font-family: inherit; }
   text-transform: uppercase;
   cursor: pointer;
   text-decoration: none;
-  box-shadow: 0 8px 20px rgba(0, 144, 216, 0.3);
+  box-shadow: 0 8px 20px rgba(214, 165, 47, 0.28);
   transition: transform 0.2s, box-shadow 0.2s;
 }
 
-.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0, 144, 216, 0.45); }
+.btn-gold:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(214, 165, 47, 0.4); }
 
 .btn-ghost {
   display: inline-flex;
@@ -601,7 +615,7 @@ input, select { font-family: inherit; }
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 200, 255, 0.12);
+  background: rgba(240, 193, 75, 0.13);
   color: var(--gold);
 }
 
@@ -654,7 +668,7 @@ input, select { font-family: inherit; }
   transition: transform 0.25s, border-color 0.25s;
 }
 
-.offer-card:hover { transform: translateY(-4px); border-color: rgba(0, 200, 255, 0.5); }
+.offer-card:hover { transform: translateY(-4px); border-color: rgba(77, 163, 255, 0.55); }
 .offer-card.is-hidden { display: none; }
 
 .offer-art {
@@ -1093,7 +1107,7 @@ input, select { font-family: inherit; }
 
 .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; }
 .contact-card { background: var(--bg-deep); border: 1px solid var(--border-soft); border-radius: var(--radius); padding: 1.75rem; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; }
-.contact-card-icon { width: 3rem; height: 3rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(0, 200, 255, 0.12); color: var(--gold); font-size: 1.25rem; }
+.contact-card-icon { width: 3rem; height: 3rem; border-radius: 12px; display: flex; align-items: center; justify-content: center; background: rgba(240, 193, 75, 0.13); color: var(--gold); font-size: 1.25rem; }
 .contact-card-title { font-size: 1rem; font-weight: 800; }
 .contact-card-text { color: var(--muted); font-size: 0.85rem; }
 .contact-card-link { color: var(--primary-2); font-weight: 700; text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.5rem; }
@@ -1336,7 +1350,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .partner-banner {
   display: flex; align-items: center; gap: 1rem; text-decoration: none; color: inherit;
-  background: linear-gradient(90deg, rgba(0, 200, 255, 0.08), rgba(0, 200, 255, 0.02)); border: 1px solid rgba(0, 200, 255, 0.25);
+  background: linear-gradient(90deg, rgba(240, 193, 75, 0.09), rgba(240, 193, 75, 0.02)); border: 1px solid rgba(240, 193, 75, 0.26);
   border-radius: var(--radius-lg); padding: 0.85rem 1.25rem;
 }
 .partner-banner .pb-icon { width: 2.6rem; height: 2.6rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: var(--gradient-gold); color: #03101c; flex: 0 0 2.6rem; }
@@ -1391,7 +1405,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 0.5rem; }
 .info-grid .stat strong { font-size: 0.95rem; }
 .game-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
-.btn-primary { flex: 1; background: var(--gradient-gold); color: #03101c; border: none; padding: 0.9rem 1rem; border-radius: 10px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; box-shadow: 0 8px 20px rgba(0, 200, 255, 0.3); transition: transform 0.2s; }
+.btn-primary { flex: 1; background: var(--gradient-gold); color: #03101c; border: none; padding: 0.9rem 1rem; border-radius: 10px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.04em; cursor: pointer; box-shadow: 0 8px 20px rgba(214, 165, 47, 0.28); transition: transform 0.2s; }
 .btn-primary:hover { transform: translateY(-2px); }
 .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 .btn-primary.btn-cash { background: var(--gradient-success); box-shadow: 0 8px 20px rgba(18, 183, 106, 0.35); }
@@ -1414,7 +1428,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 .felt-plaque strong { display: block; font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
 .felt-plaque small { font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255, 255, 255, 0.55); }
 .felt-shoe { position: absolute; right: 1.5rem; top: 1.5rem; width: 54px; height: 76px; }
-.felt-shoe span { position: absolute; inset: 0; border-radius: 6px; background: linear-gradient(135deg, #0b3357, #041427); border: 2px solid rgba(0, 200, 255, 0.5); }
+.felt-shoe span { position: absolute; inset: 0; border-radius: 6px; background: linear-gradient(135deg, #22304a, #10161f); border: 2px solid rgba(240, 193, 75, 0.45); }
 .felt-shoe span:nth-child(2) { transform: translate(-4px, -4px); } .felt-shoe span:nth-child(3) { transform: translate(-8px, -8px); }
 .bj-hand-area { position: relative; z-index: 1; }
 .bj-hand-label { display: flex; align-items: center; gap: 0.6rem; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255, 255, 255, 0.75); margin-bottom: 0.5rem; }
@@ -1434,7 +1448,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .mines-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem; max-width: 440px; margin: auto; width: 100%; }
 .mines-cell { aspect-ratio: 1; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.12); background: linear-gradient(160deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04)); color: #fff; font-size: 1.4rem; cursor: pointer; transition: transform 0.15s, background 0.2s; }
-.mines-cell:hover:not(:disabled) { transform: translateY(-3px); background: rgba(0, 200, 255, 0.25); }
+.mines-cell:hover:not(:disabled) { transform: translateY(-3px); background: rgba(77, 163, 255, 0.25); }
 .mines-cell:disabled { cursor: default; }
 .mines-cell-safe { background: var(--gradient-success) !important; color: #03101c; }
 .mines-cell-bomb { background: var(--gradient-danger) !important; }
@@ -1491,13 +1505,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 6px 16px rgba(0, 200, 255, 0.35);
+  box-shadow: 0 6px 16px rgba(145, 70, 255, 0.35);
   white-space: nowrap;
 }
 
 .nav-login-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(0, 200, 255, 0.45);
+  box-shadow: 0 10px 22px rgba(145, 70, 255, 0.45);
 }
 
 .nav-user {
@@ -1522,7 +1536,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   height: 1.75rem;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(0, 200, 255, 0.5);
+  border: 1px solid rgba(77, 163, 255, 0.5);
 }
 
 .nav-user-name {
@@ -1589,7 +1603,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   justify-content: center;
   font-size: 1.5rem;
   color: #fff;
-  box-shadow: 0 10px 24px rgba(0, 200, 255, 0.4);
+  box-shadow: 0 10px 24px rgba(145, 70, 255, 0.4);
 }
 
 .gate-title {
@@ -1619,12 +1633,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 10px 24px rgba(0, 200, 255, 0.4);
+  box-shadow: 0 10px 24px rgba(145, 70, 255, 0.4);
 }
 
 .gate-login-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 30px rgba(0, 200, 255, 0.5);
+  box-shadow: 0 14px 30px rgba(145, 70, 255, 0.5);
 }
 
 /* Gate wrapper needs a background so blurred content doesn't look broken */
@@ -1657,8 +1671,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   display: flex;
   align-items: center;
   gap: 1.5rem;
-  background: linear-gradient(135deg, rgba(0, 200, 255, 0.14), rgba(0, 200, 255, 0.03));
-  border: 1px solid rgba(0, 200, 255, 0.3);
+  background: linear-gradient(135deg, rgba(77, 163, 255, 0.15), rgba(77, 163, 255, 0.03));
+  border: 1px solid rgba(77, 163, 255, 0.32);
   border-radius: 1.25rem;
   padding: 1.5rem 1.75rem;
   margin-top: 2rem;
@@ -1671,7 +1685,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--twitch);
-  box-shadow: 0 0 20px rgba(0, 200, 255, 0.4);
+  box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
 }
 
 .player-stats-info {
@@ -1733,7 +1747,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 .player-stats-refresh:hover {
   color: #fff;
-  background: rgba(0, 200, 255, 0.2);
+  background: rgba(77, 163, 255, 0.22);
 }
 
 .player-stats-refresh.spinning i {
@@ -1824,8 +1838,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 }
 
 .ranking-row-me {
-  background: rgba(0, 200, 255, 0.18);
-  border: 1px solid rgba(0, 200, 255, 0.4);
+  background: rgba(77, 163, 255, 0.16);
+  border: 1px solid rgba(77, 163, 255, 0.42);
 }
 
 .ranking-position {
@@ -1969,7 +1983,202 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* Tema "overlay": detalhes néon */
 .sidebar-brand span em { font-style: normal; color: var(--gold); }
-.panel, .sidebar, .topbar, .chat, .footer { border-color: rgba(11, 51, 87, 0.9); }
+.panel, .sidebar, .topbar, .chat, .footer { border-color: var(--border); }
 .sidebar-link.active { box-shadow: inset 3px 0 0 var(--gold); }
-.ticker-item i, .contact-card-icon { background: rgba(0, 200, 255, 0.12); color: var(--gold); }
+.ticker-item i, .contact-card-icon { background: rgba(240, 193, 75, 0.13); color: var(--gold); }
 .live-badge.live-active { background: rgba(255, 68, 68, 0.15); border-color: rgba(255, 68, 68, 0.5); color: #ff8a8a; }
+
+
+/* ===================================================================
+   TEMA OVERLAY — a linguagem dos paineis do OBS trazida para o site
+   -------------------------------------------------------------------
+   Um painel e sempre a mesma coisa: ardosia azulada em gradiente, um
+   contorno azul discreto, cantos de 14px, sombra funda com um halo
+   azul ao redor, e um risco de luz azul no topo. E o risco que faz o
+   trabalho: cor saturada concentrada em 2px le-se como caro, a mesma
+   cor espalhada por um painel inteiro le-se como amador.
+   =================================================================== */
+
+.panel, .sidebar, .topbar, .chat, .footer {
+  background: var(--gradient-painel) !important;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.panel, .footer { position: relative; }   /* a sidebar e a topbar sao sticky */
+/* o chat so precisa de position no desktop: abaixo de 1280px ele e uma
+   gaveta com position:fixed e, se lhe puser relative, deixa de sair do
+   ecra e a pagina passa a rolar de lado no telemovel */
+@media (min-width: 1280px) { .chat { position: relative; } }
+@media (max-width: 1279px) { .chat { border-radius: 0; } }
+
+/* risco de luz no topo de cada painel */
+.panel::before, .sidebar::before, .topbar::before, .chat::before {
+  content: '';
+  position: absolute;
+  left: 18px; right: 18px; top: 0;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(90deg, transparent, var(--azul) 20%, var(--azul) 80%, transparent);
+  box-shadow: 0 0 10px rgba(77, 163, 255, 0.55), 0 0 24px rgba(77, 163, 255, 0.25);
+}
+/* a sidebar tem scroll proprio: o risco acompanha o topo visivel */
+.sidebar::before { position: sticky; display: block; top: 0; margin: -1.25rem -0.9rem 1.25rem; left: auto; right: auto; }
+/* dentro do hub dos minijogos ha um painel encaixado noutro: sem risco */
+.hub-grid .panel::before, .game-layout .panel::before, .panel .panel::before { display: none; }
+
+/* cabecalhos com um veu azul, como na overlay */
+.panel-head, .ranking-header {
+  position: relative;
+}
+.panel-title, .ranking-title { letter-spacing: 0.2px; }
+
+/* ---- numeros em mono, para nao dancarem quando mudam ---- */
+.ticker-value,
+.balance-value,
+.ranking-points,
+.ranking-position,
+.player-stats-value,
+.stat strong.code,
+.info-grid .stat strong,
+.bet-input-group input,
+.day-card .time,
+.history td:nth-child(2),
+.history td:nth-child(4),
+.cookie-table td:first-child {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum' 1;
+}
+
+/* ---- marca ---- */
+.sidebar-brand span em { font-style: normal; color: #8fd8ff; }
+.sidebar-brand img { border: 1px solid var(--border); }
+
+/* ---- navegacao: o azul marca onde estas ---- */
+.sidebar-link.active {
+  background: rgba(77, 163, 255, 0.13);
+  box-shadow: inset 3px 0 0 var(--azul);
+  color: #fff;
+}
+.sidebar-link.active i { color: var(--azul); }
+.sidebar-link:hover { background: rgba(105, 165, 240, 0.09); }
+.sidebar-socials a:hover { color: var(--azul); background: rgba(77, 163, 255, 0.12); }
+
+.crumb { border-left: 3px solid var(--azul); }
+.crumb small { color: var(--azul); }
+
+.search { background: rgba(6, 10, 17, 0.55); border-color: var(--border-soft); }
+.search:focus-within { border-color: rgba(77, 163, 255, 0.5); box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.1); }
+
+.menu-toggle, .chat-toggle { background: rgba(105, 165, 240, 0.1); border-color: var(--border); }
+.menu-toggle:hover, .chat-toggle:hover { background: rgba(77, 163, 255, 0.18); }
+
+/* ---- caixas de numeros e listas: o mesmo tom dos paineis ---- */
+.ticker-item, .day-card, .stat, .dep-list li, .shop-item, .step,
+.filter-btn, .brand-chip, .nav-user, .balance-box, .bet-control,
+.history-wrap, .ranking-row, .legal-nav a {
+  border-color: var(--border-soft);
+}
+.stat, .dep-list li { background: rgba(110, 170, 240, 0.08); }
+.ticker-item, .day-card, .brand-chip, .filter-btn { background: rgba(110, 170, 240, 0.06); }
+.pay-row { background: rgba(110, 170, 240, 0.05); }
+
+.ticker-item:hover, .day-card:hover { border-color: rgba(105, 165, 240, 0.3); }
+.filter-btn:hover { color: #fff; border-color: rgba(77, 163, 255, 0.55); }
+.brand-chip:hover { color: #fff; border-color: rgba(77, 163, 255, 0.55); }
+
+/* o dia de hoje no horario e informacao, nao dinheiro: fica azul */
+.day-card.today {
+  border-color: rgba(77, 163, 255, 0.5);
+  background: linear-gradient(160deg, rgba(77, 163, 255, 0.14), rgba(110, 170, 240, 0.04));
+}
+
+/* ---- ofertas ---- */
+.offer-card { background: rgba(9, 14, 22, 0.92); border-color: var(--border-soft); }
+.offer-card:hover { border-color: rgba(77, 163, 255, 0.55); box-shadow: var(--shadow-card), 0 0 30px rgba(45, 125, 235, 0.18); }
+.offer-more h4 { color: var(--gold); }
+
+/* ---- o dourado fica reservado ao dinheiro e as chamadas a acao ---- */
+.art-headline .accent,
+.stat strong.code,
+.dep-list li b,
+.promo-strip .code,
+.balance-value,
+.ranking-points { color: var(--gold); }
+
+.btn-gold { color: #1b1403; }
+.filter-btn.active { background: var(--gold); border-color: var(--gold); color: #1b1403; }
+
+/* ---- links e botoes secundarios ---- */
+.btn-ghost { background: rgba(110, 170, 240, 0.09); border-color: var(--border); }
+.btn-ghost:hover { background: rgba(77, 163, 255, 0.18); border-color: rgba(77, 163, 255, 0.45); }
+.link-green, .btn-outline-green { color: var(--green); }
+.tc-link:hover, .link-green:hover { color: var(--azul); }
+.legal-body a, .warning-text a, .footer-links a:hover { color: var(--azul); }
+.legal-nav a.active { background: rgba(77, 163, 255, 0.14); border-color: rgba(77, 163, 255, 0.4); color: #fff; }
+
+/* ---- chat ---- */
+.chat-head { border-bottom: 1px solid var(--border); }
+.chat-head i { color: var(--azul); }
+
+/* ---- estados de foco: acessibilidade, a azul ---- */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 2px solid var(--azul);
+  outline-offset: 2px;
+}
+
+/* ---- minijogos ---- */
+.mines-cell { border-color: var(--border-soft); }
+.bet-step:hover { background: var(--azul); color: #06111f; }
+.game-tag, .fair-tag { border-color: var(--border-soft); color: var(--text-soft); }
+
+/* ---- rodape ---- */
+.footer::before { display: none; }
+.footer { border-color: var(--border-soft); }
+.gambling-logos a:hover { color: var(--azul); }
+.age-warning { border-color: rgba(240, 193, 75, 0.45); color: var(--gold); }
+
+/* ---- legibilidade: o site nao e a overlay ---------------------------
+   Na overlay o texto secundario pode ser apagado, porque assenta sobre
+   video e o espectador nao o le com atencao. Aqui ha quem leia isto
+   ao sol, no telemovel, por isso os cinzentos sobem um degrau.        */
+.panel-sub, .hero-description, .offline-text, .gate-text,
+.perks li, .schedule-note, .store-note { color: var(--text-soft); }
+.warning-text { color: var(--muted); }
+
+/* ---- correcoes depois de ver o resultado ---------------------------- */
+
+/* o painel de topo da home perdeu o brilho ao herdar o gradiente dos
+   paineis: volta, agora em azul em vez de ciano */
+.panel.hero {
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(77, 163, 255, 0.16), transparent 58%),
+    radial-gradient(ellipse at 92% 100%, rgba(45, 125, 235, 0.13), transparent 58%),
+    var(--gradient-painel) !important;
+}
+
+/* os circulos de icone das paginas eram verdes; o verde fica para lucro */
+.page-hero .icon, .game-icon {
+  background: linear-gradient(135deg, var(--azul), var(--azul-2));
+  color: #06111f;
+}
+.page-hero .icon.gold, .partner-banner .pb-icon { color: #1b1403; }
+.page-hero .icon.twitch { background: var(--gradient-twitch); color: #fff; }
+
+/* o risco de luz so desaparece em paineis mesmo encaixados noutro */
+.hub-grid .panel::before, .game-layout .panel::before { display: block; }
+.panel .panel::before { display: none; }
+
+/* texto escuro sobre dourado: castanho em vez de azul-preto */
+.btn-primary, .age-gate-icon, .filter-btn.active { color: #1b1403; }
+.btn-primary { box-shadow: 0 8px 20px rgba(214, 165, 47, 0.28); }
+
+/* a Inter e mais larga que a Sora: aperta os rotulos do ticker para nao
+   partirem em duas linhas no telemovel */
+.ticker-label, .stat small, .balance-label { letter-spacing: 0.07em; }
+
+/* branco sobre o azul claro dava 2.6:1 — ilegivel em etiquetas pequenas */
+.badge.new { background: var(--azul); color: #06111f; }
