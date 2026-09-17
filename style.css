@@ -2182,3 +2182,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
 
 /* branco sobre o azul claro dava 2.6:1 — ilegivel em etiquetas pequenas */
 .badge.new { background: var(--azul); color: #06111f; }
+
+/* Com quatro marcas, uma grelha de tres colunas deixava a quarta
+   sozinha numa linha. Duas colunas dao 2x2, cartoes maiores e todas as
+   marcas a aparecer sem orfas. */
+@media (min-width: 900px) {
+  .offers-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

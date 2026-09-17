@@ -54,3 +54,21 @@ Fonts (Inter + JetBrains Mono, estava Sora), o `theme-color` `#080c13`
 e o `?v=29`. Atualiza-as também no `_build/build.py` antes de correr o
 gerador, senão o site volta à Sora e os visitantes ficam com o CSS
 antigo em cache.
+
+## Marcas (setembro 2026)
+
+A Megapari saiu. A ordem passou a ser **SafeCasino → CaptainsBet →
+22bit → Betlabel**, igual no `index.html` e no `casinos.html`.
+
+Na página inicial as ofertas passaram a ser a primeira secção, antes do
+hero com a stream, e a grelha passou a duas colunas a partir dos 900px
+(com quatro marcas, três colunas deixavam a quarta sozinha).
+
+O popup promocional foi retirado do `index.html`. O código dele
+continua no `script.js` e não dá erro nenhum sem o HTML — para o trazer
+de volta basta repor o bloco `<div id="promoPopup">`.
+
+**Se correres o `_build/build.py`**: tens de tirar a Megapari do
+`_build/offers.py` e pôr lá a ordem nova, senão ela volta. O mesmo para
+a posição da secção de ofertas e para o popup, que são gerados pelo
+`build.py`.
