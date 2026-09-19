@@ -9,12 +9,15 @@ Layout v2: barra lateral, chat da comunidade (Twitch) e cartões de oferta com d
 |---|---|
 | `index.html` | Início: stream, ticker, ofertas em destaque, horário, loja, comunidade |
 | `casinos.html` | Todas as ofertas, com filtros e pesquisa |
+| `bonus-hunt.html` | Bonus hunt da comunidade: cada visitante faz a sua |
 | `comunidade.html`, `ranking.html`, `loja.html`, `jogos.html`, `contacto.html` | Restantes páginas |
 | `termos.html`, `privacidade.html`, `cookies.html` | Documentos legais |
 | `404.html`, `robots.txt`, `sitemap.xml` | GitHub Pages / SEO |
 | `script.js` | Verificação de idade, popup, sidebar, chat, filtros, horário, estado da stream |
 | `twitch-auth.js` | Login com Twitch + pontos/ranking StreamElements |
 | `games.js` | Minijogos com fichas virtuais |
+| `hunt.js` | Bonus hunt: pesquisa, contas, guardar e link de partilha |
+| `slots.js` | Base de dados de 9.259 slots (nome, provider, id da imagem) |
 | `_build/` | Gerador das páginas (ver abaixo). Não é servido pelo site. |
 
 ## Como editar
@@ -72,3 +75,33 @@ de volta basta repor o bloco `<div id="promoPopup">`.
 `_build/offers.py` e pôr lá a ordem nova, senão ela volta. O mesmo para
 a posição da secção de ofertas e para o popup, que são gerados pelo
 `build.py`.
+
+## Bonus Hunt (setembro 2026)
+
+`bonus-hunt.html` + `hunt.js` + `slots.js`. Os visitantes fazem a sua
+própria hunt: procuram a slot, metem a aposta, e depois o que cada
+bónus pagou. Mostra breakeven, x médio, o x de que ainda precisam e o
+lucro.
+
+**Não há servidor.** A hunt vive em `localStorage`, na chave
+`obaba_bonus_hunt`, no browser de quem a fez. Não sincroniza entre
+dispositivos e desaparece se limparem os dados do site — está escrito
+na página e na política de cookies.
+
+**Partilha sem servidor:** o botão Partilhar mete a hunt inteira dentro
+do endereço, em `bonus-hunt.html#h=...`. Só vão lá os ids das imagens
+das slots, as apostas e os pagamentos; os nomes saem do `slots.js` ao
+abrir. Uma hunt de 3 bónus dá um link de ~220 caracteres, uma de 20 dá
+~900. O limite é de 60 bónus por hunt.
+
+Quem abre um link desses vê um aviso de que está a ver a hunt de outra
+pessoa, e a sua própria hunt não é tocada até carregar em "Ficar com
+esta".
+
+**Dependência externa:** as imagens das slots vêm de `imgxcut.com`, que
+não é nosso. Se um dia bloquearem os pedidos vindos de obabayaga.com, a
+ferramenta continua a funcionar mas sem capas.
+
+**Se correres o `_build/build.py`:** a página nova e o link no menu
+("Ferramentas → Bonus Hunt") têm de ser acrescentados ao `build.py`,
+senão desaparecem. O `?v=` também subiu para 30.
