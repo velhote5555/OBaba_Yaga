@@ -894,6 +894,48 @@ input, select { font-family: inherit; }
 
 .brand-chip:hover { color: #fff; border-color: var(--gold); }
 
+/* Home: destaque em 3 colunas (2 em tablet, 1 em mobile) */
+.offers-grid.featured { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
+.offers-grid.featured .offer-art { min-height: 345px; }
+.offers-grid.featured .art-brand { white-space: nowrap; }
+.offers-grid.featured .art-top .badges { flex-wrap: wrap; justify-content: flex-end; }
+
+/* Faixa de marcas em loop contínuo (como o mendigotv) */
+.brand-marquee {
+  position: relative;
+  margin-top: 1.25rem;
+  padding: 0.5rem 0;
+  overflow: hidden;
+  border-radius: 14px;
+  background: rgba(110, 170, 240, 0.04);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.25) 6%, #000 14%, #000 86%, rgba(0, 0, 0, 0.25) 94%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.25) 6%, #000 14%, #000 86%, rgba(0, 0, 0, 0.25) 94%, transparent 100%);
+}
+.brand-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  animation: brand-marquee 36s linear infinite;
+  will-change: transform;
+}
+.brand-marquee:hover .brand-marquee-track { animation-play-state: paused; }
+.brand-marquee .brand-chip {
+  height: 56px;
+  min-width: 150px;
+  margin-right: 0.75rem;
+  justify-content: center;
+  border-radius: 12px;
+  background-image: linear-gradient(154deg, rgba(255, 255, 255, 0.07) 0%, rgba(77, 163, 255, 0.06) 40%, rgba(77, 163, 255, 0.14) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 4px 20px rgba(0, 0, 0, 0.35);
+}
+.brand-marquee .brand-chip img { height: 28px; max-width: 120px; opacity: 0.92; transition: opacity 0.2s; }
+.brand-marquee .brand-chip:hover img { opacity: 1; }
+@keyframes brand-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) {
+  .brand-marquee { overflow-x: auto; -webkit-mask-image: none; mask-image: none; }
+  .brand-marquee-track { animation: none; }
+}
+
 /* ===================================================================
    SCHEDULE
    =================================================================== */
