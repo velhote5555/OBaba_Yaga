@@ -214,6 +214,7 @@ document.querySelectorAll('.more-btn').forEach((btn) => btn.addEventListener('cl
   const card = btn.closest('.offer-card');
   const open = card.classList.toggle('open');
   btn.setAttribute('aria-expanded', String(open));
+  if (btn.classList.contains('gm-more')) return;
   btn.innerHTML = open
     ? 'Menos info <i class="fas fa-chevron-up" aria-hidden="true"></i>'
     : 'Mais info <i class="fas fa-chevron-down" aria-hidden="true"></i>';

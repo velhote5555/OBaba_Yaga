@@ -677,7 +677,7 @@ input, select { font-family: inherit; }
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  background: var(--art-img, none) top center / 100% 66% no-repeat, var(--art, linear-gradient(135deg, #1c2230, #29485b));
+  background: var(--art-img, none) 60% 56px / auto 350px no-repeat, var(--art, linear-gradient(135deg, #1c2230, #29485b));
   isolation: isolate;
 }
 
@@ -2397,7 +2397,7 @@ body.hunt-partilhada .hunt-def { pointer-events: none; opacity: 0.65; }
 /* Faixa rotativa: mini-cartões com a arte de cada marca */
 .brand-marquee .brand-chip {
   height: 72px; min-width: 190px; position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14);
-  background: var(--art-img, none) center / cover no-repeat, var(--bg-deep);
+  background: var(--art-img, none) 60% 40% / auto 230px no-repeat, var(--bg-deep);
 }
 .brand-marquee .brand-chip::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5, 8, 16, 0.78) 0%, rgba(5, 8, 16, 0.35) 70%, rgba(5, 8, 16, 0.1) 100%); }
 .brand-marquee .brand-chip img { position: relative; height: 32px; max-width: 140px; opacity: 1; filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.7)); }
@@ -2410,3 +2410,66 @@ body.hunt-partilhada .hunt-def { pointer-events: none; opacity: 0.65; }
 .offer-art { min-height: 400px; justify-content: flex-start; }
 .offer-art .art-logo { margin-bottom: 0; }
 .offer-art .art-top .badges { flex-wrap: wrap; justify-content: flex-end; }
+.offer-art { min-height: 450px !important; }
+.offers-grid.featured .offer-art { min-height: 450px !important; }
+.offer-art { background: var(--art-img, none) 60% 56px / auto 350px no-repeat, linear-gradient(180deg, #060912 0%, #070b16 100%) !important; }
+.offer-art::before { background: linear-gradient(180deg, rgba(6, 9, 18, 0.7) 0%, rgba(6, 9, 18, 0) 18%, rgba(8, 10, 18, 0.1) 40%, rgba(8, 10, 18, 0.85) 66%, rgba(8, 10, 18, 0.97) 100%) !important; }
+#offer-royalxo .offer-art { background-position: 50% 30px, 0 0 !important; background-size: auto 400px, auto !important; }
+#offer-betlabel .offer-art { background-position: 50% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
+#offer-22bit .offer-art { background-position: 50% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
+#offer-safecasino .offer-art { background-position: 55% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
+#offer-captainsbet .offer-art { background-position: 50% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
+#offer-atlasbet .offer-art { background-position: 50% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
+
+/* ===== Cartões de oferta ao estilo Godmota ===== */
+.offers-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; align-items: start; }
+.offers-grid.featured { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.gm-card { padding: 0; border-radius: 28px; border: 1px solid rgba(255, 255, 255, 0.09); background: rgba(6, 10, 18, 0.62); overflow: hidden; display: flex; flex-direction: column; }
+.gm-card:hover { border-color: rgba(255, 255, 255, 0.2); }
+.gm-art { position: relative; height: 240px; background: var(--art-img, none) center / cover no-repeat, #0a0f1a; overflow: hidden; }
+.gm-badges { position: absolute; top: 12px; right: 12px; z-index: 3; display: flex; gap: 0.3rem; flex-wrap: wrap; justify-content: flex-end; max-width: 70%; }
+.gm-logo { position: absolute; z-index: 2; left: 50%; top: 46%; transform: translate(-50%, -50%); max-width: 74%; width: auto; height: auto; object-fit: contain; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.75)); }
+#offer-atlasbet .gm-logo { filter: brightness(0) invert(1) drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7)); }
+.gm-blur { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 94px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%); }
+.gm-fade { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 62%; background: linear-gradient(rgba(10, 15, 26, 0), rgba(10, 15, 26, 0.94) 78%); }
+.gm-text { position: absolute; z-index: 2; left: 20px; right: 20px; bottom: 16px; }
+.gm-name { margin: 0; font-size: 1.25rem; font-weight: 800; color: #f1f1f1; line-height: 1.15; }
+.gm-tag { margin: 0.2rem 0 0; font-size: 0.82rem; font-weight: 700; color: #98a3b8; line-height: 1.3; }
+.gm-body { padding: 16px 20px 20px; background: rgba(255, 255, 255, 0.02); }
+.gm-row { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+.gm-label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.03em; color: #8b95a8; }
+.gm-value { font-size: 2.25rem; font-weight: 800; color: #f1f1f1; line-height: 1.15; }
+.gm-code { font-size: 0.75rem; font-weight: 700; color: #f1f1f1; background: rgba(255, 255, 255, 0.07); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 6px; padding: 3px 9px; letter-spacing: 0.03em; }
+.gm-code.none { color: #8b95a8; }
+.gm-perks { display: flex; flex-direction: column; gap: 8px; margin: 12px 0 16px; }
+.gm-perk { display: flex; align-items: center; gap: 8px; height: 44px; padding: 0 14px; border-radius: 80px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); font-size: 0.82rem; color: #b4bdcc; white-space: nowrap; }
+.gm-perk i { color: #8b95a8; font-size: 0.8rem; width: 14px; text-align: center; }
+.gm-perk em { flex: 1; align-self: center; border-bottom: 1px dotted rgba(255, 255, 255, 0.14); height: 1px; margin: 0 2px; min-width: 6px; }
+.gm-perk b { font-weight: 800; color: #f1f1f1; }
+.gm-actions { display: flex; gap: 8px; }
+.gm-claim { flex: 1; display: inline-flex; align-items: center; justify-content: center; height: 44px; border-radius: 80px; background: linear-gradient(90deg, #f1f1f1, #d9d9d9); color: #1e1e1e; font-weight: 800; font-size: 0.82rem; text-decoration: none; transition: filter 0.2s, transform 0.2s; }
+.gm-claim:hover { filter: brightness(1.06); transform: translateY(-1px); }
+.gm-more { width: 44px; height: 44px; flex: 0 0 44px; border-radius: 80px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); color: #f1f1f1; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; }
+.gm-more svg { width: 12px; height: 12px; transition: transform 0.25s; }
+.gm-card.open .gm-more svg { transform: rotate(45deg); }
+.gm-more:hover { background: rgba(255, 255, 255, 0.1); }
+.gm-fine { display: block; margin-top: 10px; text-align: center; font-size: 0.66rem; color: #6f7a8f; }
+.gm-card .offer-more { padding: 16px 20px 20px; border-top: 1px solid rgba(255, 255, 255, 0.06); }
+.gm-card .pay-row { margin-bottom: 0.75rem; }
+.gm-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 1rem; }
+.gm-facts div { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 14px; padding: 8px 12px; }
+.gm-facts small { display: block; font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #8b95a8; }
+.gm-facts strong { font-size: 0.82rem; color: #f1f1f1; }
+.gm-card .offer-foot { margin-top: 1rem; display: flex; gap: 0.75rem; align-items: center; }
+.gm-card .offer-foot .gm-claim { flex: 1; }
+.gm-badges .badge { font-size: 0.56rem; }
+
+/* Filtros em pílulas */
+.filters { gap: 0.25rem; padding: 6px; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 124px; }
+.filters .filter-btn { border: 0; background: transparent; border-radius: 124px; padding: 0.55rem 1rem; font-size: 0.85rem; font-weight: 800; color: #f1f1f1; text-transform: none; letter-spacing: 0; }
+.filters .filter-btn:hover { background: rgba(255, 255, 255, 0.07); border: 0; }
+.filters .filter-btn.active { background: rgba(255, 255, 255, 0.12); color: #fff; border: 0; }
+.gm-logo { max-width: 60%; top: 42%; }
+.gm-claim { font-size: 0.76rem; padding: 0 6px; white-space: nowrap; }
+.gm-value { white-space: nowrap; }
+.gm-card .gm-badges .badge { padding: 0.18rem 0.45rem; }
