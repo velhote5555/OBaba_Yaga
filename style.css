@@ -677,7 +677,7 @@ input, select { font-family: inherit; }
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
-  background: var(--art, linear-gradient(135deg, #1c2230, #29485b));
+  background: var(--art-img, none) top center / 100% 66% no-repeat, var(--art, linear-gradient(135deg, #1c2230, #29485b));
   isolation: isolate;
 }
 
@@ -685,7 +685,7 @@ input, select { font-family: inherit; }
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 20%, rgba(10, 12, 20, 0.85) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(8, 10, 18, 0.1) 30%, rgba(8, 10, 18, 0.85) 62%, rgba(8, 10, 18, 0.96) 100%);
   z-index: -1;
 }
 
@@ -895,7 +895,7 @@ input, select { font-family: inherit; }
 .brand-chip:hover { color: #fff; border-color: var(--gold); }
 
 /* Home: destaque em 3 colunas (2 em tablet, 1 em mobile) */
-.offers-grid.featured { grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 1rem; }
+.offers-grid.featured { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); gap: 1rem; }
 .offers-grid.featured .offer-art { min-height: 345px; }
 .offers-grid.featured .art-brand { white-space: nowrap; }
 .offers-grid.featured .art-top .badges { flex-wrap: wrap; justify-content: flex-end; }
@@ -2393,3 +2393,20 @@ body.hunt-partilhada .hunt-def { pointer-events: none; opacity: 0.65; }
   .hl-btns { grid-area: btns; justify-content: flex-end; gap: 0.35rem; }
   .hb { width: 2.2rem; height: 2.2rem; font-size: 0.75rem; }
 }
+
+/* Faixa rotativa: mini-cartões com a arte de cada marca */
+.brand-marquee .brand-chip {
+  height: 72px; min-width: 190px; position: relative; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.14);
+  background: var(--art-img, none) center / cover no-repeat, var(--bg-deep);
+}
+.brand-marquee .brand-chip::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5, 8, 16, 0.78) 0%, rgba(5, 8, 16, 0.35) 70%, rgba(5, 8, 16, 0.1) 100%); }
+.brand-marquee .brand-chip img { position: relative; height: 32px; max-width: 140px; opacity: 1; filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.7)); }
+
+.offers-grid.featured .offer-art { min-height: 400px; justify-content: flex-start; }
+.offers-grid.featured .art-logo { margin-bottom: 0; }
+.offer-art .art-headline { margin-top: auto; }
+#offer-atlasbet .art-logo img { filter: brightness(0) invert(1) drop-shadow(0 3px 10px rgba(0,0,0,.6)); }
+
+.offer-art { min-height: 400px; justify-content: flex-start; }
+.offer-art .art-logo { margin-bottom: 0; }
+.offer-art .art-top .badges { flex-wrap: wrap; justify-content: flex-end; }
