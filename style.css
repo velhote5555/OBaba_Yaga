@@ -2405,7 +2405,6 @@ body.hunt-partilhada .hunt-def { pointer-events: none; opacity: 0.65; }
 .offers-grid.featured .offer-art { min-height: 400px; justify-content: flex-start; }
 .offers-grid.featured .art-logo { margin-bottom: 0; }
 .offer-art .art-headline { margin-top: auto; }
-#offer-atlasbet .art-logo img { filter: brightness(0) invert(1) drop-shadow(0 3px 10px rgba(0,0,0,.6)); }
 
 .offer-art { min-height: 400px; justify-content: flex-start; }
 .offer-art .art-logo { margin-bottom: 0; }
@@ -2419,7 +2418,6 @@ body.hunt-partilhada .hunt-def { pointer-events: none; opacity: 0.65; }
 #offer-22bit .offer-art { background-position: 50% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
 #offer-safecasino .offer-art { background-position: 55% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
 #offer-captainsbet .offer-art { background-position: 50% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
-#offer-atlasbet .offer-art { background-position: 50% 40px, 0 0 !important; background-size: auto 380px, auto !important; }
 
 /* ===== Cartões de oferta ao estilo Godmota ===== */
 .offers-grid { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1rem; align-items: start; }
@@ -2429,7 +2427,6 @@ body.hunt-partilhada .hunt-def { pointer-events: none; opacity: 0.65; }
 .gm-art { position: relative; height: 240px; background: var(--art-img, none) center / cover no-repeat, #0a0f1a; overflow: hidden; }
 .gm-badges { position: absolute; top: 12px; right: 12px; z-index: 3; display: flex; gap: 0.3rem; flex-wrap: wrap; justify-content: flex-end; max-width: 70%; }
 .gm-logo { position: absolute; z-index: 2; left: 50%; top: 46%; transform: translate(-50%, -50%); max-width: 74%; width: auto; height: auto; object-fit: contain; filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.75)); }
-#offer-atlasbet .gm-logo { filter: brightness(0) invert(1) drop-shadow(0 4px 14px rgba(0, 0, 0, 0.7)); }
 .gm-blur { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 94px; -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); -webkit-mask-image: linear-gradient(transparent, #000 55%); mask-image: linear-gradient(transparent, #000 55%); }
 .gm-fade { position: absolute; z-index: 1; left: 0; right: 0; bottom: 0; height: 62%; background: linear-gradient(rgba(10, 15, 26, 0), rgba(10, 15, 26, 0.94) 78%); }
 .gm-text { position: absolute; z-index: 2; left: 20px; right: 20px; bottom: 16px; }
